@@ -9,9 +9,10 @@ maps/trip_show_map
 maps/postcard_show_map
 
 
-## Landing page/Trip index page which will implement 
+## Landing page/Trip index page which will implement trips index_container, trips_index_map, header, footer
 landing_container
 landing
+  components/header
   trips/trips_index_container
   trips/trips_index
   trips/trips_index_item
