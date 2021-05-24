@@ -31,3 +31,12 @@ postcards/postcard_show_container
 postcards/postcard_show
   maps/postcard_show_map
   postcard_image
+
+
+## Trip Form 
+  trip_form_container
+  trip_form
+
+## Postcard Form
+  postcard_form_container
+  postcard_form
