@@ -1,12 +1,14 @@
 import React from 'react'; 
 
-class TripIndexItem extends React.Component {
+const TripIndexItem = ({ trip }) => {
 
 
+  return (
+    <div>TripIndexItem
 
-  render() {
-    <div>TripIndexItem</div>
-  }
+    </div>
+  )
+  
 }
 
 export default TripIndexItem; 
