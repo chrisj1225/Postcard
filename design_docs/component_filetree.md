@@ -10,8 +10,8 @@ maps/postcard_show_map
 
 
 ## Landing page/Trip index page which will implement trips index_container, trips_index_map, header, footer
-landing_container
-landing
+landing/landing_container
+landing/landing
   components/header
   trips/trips_index_container
   trips/trips_index
@@ -35,9 +35,11 @@ postcards/postcard_show
 
 
 ## Trip Form 
-  trip_form_container
+  trip_create_container
+  trip_edit_container
   trip_form
 
 ## Postcard Form
-  postcard_form_container
+  postcard_create_container
+  postcard_edit_container
   postcard_form
