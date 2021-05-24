@@ -39,10 +39,25 @@ router.post('/register', (req, res) => {
             if(err) throw err;
             newUser.password = hash;
             newUser.save()
-              .then(user => res.json(user))
+            .then(user => {
+                const payload = {id: user.id, displayName: user.displayName}
+                jwt.sign(
+                  payload,
+                  keys.secretOrKey,
+                  {expiresIn: 86400},
+                  (err, token) => {
+                    res.json({
+                      user,
+                      success: true,
+                      token: 'Bearer ' + token
+                    });
+                  }
+                );
+              })
               .catch(err => console.log(err));
           })
         })
+        
       }
     })
 })
