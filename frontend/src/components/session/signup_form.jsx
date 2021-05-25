@@ -36,7 +36,7 @@ class SignupForm extends React.Component {
   }
 
   renderErrors() {
-    return(
+    return Object.keys(this.state.errors).length ? (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
           <li key={`error-${i}`}>
@@ -44,46 +44,40 @@ class SignupForm extends React.Component {
           </li>
         ))}
       </ul>
-    );
+    ) : null;
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div>
-            <br/>
-              <label>Email
-                <input type="text"
-                  value={this.state.email}
-                  onChange={this.update('email')}
-                />
-              </label>
-            <br/>
-              <label>Display Name
-                <input type="text"
-                  value={this.state.handle}
-                  onChange={this.update('displayName')}
-                />
-              </label>
-            <br/>
-              <label>
-                <input type="password"
-                  value={this.state.password}
-                  onChange={this.update('password')}
-                />
-              </label>
-            <br/>
-              <label>Confirm Password
-                <input type="password"
-                  value={this.state.password2}
-                  onChange={this.update('password2')}
-                />
-              </label>
-            <br/>
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
-          </div>
+          <h1>Sign Up</h1>
+          <label>Email
+            <input type="text"
+              value={this.state.email}
+              onChange={this.update('email')}
+            />
+          </label>
+          <label>Display Name
+            <input type="text"
+              value={this.state.handle}
+              onChange={this.update('displayName')}
+            />
+          </label>
+          <label>Password
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+            />
+          </label>
+          <label>Confirm Password
+            <input type="password"
+              value={this.state.password2}
+              onChange={this.update('password2')}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+          {this.renderErrors()}
         </form>
       </div>
     );

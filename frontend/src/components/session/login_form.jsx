@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
   }
 
   renderErrors() {
-    return(
+    return Object.keys(this.state.errors).length ? (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
           <li key={`error-${i}`}>
@@ -42,31 +42,28 @@ class LoginForm extends React.Component {
           </li>
         ))}
       </ul>
-    );
+    ) : null;
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div>
-              <label>Email
-                <input type="text"
-                  value={this.state.email}
-                  onChange={this.update('email')}
-                />
-              </label>
-            <br/>
-              <label>Password
-                <input type="password"
-                  value={this.state.password}
-                  onChange={this.update('password')}
-                />
-              </label>
-            <br/>
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
-          </div>
+          <h1>Login</h1>
+          <label>Email
+            <input type="text"
+              value={this.state.email}
+              onChange={this.update('email')}
+            />
+          </label>
+          <label>Password
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+          {this.renderErrors()}
         </form>
       </div>
     );

@@ -1,6 +1,8 @@
 import React from 'react'; 
 import { Route, Switch } from 'react-router-dom'; 
 
+import '../App.scss'
+
 import LandingContainer from './landing/landing_container'; 
 import TripShowContainer from './trips/trip_show_container'; 
 import PostcardShowContainer from './postcards/postcard_show_container'; 

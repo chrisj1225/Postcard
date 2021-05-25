@@ -22,7 +22,7 @@ const Modal = ({ modalName, closeModal }) => {
   }
 
   return (
-    <div className="modal-container" onClick={closeModal}>Modal
+    <div className="modal-container" onClick={closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
         { component }
       </div>
