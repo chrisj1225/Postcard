@@ -4,8 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import '../App.scss'
 
 import LandingContainer from './landing/landing_container'; 
-import TripShowContainer from './trips/trip_show_container'; 
-import PostcardShowContainer from './postcards/postcard_show_container'; 
+// import TripShowContainer from './trips/trip_show_container'; 
+// import PostcardShowContainer from './postcards/postcard_show_container'; 
 // import TripCreateContainer from './trips/trip_create_container';
 // import TripEditContainer from './trips/trip_edit_container';
 // import PostcardCreateContainer from './postcards/postcard_create_container';

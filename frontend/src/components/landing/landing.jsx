@@ -13,9 +13,8 @@ class Landing extends React.Component {
     this.handleClick = this.handleClick.bind(this); 
   }
 
-
   componentDidMount() {
-    // this.props.fetchTrips(); 
+    this.props.fetchAllTrips()
   }
 
   toggleFollowed() {

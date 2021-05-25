@@ -4,7 +4,7 @@ const TripIndexItem = ({ trip }) => {
 
 
   return (
-    <div>TripIndexItem
+    <div>TripIndexItem {trip.title}
 
     </div>
   )
