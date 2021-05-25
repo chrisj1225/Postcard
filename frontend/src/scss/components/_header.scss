@@ -1,6 +1,6 @@
 
 .site-header {
-  padding: $site-margin/2;
+  padding: $site-margin/2 0;
 
   .logo {
     font-family: $display-font;
@@ -9,7 +9,7 @@
   }
   
   > * {
-    padding: 10px 20px;
+    padding: 10px $site-margin;
   }
   
   // style 1
@@ -22,14 +22,14 @@
   // @include postcard-border();
 
   // style 3
-  // background: url('../../assets/images/postcard-border.png');
-  // background-size: 120px;
-  // background-repeat: round;
+  background: url('../../assets/images/postcard-border.png');
+  background-size: 120px;
+  background-repeat: round;
 
   // style 4
-  background-image: 
-    repeating-linear-gradient(-45deg,  transparent, transparent 20px, $red 20px, $red 30px),
-    repeating-linear-gradient(-45deg, $blue, $blue 10px, $cream 10px, $cream 20px); 
+  // background-image: 
+  //   repeating-linear-gradient(-45deg,  transparent, transparent 20px, $red 20px, $red 30px),
+  //   repeating-linear-gradient(-45deg, $blue, $blue 10px, $cream 10px, $cream 20px); 
   
   .content {
     @include flex(space-between); 
