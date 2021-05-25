@@ -1,0 +1,79 @@
+
+
+.trips-index {
+  width: 100%;
+}
+
+.trips-index-item {
+  border: 3px solid $blue;
+  color: darken($blue, 15%);
+  font-weight: 700;
+
+  margin: 0 15px 15px 15px;
+  padding: 5px;
+  min-height: 150px;
+
+  // @include flex(space-between); 
+  display: grid; 
+  grid-template-columns: 2fr 3fr;
+
+  section {
+    @include flex(flex-start, flex-start, column); 
+    height: 100%;
+    align-self: flex-start;
+  }
+
+  > div {
+    @include flex(center, center, column); 
+  }
+
+  h2 {
+    font-family: $header-font;
+    font-size: 32px;
+  }
+  
+  p {
+    font-weight: 500;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px; 
+  }
+
+  
+  
+  li {
+    $width: 70px; 
+    min-width: $width;
+    height: $width*1.3;
+    
+    // TESTING
+    background-color: $green;
+    border: 1px solid gray;
+  }
+
+  $breakpoint: 1400px; 
+  
+  @media only screen and (max-width: $breakpoint) {
+    ul {
+      display: grid; 
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+    }
+  }
+  @media only screen and (min-width: $breakpoint) {
+    ul {
+      @include flex(center, center); 
+      width: 100%;
+      height: 100%;
+    }
+    li {
+      flex-grow: 1; 
+      height: 90%;
+    }
+  }
+  
+}
