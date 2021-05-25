@@ -7,7 +7,7 @@ class TripsIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTrips(); 
+    // this.props.fetchTrips(); 
   }
 
 

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import { fetchTrips } from '../../actions/trip_actions';				//actions
+// import { fetchTrips } from '../../actions/trip_actions';				//actions
 import TripsIndex from './trips_index';				//display component
 
 const mapStateToProps = (state) => ({
@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchTrips: () => dispatch(fetchTrips()),
+  // fetchTrips: () => dispatch(fetchTrips()),
 });
 
 export default connect(

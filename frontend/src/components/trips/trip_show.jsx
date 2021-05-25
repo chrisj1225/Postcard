@@ -14,8 +14,9 @@ class TripShow extends React.Component {
 
     return (
       <>
+        TripShow
         <TripShowMap postcards={postcards} />
-        { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) }
+        {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
       </>
     )
   }
