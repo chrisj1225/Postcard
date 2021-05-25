@@ -13,6 +13,8 @@ const TripSchema = new Schema({
   description: {
     type: String
   }
+}, {
+  timestamps: true
 })
 
 module.exports = Trip = mongoose.model('Trip', TripSchema);
