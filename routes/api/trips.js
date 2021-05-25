@@ -1,12 +1,17 @@
 const express = require("express");
-const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
-
-const Trip = require("../../models/Trip")
 const validateTripsInput = require("../../validation/trips")
+const validPostcardsInput = require("../../validation/postcards")
+
+const router = express.Router();
+const Trip = require("../../models/Trip")
+const postcardRouter = express.Router({mergeParams: true});
+const Postcard = require('../../models/Postcard');
+
+router.use('/:tripId/postcards', postcardRouter)
 
 router.get("/", (req, res) => {
   Trip.find()
@@ -85,5 +90,102 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req, res)
       }
     })
 })
+
+postcardRouter.get('/', (req, res) => {
+  Postcard.find({tripId: req.params.tripId})
+    .sort({date: -1})
+    .then((postcards) => {
+      const pcObj = {}
+      postcards.forEach((postcard) => {
+        pcObj[postcard.id] = postcard
+      })
+      return res.json(pcObj)
+    })
+    .catch((err) => res.status(400).json({ postcard: "no postcards found" }))
+})
+
+postcardRouter.get('/:id', (req, res) => {
+  Postcard.findById(req.params.id)
+    .then((postcard) => res.json(postcard))
+    .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
+})
+
+postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+  const {errors, isValid} = validPostcardsInput(req.body);
+
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
+
+  Trip.findById(req.params.tripId)
+    .then((trip) => {
+      if (trip.travellerId == req.user.id){
+        const newPostcard = new Postcard({
+          title: req.body.title,
+          body: req.body.body,
+          tripId: req.params.tripId,
+          latitude: req.body.latitude,
+          longitude: req.body.longitude,
+          photos: req.body.photos || []
+        })
+        newPostcard.save()
+          .then((postcard) => res.json(postcard))
+          .catch((err) => res.json(err))
+      } else{
+        return res.status(400).json({user: `You don't have permission to do that because you are ${req.user.id} and you need to be ${trip.travellerId}`})
+      }
+    })
+})
+
+postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  const {errors, isValid} = validPostcardsInput(req.body);
+
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
+
+  Trip.findById(req.params.tripId)
+    .then((trip) => {
+      if (trip.travellerId == req.user.id){
+        Postcard.findById(req.params.id)
+          .then((postcard) => {
+            if(!postcard){
+              errors.postcard = "Postcard not found";
+              return res.status(400).json(errors)
+            } else{
+              postcard.title = req.body.title;
+              postcard.body = req.body.body;
+              postcard.latitude = req.body.latitude;
+              postcard.longitude = req.body.longitude;
+              postcard.photos = req.body.photos || [];
+              postcard.save()
+                .then((postcard) => res.json(postcard))
+            }
+          })
+      } else {
+        return res.status(400).json({user: `You don't have permission to do that`})
+      }
+    })
+})
+
+postcardRouter.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Trip.findById(req.params.tripId)
+    .then((trip) => {
+      if (trip.travellerId == req.user.id){
+        Postcard.findById(req.params.id)
+          .then((postcard) => {
+            if(!postcard){
+              return res.status(400).json({postcard: "Postcard not found"})
+            } else{
+              postcard.delete()
+                .then((postcard) => res.json(postcard))
+            }
+          })
+      } else{
+        return res.status(400).json({user: `You don't have permission to do that`})
+      }
+    })
+})
+
 
 module.exports = router;
