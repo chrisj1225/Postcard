@@ -7,12 +7,10 @@ class LoginForm extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
-      errors: {}
+      password: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
   }
 
   update(field) {
@@ -33,18 +31,6 @@ class LoginForm extends React.Component {
       .then(this.props.history.push('/landing'))
   }
 
-  renderErrors() {
-    return Object.keys(this.state.errors).length ? (
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
-        ))}
-      </ul>
-    ) : null;
-  }
-
   render() {
     return (
       <div>
@@ -55,15 +41,16 @@ class LoginForm extends React.Component {
               value={this.state.email}
               onChange={this.update('email')}
             />
+            <p>{this.props.errors.email}</p>
           </label>
           <label>Password
             <input type="password"
               value={this.state.password}
               onChange={this.update('password')}
             />
+            <p>{this.props.errors.password}</p>
           </label>
           <input type="submit" value="Submit" />
-          {this.renderErrors()}
         </form>
       </div>
     );
