@@ -22,7 +22,7 @@ landing/landing
 ## Trips show page which will implement trip_show_map, postcards_index_container
 trips/trip_show_container
 trips/trip_show
-  postcards/postcards_index_container
+  <!-- postcards/postcards_index_container -->
   postcards/postcards_index
   postcards/postcards_index_item
   maps/trip_show_map
