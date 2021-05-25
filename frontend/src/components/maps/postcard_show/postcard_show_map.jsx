@@ -28,7 +28,7 @@ class PostcardShowMap extends React.Component {
 
   render() {
 
-    const LandingMap = withScriptjs(withGoogleMap(props => (
+    const PageMap = withScriptjs(withGoogleMap(props => (
       <GoogleMap
         defaultZoom={this.state.zoom}
         defaultCenter={this.state.center}
@@ -38,7 +38,7 @@ class PostcardShowMap extends React.Component {
     )));
 
     return (
-      <LandingMap
+      <PageMap
         googleMapURL={process.env.REACT_APP_MAPS_API_URL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px`, width: `1000px` }} />}
