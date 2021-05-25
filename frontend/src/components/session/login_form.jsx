@@ -34,6 +34,7 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div>
+        <span onClick={() => this.props.openModal('signup')}>Register</span>
         <form onSubmit={this.handleSubmit}>
           <h1>Login</h1>
           <label>Email

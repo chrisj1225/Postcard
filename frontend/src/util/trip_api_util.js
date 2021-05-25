@@ -11,3 +11,7 @@ export const fetchTrip = tripId => {
 export const createTrip = tripId => {
   return axios.post(`/api/trips/${tripId}`);
 };
+
+export const updateTrip = trip => {
+  return axios.patch(`/api/trips/${trip.id}`);
+}

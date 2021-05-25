@@ -12,7 +12,6 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
   }
 
   update(field) {
@@ -34,21 +33,10 @@ class SignupForm extends React.Component {
       .then(this.props.history.push('/landing'))
   }
 
-  renderErrors() {
-    return Object.keys(this.props.errors).length ? (
-      <ul>
-        {Object.keys(this.props.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.props.errors[error]}
-          </li>
-        ))}
-      </ul>
-    ) : null;
-  }
-
   render() {
     return (
       <div>
+        <span onClick={() => this.props.openModal('login')}>Login</span>
         <form onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
           <label>Email
