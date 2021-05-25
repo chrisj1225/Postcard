@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'; 
 
 import LandingContainer from './landing/landing_container'; 
-import TripsShowContainer from './trips/trips_show_container'; 
+import TripShowContainer from './trips/trip_show_container'; 
 import PostcardShowContainer from './postcards/postcard_show_container'; 
 // import TripCreateContainer from './trips/trip_create_container';
 // import TripEditContainer from './trips/trip_edit_container';
@@ -20,7 +20,7 @@ const App = () => {
       <HeaderContainer />
       <ModalContainer />
       <Switch>
-        {/* <Route to="/trips" component={LandingContainer} /> */}
+        <Route to="/trips" component={LandingContainer} />
         {/* <Route to="/trips/:tripId/" component={TripsShowContainer} /> */}
         {/* <Route to="/postcards/:postcardId/" component={PostcardShowContainer} /> */}
         {/* <Route to="/trips/new" component={TripCreateContainer} /> */}
