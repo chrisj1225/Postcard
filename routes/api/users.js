@@ -1,12 +1,17 @@
 const express = require("express");
-const router = express.Router();
 const bcrypt = require('bcryptjs');
-const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+
+const router = express.Router();
+const User = require('../../models/User');
+const tripRouter = express.Router({mergeParams: true});
+const Trip = require('../../models/Trip');
+
+router.use('/:userId/trips', tripRouter)
 
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
@@ -102,6 +107,18 @@ router.post('/login', (req, res) => {
     })
 })
 
+tripRouter.get('/', (req, res) => {
+  Trip.find({travellerId: req.params.userId})
+    .sort({date: -1})
+    .then((trips) => {
+      const tripsObj = {}
+      trips.forEach((trip) => {
+        tripsObj[trip.id] = trip
+      })
+      return res.json(tripsObj)
+    })
+    .catch((err) => res.status(400).json({ trip: "no trips found" }))
+})
 
 
 module.exports = router;

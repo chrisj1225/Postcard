@@ -3,12 +3,16 @@
 @import './scss/core/colors'; 
 @import './scss/core/reset'; 
 @import './scss/core/layout'; 
+@import './scss/core/fonts'; 
 @import './scss/core/base'; 
 @import './scss/core/library'; // this is where mixins live
 
 // COMPONENTS
 @import './scss/components/header'; 
 @import './scss/components/modal'; 
+@import './scss/components/landing'; 
+@import './scss/components/add_button'; 
+
 
 
 
