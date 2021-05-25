@@ -20,11 +20,13 @@ class Header extends React.Component {
 
     return (
       <header className="site-header">
-        <div className="logo">
-          Postcard
-        </div>
-        <div className="session-btns">
-          { buttons }
+        <div className="content">
+          <div className="logo">
+            Postcard
+          </div>
+          <div className="session-btns">
+            { buttons }
+          </div>
         </div>
       </header>
     )
