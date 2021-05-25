@@ -1,0 +1,60 @@
+
+.modal-container {
+  position: absolute; 
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.7);
+  @include flex(center, center); 
+}
+
+.modal-child {
+  @include flex(center, center); 
+  background-color: $cream;
+  width: 400px;
+
+  // OTHERFORM BUTTON HAS TO BE AT THE TOP RIGHT CORNER LIKE A STAMP
+
+  h1 {
+    font-size: 26px;
+
+    margin-bottom: 20px;
+    border-bottom: 1px solid slategray;
+  }
+
+
+  form {
+    padding: 40px;
+    @include flex(space-around, center, column); 
+    min-width: 300px;
+
+    > label {
+      @include flex(center, flex-start, column); 
+      margin-bottom: 25px;
+      width: 100%;
+    }
+    
+    input {
+      width: 100%;
+      border: none; 
+      margin-top: 7px;
+      padding: 5px;
+
+      @include paper-bounce(); 
+
+      &:active, &:focus  {
+        box-shadow: 0 0 0 2px $red;
+        outline: none; 
+      }
+
+    }
+
+    input[type="submit"] {
+      @include button($red, $cream); 
+      margin: 20px 0;
+    }
+    
+  }
+
+}

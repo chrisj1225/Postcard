@@ -62,7 +62,7 @@ select {
   font: inherit;
 }
 
-button {
+button, input[type="submit"] {
   outline: none;
   border: none;
 }
