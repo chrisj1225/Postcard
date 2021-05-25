@@ -16,6 +16,7 @@
   // padding: 10px 20px;
   // border-radius: 20px;
   // background-clip: content-box, padding-box;
+
   background-image: repeating-linear-gradient(-45deg,
   transparent,
   transparent 20px,
@@ -32,7 +33,7 @@
   }
 
   button {
-    @include button($red, white); 
+    @include button($blue, white); 
     margin-left: 15px;
   }
 }
