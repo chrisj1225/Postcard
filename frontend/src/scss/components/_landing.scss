@@ -1,0 +1,19 @@
+$body-height: 70vh; 
+
+.landing-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px; 
+  margin: $site-margin;
+  height: $body-height;
+
+  aside {
+    @include flex($flex-direction: column); 
+    background-color: $yellow;
+  }
+}
+
+.trips-index.map-wrapper {
+  width: 100%;
+  height: $body-height;
+}

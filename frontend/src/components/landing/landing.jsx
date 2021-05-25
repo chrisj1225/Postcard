@@ -24,9 +24,9 @@ class Landing extends React.Component {
   
   render() {
     const { trips } = this.props; 
-
+    
     return (
-      <div classname="landing-container">Landing
+      <div className="landing-container">
         <TripsIndexMapContainer trips={trips} />
         <aside>
           <div className="filter-dropdown">
