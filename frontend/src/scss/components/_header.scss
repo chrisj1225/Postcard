@@ -1,15 +1,22 @@
 
 .site-header {
   padding: $site-margin/2;
+
+  .logo {
+    font-family: $display-font;
+    font-weight: 600;
+    font-size: 44px; 
+  }
   
   > * {
-    padding: 30px;
+    padding: 10px 20px;
   }
   
   // background: $postcard-border; 
   // padding: 10px 20px;
   // border-radius: 20px;
   // background-clip: content-box, padding-box;
+
   background-image: repeating-linear-gradient(-45deg,
   transparent,
   transparent 20px,
@@ -26,7 +33,7 @@
   }
 
   button {
-    @include button($red, white); 
+    @include button($blue, white); 
     margin-left: 15px;
   }
 }

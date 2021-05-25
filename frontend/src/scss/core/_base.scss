@@ -1,4 +1,10 @@
 #root {
   background-color: $cream;
   min-height: 100vh;
+
+  font-family: $text-font;
+
+  *::selection {
+    background-color: $green;
+  }
 }
