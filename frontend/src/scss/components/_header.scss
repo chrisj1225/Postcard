@@ -1,9 +1,15 @@
 
 .site-header {
   padding: $site-margin/2;
+
+  .logo {
+    font-family: $display-font;
+    font-weight: 600;
+    font-size: 44px; 
+  }
   
   > * {
-    padding: 30px;
+    padding: 10px 20px;
   }
   
   // background: $postcard-border; 

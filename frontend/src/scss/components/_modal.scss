@@ -1,5 +1,6 @@
 
 .modal-container {
+  z-index: 10;
   position: absolute; 
   top: 0;
   bottom: 0;
@@ -39,7 +40,7 @@
       width: 100%;
       border: none; 
       margin-top: 7px;
-      padding: 5px;
+      padding: 5px 10px;
 
       @include paper-bounce(); 
 

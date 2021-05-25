@@ -39,7 +39,6 @@ class TripsIndexMap extends React.Component {
 
   render() {
 
-
     return (
       <div className="trips-index map-wrapper" >
         <GoogleMapReact
