@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {} from '../actions/';				//actions
+// import {} from '../actions/';				//actions
 import TripsShow from './trips_show';				//display component
 
 const mapStateToProps = (state) => ({

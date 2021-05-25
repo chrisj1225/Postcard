@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {} from '../actions/';				//actions
+// import {} from '../actions/';				//actions
 import PostcardsIndex from './postcards_index';				//display component
 
 const mapStateToProps = (state, ownProps) => ({
