@@ -13,9 +13,26 @@
 .modal-child {
   @include flex(center, center); 
   background-color: $cream;
-  width: 400px;
+  width: 450px;
+  position: relative;
 
-  // OTHERFORM BUTTON HAS TO BE AT THE TOP RIGHT CORNER LIKE A STAMP
+  div:first-child {
+    @include flex(center, flex-end, column); 
+
+    span {
+      cursor: pointer;
+      width: 70px;
+      height: 70px;
+      top: 0; 
+      right: 0;
+      position: absolute;
+      text-align: center;
+      font-size: 13px;
+      padding: 3px;
+    }
+  }
+
+
 
   h1 {
     font-size: 26px;
@@ -32,14 +49,16 @@
 
     > label {
       @include flex(center, flex-start, column); 
-      margin-bottom: 25px;
+      margin-bottom: 30px;
+      
       width: 100%;
+      position: relative;
     }
     
     input {
       width: 100%;
       border: none; 
-      margin-top: 7px;
+      margin: 7px 0;
       padding: 5px 10px;
 
       @include paper-bounce(); 
@@ -56,6 +75,19 @@
       margin: 20px 0;
     }
     
+    // errors
+    p {
+      color: $red; 
+      font-size: 14px;
+      position: absolute;
+      bottom: -20px;
+    }
+
+
   }
+
+}
+
+.other-form-btn {
 
 }

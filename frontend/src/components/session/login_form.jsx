@@ -34,7 +34,8 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div>
-        <span onClick={() => this.props.openModal('signup')}>Register</span>
+        <span className="other-form-btn" onClick={() => this.props.openModal('signup')}><img src={process.env.PUBLIC_URL + '/stamp.png'} alt="stamp" /><i>To Signup</i>
+        </span>
         <form onSubmit={this.handleSubmit}>
           <h1>Login</h1>
           <label>Email

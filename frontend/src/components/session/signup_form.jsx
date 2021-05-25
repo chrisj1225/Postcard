@@ -1,5 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+// import stamp from '../../../public/';
+
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -36,7 +38,8 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div>
-        <span onClick={() => this.props.openModal('login')}>Login</span>
+        <span className="other-form-btn" onClick={() => this.props.openModal('login')}><img src={process.env.PUBLIC_URL + '/stamp.png'} alt="stamp" /><i>To Login</i>
+        </span>
         <form onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
           <label>Email

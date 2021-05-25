@@ -39,13 +39,6 @@ transparent 97.5%, transparent 100%
   padding: 8px 18px;
   @include paper-bounce(); 
 
-  // transition: transform 200ms, background-color 200ms;
-  // box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-
-  // &:hover {
-  //   transform: scale(1.07);
-  //   box-shadow: 0 0 10px rbga(0,0,0,0.15);
-  // }
   &:active {
     transform: scale(1);
     background-color: darken($bg-color, 5%);
