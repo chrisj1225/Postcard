@@ -57,12 +57,15 @@ class TripsIndexMap extends React.Component {
         const popup = document.getElementById("marker-popup");
         popup.classList.add("active");
         popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
-        popup.style.left = e.domEvent.relatedTarget.x - 37 + "px";
+        popup.style.left = e.domEvent.relatedTarget.x - 40 + "px";
         popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
       });
       marker.addListener("mouseout", e => {
         document.getElementById("marker-popup").classList.remove("active");
-      })
+      });
+      marker.addListener("click", e => {
+        this.props.history.push("/trips");
+      });
     });
     
   }
@@ -82,7 +85,6 @@ class TripsIndexMap extends React.Component {
     return (
       <div className="trips-index map-wrapper" style={{ width: "1000px", height: "400px" }}>
         <div id="marker-popup" className="marker-info-wrapper">
-          <p></p>
         </div>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
