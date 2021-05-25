@@ -8,6 +8,8 @@ class TripsIndexMap extends React.Component {
     // expect to receive Trip objects as an array.
       // make Markers from Trip objects using their first lat/lng coords
 
+
+    // this will be the default position and zoom the map centers on
     this.state = {
       center: {
         lat: 23.68437587797855,
@@ -22,7 +24,7 @@ class TripsIndexMap extends React.Component {
   }
 
   handleApiLoaded(map, maps) {
-
+    // can do stuff with map or maps here like make markers
   }
 
   createMapOptions(maps) {
@@ -39,14 +41,14 @@ class TripsIndexMap extends React.Component {
 
 
     return (
-      <div style={{ height: "400px", width: "1000px" }}>
+      <div className="trips-index map-wrapper" style={{ height: "400px", width: "1000px" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
-          defaultCenter={this.state.center}
-          defaultZoom={this.state.zoom}
-          yesIWantToUseGoogleMapApiInternals={true}
-          onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
-          options={this.createMapOptions}
+          defaultCenter={ this.state.center }
+          defaultZoom={ this.state.zoom }
+          yesIWantToUseGoogleMapApiInternals={ true }
+          onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
+          options={ this.createMapOptions }
         ></GoogleMapReact>
       </div>
     );
