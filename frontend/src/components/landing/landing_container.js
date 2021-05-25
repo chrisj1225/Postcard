@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchAllTrips, /* fetchFollowedTrips */ } from '../../actions/trip_actions';				//actions
+import { fetchAllTrips /* fetchFollowedTrips */ } from '../../actions/trip_actions';				//actions
 import Landing from './landing';				//display component
 
 const mapStateToProps = (state) => ({

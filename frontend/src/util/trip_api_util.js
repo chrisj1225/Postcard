@@ -21,5 +21,5 @@ export const updateTrip = trip => {
 }
 
 export const deleteTrip = tripId => {
-  return axios.patch(`/api/trips/${tripId}`);
+  return axios.delete(`/api/trips/${tripId}`);
 }

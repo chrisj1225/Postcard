@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
   }
 
   update(field) {
@@ -32,9 +33,10 @@ class LoginForm extends React.Component {
       .then(this.props.history.push('/landing'))
   }
 
-  handleDemoLogin() {
+  handleDemoLogin(e) {
+    e.preventDefault();
     const demoUser = { email: 'demo@mail.com', password: 'password' }; 
-    this.props.log(demoUser); 
+    this.props.login(demoUser); 
   }
 
   render() {
