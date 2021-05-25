@@ -1,7 +1,7 @@
 import React from 'react'; 
 
 import TripsIndexMapContainer from '../maps/trips_index/trips_index_map_container'; 
-import TripsIndex from '../trips/trips_index'; 
+import TripsIndexContainer from '../trips/trips_index_container'; 
 
 class Landing extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class Landing extends React.Component {
           <div className="filter-dropdown">
             <a className="filter-button">{this.state.followed ? "All" : "Followed"}</a>
           </div>
-          <TripsIndex trips={trips} />
+          <TripsIndexContainer trips={trips} />
         </aside>
       </div>
     )

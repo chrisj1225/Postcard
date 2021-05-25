@@ -4,6 +4,7 @@ export const RECEIVE_TRIPS = "RECEIVE_TRIPS";
 export const RECEIVE_TRIP = "RECEIVE_TRIP";
 export const REMOVE_TRIP = "REMOVE_TRIP";
 export const RECEIVE_TRIP_ERRORS = "RECEIVE_TRIP_ERRORS";
+export const CLEAR_TRIP_ERRORS = "CLEAR_TRIP_ERRORS";
 
 export const receiveTrips = trips => {
   return({
@@ -26,37 +27,50 @@ export const removeTrip = tripId => {
   })
 }
 
-export default fetchAllTrips = () => dispatch => {
+export const receiveTripErrors = errors => {
+  return({
+    type: RECEIVE_TRIP_ERRORS,
+    errors
+  })
+}
+
+export const clearTripErrors = () => {
+  return({
+    type: CLEAR_TRIP_ERRORS
+  })
+}
+
+export const fetchAllTrips = () => dispatch => {
   return TripAPIUtil.fetchAllTrips()
     .then(trips => dispatch(receiveTrips(trips)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
-export default fetchUserTrips = userId => dispatch => {
+export const fetchUserTrips = userId => dispatch => {
   return TripAPIUtil.fetchUserTrips(userId)
     .then(trips => dispatch(receiveTrips(trips)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
-export default fetchTrip = tripId => dispatch => {
+export const fetchTrip = tripId => dispatch => {
   return TripAPIUtil.fetchTrip(tripId)
     .then(trip => dispatch(receiveTrip(trip)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
-export default createTrip = trip => dispatch => {
+export const createTrip = trip => dispatch => {
   return TripAPIUtil.createTrip(trip)
     .then(trip => dispatch(receiveTrip(trip)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
-export default updateTrip = trip => dispatch => {
+export const updateTrip = trip => dispatch => {
   return TripAPIUtil.updateTrip(trip)
     .then(trip => dispatch(receiveTrip(trip)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
-export default deleteTrip = tripId => dispatch => {
+export const deleteTrip = tripId => dispatch => {
   return TripAPIUtil.deleteTrip(tripId)
     .then(() => dispatch(removeTrip(tripId)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))

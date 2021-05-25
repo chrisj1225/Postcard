@@ -5,7 +5,7 @@ import {
 } from '../../actions/trip_actions';
 // import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
-const tripsReducer = (state = {}, action) => {
+const TripsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_TRIPS:
@@ -21,4 +21,4 @@ const tripsReducer = (state = {}, action) => {
   }
 }
 
-export default tripsReducer;
+export default TripsReducer;
