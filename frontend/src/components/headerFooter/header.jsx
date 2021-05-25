@@ -19,14 +19,16 @@ class Header extends React.Component {
     )
 
     return (
-      <div>
-        <div>
-          Logo
+      <header className="site-header">
+        <div className="content">
+          <div className="logo">
+            Postcard
+          </div>
+          <div className="session-btns">
+            { buttons }
+          </div>
         </div>
-        <div>
-          {buttons}
-        </div>
-      </div>
+      </header>
     )
   }
 }

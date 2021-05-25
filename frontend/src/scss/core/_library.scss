@@ -1,0 +1,63 @@
+// CONSTANTS
+$postcard-border: linear-gradient($cream, $cream), 
+linear-gradient(-45deg, $red 0%, $red 2.5%, 
+transparent 2.5%,  transparent 5%,  $blue 5%, $blue 7.5%, 
+transparent 7.5%,  transparent 10%, $red 10%, $red 12.5%, 
+transparent 12.5%, transparent 15%, $blue 15%, $blue 17.5%, 
+transparent 17.5%, transparent 20%, $red 20%, $red 22.5%,
+transparent 22.5%, transparent 25%, $blue 25%, $blue 27.5%, 
+transparent 27.5%, transparent 30%, $red 30%, $red 32.5%,
+transparent 32.5%, transparent 35%, $blue 35%, $blue 37.5%, 
+transparent 37.5%, transparent 40%, $red 40%, $red 42.5%,
+transparent 42.5%, transparent 45%, $blue 45%, $blue 47.5%, 
+transparent 47.5%, transparent 50%, $red 50%, $red 52.5%,
+transparent 52.5%, transparent 55%, $blue 55%, $blue 57.5%, 
+transparent 57.5%, transparent 60%, $red 60%, $red 62.5%,
+transparent 62.5%, transparent 65%, $blue 65%, $blue 67.5%, 
+transparent 67.5%, transparent 70%, $red 70%, $red 72.5%,
+transparent 72.5%, transparent 75%, $blue 75%, $blue 77.5%, 
+transparent 77.5%, transparent 80%, $red 80%, $red 82.5%,
+transparent 82.5%, transparent 85%, $blue 85%, $blue 87.5%, 
+transparent 87.5%, transparent 90%, $red 90%, $red 92.5%,
+transparent 92.5%, transparent 95%, $blue 95%, $blue 97.5%, 
+transparent 97.5%, transparent 100%
+);   
+
+
+// MIXINS
+
+@mixin flex($justify-content: flex-start, $align-items: center, $flex-direction: row) {
+  display: flex;
+  flex-direction: $flex-direction; 
+  justify-content: $justify-content; 
+  align-items: $align-items; 
+}
+
+@mixin button($bg-color, $txt-color) {
+  background-color: $bg-color;
+  color: $txt-color; 
+  padding: 8px 18px;
+  @include paper-bounce(); 
+
+  // transition: transform 200ms, background-color 200ms;
+  // box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+
+  // &:hover {
+  //   transform: scale(1.07);
+  //   box-shadow: 0 0 10px rbga(0,0,0,0.15);
+  // }
+  &:active {
+    transform: scale(1);
+    background-color: darken($bg-color, 5%);
+  }
+}
+
+@mixin paper-bounce {
+  transition: transform 200ms, box-shadow 200ms; 
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+
+  &:hover {
+    transform: scale(1.07);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.08);
+  }
+}
