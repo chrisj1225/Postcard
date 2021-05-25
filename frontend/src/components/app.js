@@ -10,14 +10,14 @@ import PostcardShowContainer from './postcards/postcard_show_container';
 // import PostcardEditContainer from './postcards/postcard_edit_container';
 
 import ModalContainer from './util/modal_container';
-import Header from './headerFooter/header'; 
+import HeaderContainer from './headerFooter/header_container'; 
 // import Footer from './headerFooter/footer'; 
 
 const App = () => {
 
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <ModalContainer />
       <Switch>
         {/* <Route to="/trips" component={LandingContainer} /> */}

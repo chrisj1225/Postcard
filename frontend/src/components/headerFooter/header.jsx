@@ -1,10 +1,37 @@
 import React from 'react';
 
-export default props => {
-  return (
-    <div></div>
-  )
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+
+  }
+
+  render() {
+    const buttons = this.props.loggedIn ? (
+      <>
+        <button onClick={() => this.props.logout()}>Logout</button>
+      </>
+    ) : (
+      <>
+        <button onClick={() => this.props.openModal("signup")}>Signup</button>
+        <button onClick={() => this.props.openModal("login")}>Login</button>
+      </>
+    )
+
+    return (
+      <div>
+        <div>
+          Logo
+        </div>
+        <div>
+          {buttons}
+        </div>
+      </div>
+    )
+  }
 }
+
+export default Header;
 
 
 
