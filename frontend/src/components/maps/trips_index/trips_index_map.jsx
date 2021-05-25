@@ -20,7 +20,7 @@ class TripsIndexMap extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchTrips();
+    // this.props.fetchTrips(); ?
   }
 
   handleApiLoaded(map, maps) {
@@ -41,7 +41,7 @@ class TripsIndexMap extends React.Component {
 
 
     return (
-      <div className="trips-index map-wrapper" style={{ height: "400px", width: "1000px" }}>
+      <div className="trips-index map-wrapper" >
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
           defaultCenter={ this.state.center }

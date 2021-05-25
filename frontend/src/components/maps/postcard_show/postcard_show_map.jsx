@@ -1,51 +1,58 @@
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from 'react-google-maps';
 import React from 'react';
+import GoogleMapReact from 'google-map-react';
 
-class PostcardShowMap extends React.Component {
+class PostcardShow extends React.Component {
   constructor(props) {
     super(props);
 
-    // expect to receive Trip objects as an array.
-      // make Markers from Trip objects using their first lat/lng coords
+    // expect to receive Postcard objects as an array.
+      // make Markers from Postcard objects using their first lat/lng coords
 
+
+    // this will be the default position and zoom the map centers on
     this.state = {
       center: {
         lat: 23.68437587797855,
         lng: -3.202092257879451
       },
-      zoom: 15,
+      zoom: 0,
     }
   }
 
   componentDidMount() {
-    // this.props.fetchTrips();
+    // this.props.fetchPostcards();
+  }
+
+  handleApiLoaded(map, maps) {
+    // can do stuff with map or maps here like make markers
+  }
+
+  createMapOptions(maps) {
+    return {
+      mapTypeControl: false,
+      mapId: "aec3b550b10428f9",
+      fullscreenControl: false,
+      streetViewControl: false,
+      zoomControl: false,
+    }
   }
 
   render() {
 
-    const PageMap = withScriptjs(withGoogleMap(props => (
-      <GoogleMap
-        defaultZoom={this.state.zoom}
-        defaultCenter={this.state.center}
-        >
-          {/* Markers live here */}
-        </GoogleMap>
-    )));
 
     return (
-      <PageMap
-        googleMapURL={process.env.REACT_APP_MAPS_API_URL}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px`, width: `1000px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
+      <div className="postcard-show map-wrapper" >
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
+          defaultCenter={ this.state.center }
+          defaultZoom={ this.state.zoom }
+          yesIWantToUseGoogleMapApiInternals={ true }
+          onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
+          options={ this.createMapOptions }
+        ></GoogleMapReact>
+      </div>
     );
   }
 }
 
-export default PostcardShowMap;
+export default PostcardShow;
