@@ -4,7 +4,8 @@ import {
   CLEAR_SESSION_ERRORS
 } from '../../actions/session_actions';
 import {
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  OPEN_MODAL
 } from '../../actions/ui_actions';
 
 const _nullErrors = [];
@@ -20,6 +21,8 @@ const SessionErrorsReducer = (state = _nullErrors, action) => {
       return _nullErrors;
     case CLOSE_MODAL:
       return _nullErrors;
+    case OPEN_MODAL: 
+      return _nullErrors; 
     default:
       return state;
   }
