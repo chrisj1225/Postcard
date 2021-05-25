@@ -39,6 +39,7 @@ export const clearSessionErrors = () => ({
 export const signup = user => dispatch => {
   return SessionAPIUtil.signup(user)
     .then(res => {
+      debugger
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       SessionAPIUtil.setAuthToken(token);
@@ -46,6 +47,7 @@ export const signup = user => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err => {
+      debugger
       dispatch(receiveSessionErrors(err.response.data));
     })
 }
@@ -53,6 +55,7 @@ export const signup = user => dispatch => {
 export const login = user => dispatch => {
   return SessionAPIUtil.login(user)
     .then(res => {
+      debugger
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       SessionAPIUtil.setAuthToken(token);
@@ -60,6 +63,7 @@ export const login = user => dispatch => {
       dispatch(receiveCurrentUser(decoded));
     })
     .catch(err => {
+      debugger
       dispatch(receiveSessionErrors(err.response.data));
     })
 }

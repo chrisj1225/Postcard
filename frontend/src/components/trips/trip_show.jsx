@@ -1,0 +1,25 @@
+import React from 'react'; 
+
+import PostcardIndexItem from '../postcards/postcards_index_item'; 
+import TripShowMap from '../maps/trip_show_map'; 
+
+class TripShow extends React.Component {
+  constructor(props) {
+    super(props); 
+  }
+
+
+  render() {
+    const { postcards } = this.props; 
+
+    return (
+      <>
+        TripShow
+        <TripShowMap postcards={postcards} />
+        {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
+      </>
+    )
+  }
+}
+
+export default TripShow; 
