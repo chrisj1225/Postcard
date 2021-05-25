@@ -1,0 +1,14 @@
+
+
+.add-btn {
+  width: $add-btn-radius;
+  height: $add-btn-radius;
+  // background-color: $red;
+  border-radius: 50%;
+
+  @include flex(center); 
+  font-size: 46px;
+  // color: $cream;
+
+  @include button($red, $cream); 
+}

@@ -6,12 +6,6 @@ class TripsIndex extends React.Component {
     super(props); 
   }
 
-  componentDidMount() {
-    debugger
-    this.props.fetchAllTrips(); 
-  }
-
-
   render() {
     const { trips } = this.props; 
 
