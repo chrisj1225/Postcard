@@ -17,7 +17,7 @@ class TripsIndex extends React.Component {
     return (
 
       <div>
-        { Object.values(trips).map((trip, i) => <TripIndexItem key={i} trip={trip} />) }
+        {/* { Object.values(trips).map((trip, i) => <TripIndexItem key={i} trip={trip} />) } */}
       </div>
     )
   }

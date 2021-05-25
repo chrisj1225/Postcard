@@ -22,7 +22,7 @@ const App = () => {
       <HeaderContainer />
       <ModalContainer />
       <Switch>
-        {/* <Route to="/trips" component={LandingContainer} /> */}
+        <Route to="/trips" component={LandingContainer} />
         {/* <Route to="/trips/:tripId/" component={TripsShowContainer} /> */}
         {/* <Route to="/postcards/:postcardId/" component={PostcardShowContainer} /> */}
         {/* <Route to="/trips/new" component={TripCreateContainer} /> */}
