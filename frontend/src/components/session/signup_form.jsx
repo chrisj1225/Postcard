@@ -8,8 +8,7 @@ class SignupForm extends React.Component {
       email: '',
       displayName: '',
       password: '',
-      password2: '',
-      errors: {}
+      password2: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,11 +35,11 @@ class SignupForm extends React.Component {
   }
 
   renderErrors() {
-    return Object.keys(this.state.errors).length ? (
+    return Object.keys(this.props.errors).length ? (
       <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
+        {Object.keys(this.props.errors).map((error, i) => (
           <li key={`error-${i}`}>
-            {this.state.errors[error]}
+            {this.props.errors[error]}
           </li>
         ))}
       </ul>
@@ -57,27 +56,30 @@ class SignupForm extends React.Component {
               value={this.state.email}
               onChange={this.update('email')}
             />
+            <p>{this.props.errors.email}</p>
           </label>
           <label>Display Name
             <input type="text"
               value={this.state.handle}
               onChange={this.update('displayName')}
             />
+            <p>{this.props.errors.displayName}</p>
           </label>
           <label>Password
             <input type="password"
               value={this.state.password}
               onChange={this.update('password')}
             />
+            <p>{this.props.errors.password}</p>
           </label>
           <label>Confirm Password
             <input type="password"
               value={this.state.password2}
               onChange={this.update('password2')}
             />
+            <p>{this.props.errors.password2}</p>
           </label>
           <input type="submit" value="Submit" />
-          {this.renderErrors()}
         </form>
       </div>
     );
