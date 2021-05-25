@@ -58,8 +58,7 @@ class TripsIndexMap extends React.Component {
         popup.classList.add("active");
         popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
         popup.style.left = e.domEvent.relatedTarget.x - 37 + "px";
-        let content = document.querySelector("#marker-popup > p");
-        content.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
+        popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
       });
       marker.addListener("mouseout", e => {
         document.getElementById("marker-popup").classList.remove("active");
