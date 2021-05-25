@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import stamp from '../../assets/images/blue-stamp.png';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -31,26 +32,45 @@ class LoginForm extends React.Component {
       .then(this.props.history.push('/landing'))
   }
 
+  handleDemoLogin() {
+    const demoUser = { email: 'demo@mail.com', password: 'password' }; 
+    this.props.log(demoUser); 
+  }
+
   render() {
     return (
       <div>
-        <span className="other-form-btn" onClick={() => this.props.openModal('signup')}><img src={process.env.PUBLIC_URL + '/stamp.png'} alt="stamp" /><i>To Signup</i>
-        </span>
+        <div className="other-form-btn">
+          <span onClick={() => this.props.openModal('signup')}><img src={stamp} alt="stamp" />
+          <i>To Signup</i>
+          </span>
+        </div>
         <form onSubmit={this.handleSubmit}>
           <h1>Login</h1>
+          <div className="demo-login-button-container">
+            <button 
+              onClick={this.handleDemoLogin} 
+              className="demo-login-button"
+            >Demo Login</button>
+            <div>
+              <hr/>
+              <p>Or</p>
+              <hr/>
+            </div>
+          </div>
           <label>Email
             <input type="text"
               value={this.state.email}
               onChange={this.update('email')}
             />
-            <p>{this.props.errors.email}</p>
+            <p className="errors">{this.props.errors.email}</p>
           </label>
           <label>Password
             <input type="password"
               value={this.state.password}
               onChange={this.update('password')}
             />
-            <p>{this.props.errors.password}</p>
+            <p className="errors">{this.props.errors.password}</p>
           </label>
           <input type="submit" value="Submit" />
         </form>

@@ -15,20 +15,29 @@
   background-color: $cream;
   width: 450px;
   position: relative;
+  // @include postcard-border();
 
   div:first-child {
     @include flex(center, flex-end, column); 
 
-    span {
+    .other-form-btn {
       cursor: pointer;
       width: 70px;
       height: 70px;
-      top: 0; 
+      top: 8px; 
       right: 0;
       position: absolute;
       text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       padding: 3px;
+      color: $blue;
+      font-weight: 600;
+
+      i {
+        position: absolute;
+        top: 36%;
+        left: -10px;
+      }
     }
   }
 
@@ -45,7 +54,7 @@
   form {
     padding: 40px;
     @include flex(space-around, center, column); 
-    min-width: 300px;
+    min-width: 350px;
 
     > label {
       @include flex(center, flex-start, column); 
@@ -76,7 +85,7 @@
     }
     
     // errors
-    p {
+    .errors {
       color: $red; 
       font-size: 14px;
       position: absolute;
@@ -88,6 +97,32 @@
 
 }
 
-.other-form-btn {
+.demo-login-button-container {
+  width: 100%;
 
+  button {
+    @include button($blue, $cream); 
+    align-self: flex-start;
+    margin: 10px 0;
+  }
+
+  > div {
+    margin: 10px 0;
+    width: 100%;
+    @include flex(space-between, center); 
+  }
+
+  hr {
+    width: 100%;
+    height: 0; 
+    border: unset;
+    border-bottom: 1px solid gray;
+  }
+  p {
+    background-color: $cream; 
+    padding: 0 10px; 
+    font-size: 14px;
+    position: relative;
+    top: 0;
+  }
 }
