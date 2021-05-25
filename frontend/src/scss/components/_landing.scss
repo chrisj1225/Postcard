@@ -10,6 +10,13 @@ $body-height: 70vh;
   aside {
     @include flex($flex-direction: column); 
     background-color: $yellow;
+    position: relative;
+
+    .add-btn {
+      position: absolute;
+      bottom: -($add-btn-radius/2.8);
+      right: -($add-btn-radius/2.8);
+    }
   }
 }
 
