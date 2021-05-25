@@ -16,10 +16,10 @@ class Landing extends React.Component {
   }
 
   toggleFollowed() {
-    this.props.fetchFollowedTrips(this.props.currentUserId)
-      .then(
-        this.setState({followed: !this.state.followed})
-      )
+    // this.props.fetchFollowedTrips(this.props.currentUserId)
+    //   .then(
+    //     this.setState({followed: !this.state.followed})
+    //   )
   }
   
   render() {
