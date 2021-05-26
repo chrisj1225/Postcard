@@ -8,16 +8,36 @@ class TripShow extends React.Component {
     super(props); 
   }
 
+  componentDidMount() {
+    this.props.fetchTrip(this.props.tripId); 
+  }
 
   render() {
-    const { postcards } = this.props; 
+    const { postcards, trip, currentUser } = this.props; 
+
+    if (!trip) return null; 
+
+    const createCardComponent = currentUser.id === trip.travellerId ? (
+      <div></div>
+    ) : null; 
+
+    debugger
 
     return (
-      <>
-        TripShow
+      <main className="trip-show-wrapper">
+        <section>
+          <h1>{trip.title}</h1>
+          <p>{trip.description}</p>
+        </section>
         <TripShowMap postcards={postcards} />
-        {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
-      </>
+        <article>
+          {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
+          <div className="postcard-index-item"></div>
+          <div className="postcard-index-item"></div>
+          <div className="postcard-index-item"></div>
+          <div className="postcard-index-item"></div>
+        </article>
+      </main>
     )
   }
 }

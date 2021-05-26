@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 
 const TripIndexItem = ({ trip }) => {
 
-
   return (
     <div className="trips-index-item">
       <section>
-        <Link to={`trips/${trip.id}`}>
+        <Link to={`trips/${trip._id}`}>
           <h2>{trip.title}</h2>
         </Link>
         <p>{trip.description}</p>

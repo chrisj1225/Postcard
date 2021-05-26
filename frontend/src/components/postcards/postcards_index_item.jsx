@@ -5,7 +5,7 @@ const PostcardsIndexItem = (props) => {
   const { postcard } = props; 
 
   return (
-    <div>Postcard Index Item
+    <div className="postcard-index-item">Postcard Index Item
       {/* <h2>{postcard.title}</h2>
       <p>{limitChars(postcard.body, 120)}</p>
       <img src={postcard.imageUrl} alt=""/> */}

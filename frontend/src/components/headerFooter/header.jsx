@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
+import Logo from '../../assets/images/postcard-logo.png'
 
 
 class Header extends React.Component {
@@ -24,9 +25,10 @@ class Header extends React.Component {
       <header className="site-header">
         <div className="content">
           <Link to="/">
-            <h1 className="logo">
+            {/* <h1 className="logo">
               Postcard
-            </h1>
+            </h1> */}
+            {<img className="logo" src={Logo} alt="Postcard logo"/>}
           </Link>
           <div className="session-btns">
             { buttons }

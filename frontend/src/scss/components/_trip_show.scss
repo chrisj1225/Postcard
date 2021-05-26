@@ -1,0 +1,50 @@
+.trip-show-wrapper {
+  margin: 30px 0; 
+  @include flex(center, center, column); 
+
+  section {
+    width: 90vw;
+
+    h1 {
+      font-size: 40px;
+      font-family: $header-font;
+    }
+    p {
+      font-family: $text-font;
+    }
+  }
+
+  .map-wrapper {
+    margin: 30px 0;
+    width: 90vw;
+    height: 200px;
+  }
+
+
+  article {
+    // width: 100%;
+    // overflow-y: scroll;
+    // overflow-x: visible;
+  }
+
+  .postcard-index-item {
+    width: 300px;
+    height: 200px;
+    background-color: $yellow;
+    border: 4px dashed black;
+  }
+
+
+  .postcard-index-item:nth-child(even) {
+    position: relative;
+    right: -60%;
+  }
+
+  .postcard-index-item:nth-child(odd) {
+    position: relative;
+    left: -60%;
+  }
+
+
+
+}
