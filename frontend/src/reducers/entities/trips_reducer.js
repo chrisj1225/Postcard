@@ -9,12 +9,10 @@ const TripsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_TRIPS:
-      return action.trips.data;
+      return Object.assign({}, state, action.trips.data.trips);
     case RECEIVE_TRIP:
-      debugger
-      return Object.assign({}, state, { [action.trip.data._id]: action.trip.data })
+      return Object.assign({}, state, { [action.trip.data.trip._id]: action.trip.data.trip })
     case REMOVE_TRIP:
-      debugger
       let newState = Object.assign({}, state);
       delete newState[action.tripId];
       return newState;
