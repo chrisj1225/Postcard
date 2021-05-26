@@ -18,10 +18,7 @@ class TripShow extends React.Component {
   }
 
   render() {
-    const { /*postcards,*/ trip, currentUser } = this.props; 
-
-    // TESTING *************** also uncomment above
-    let postcards = { 1: 1, 2: 2, 3: 3}; 
+    const { postcards, trip, currentUser } = this.props; 
 
     if (!trip) return null; 
 
@@ -29,15 +26,17 @@ class TripShow extends React.Component {
 
     let createPostcardComponent; 
 
-    if (!postcards) {
-      return (
-        <section>
-          <h2>There aren't any postcards here yet.</h2>
-          <h3>Make a postcard</h3>
-          <AddButton />
-        </section>
-      )
-    }
+    if (currentUser && (currentUser.id === trip.travellerId)) {
+      if (!postcards) {
+        return (
+          <section>
+            <h2>There aren't any postcards here yet.</h2>
+            <h3>Make a postcard</h3>
+            <AddButton />
+          </section>
+        )
+      }
+    };
 
     if (currentUser) {
       createPostcardComponent = currentUser.id === trip.travellerId ? (
@@ -45,13 +44,13 @@ class TripShow extends React.Component {
           <div className="create-postcard-card">
             <Link to={`/trips/${trip._id}/postcards/new`}>
               <h3>Create New Postcard</h3>
+              <AddButton />
             </Link>
-            <AddButton />
           </div>
           { arrowComponent }
         </div>
       ) : null; 
-    }
+    };
 
 
     return (
@@ -62,7 +61,10 @@ class TripShow extends React.Component {
         </section>
         <TripShowMap postcards={postcards} />
         <article>
-          { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard} arrow={arrowComponent}/> ) }
+          { Object.values(postcards).map(postcard => <PostcardIndexItem 
+            key={postcard.id} 
+            postcard={postcard} 
+            arrow={arrowComponent}/> ) }
           { createPostcardComponent }
         </article>
       </main>

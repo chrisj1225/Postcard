@@ -14,7 +14,7 @@ class Landing extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchAllTrips()
+    this.props.fetchAllTrips();
   }
 
   toggleFollowed() {
@@ -28,7 +28,6 @@ class Landing extends React.Component {
     // create trip
     this.props.history.push('/trips/new');
   }
-
 
   render() {
     const { trips } = this.props; 

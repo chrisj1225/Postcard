@@ -17,7 +17,7 @@ const PostcardsReducer = (state = {}, action) => {
     case RECEIVE_TRIPS:
       return Object.assign({}, state, action.trips.data.postcards);
     case RECEIVE_TRIP:
-      return Object.assign({}, state, action.trip.data.postcards);
+      return action.trip.data.postcards;
     case RECEIVE_POSTCARD:
       return Object.assign({}, state, { [action.postcard.data._id]: action.postcard.data })
     case REMOVE_POSTCARD:
