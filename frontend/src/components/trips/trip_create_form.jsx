@@ -27,32 +27,30 @@ class TripCreateForm extends React.Component{
 
   render() {
     return(
-      <div>
-        <div className="create-trip-container">
-          <h1>Create New Trip</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>Trip Title
-              <input 
-                type="text"
-                onChange={this.update('title')}
-                value={this.state.title} />
-            </label>
-            <br />
-            <label>Description
-              <textarea 
-                onChange={this.update('description')}
-                value={this.state.description}
-                rows="10"
-                cols="80" />
-            </label>
-            <br />
+      <div className="create-trip-container">
+        <h1>Create New Trip</h1>
+        <form onSubmit={this.handleSubmit}>
+          <label>Trip Title
             <input 
-              onClick={this.handleSubmit}
-              type="submit" 
-              value="Create" />
-          </form>
+              type="text"
+              onChange={this.update('title')}
+              value={this.state.title} />
+          </label>
+          <br />
+          <label>Description
+            <textarea 
+              onChange={this.update('description')}
+              value={this.state.description}
+              rows="10"
+              cols="80" />
+          </label>
+          <br />
+          <input 
+            onClick={this.handleSubmit}
+            type="submit" 
+            value="Create" />
+        </form>
 
-        </div>
       </div>
     )
   }

@@ -42,6 +42,10 @@ transparent 97.5%, transparent 100%
     transform: scale(1);
     background-color: darken($bg-color, 5%);
   }
+
+  &:focus {
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.5);
+  }
 }
 
 @mixin paper-bounce {
@@ -49,8 +53,8 @@ transparent 97.5%, transparent 100%
   box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
   cursor: pointer;
 
-  &:hover {
-    transform: scale(1.07);
+  &:hover, &:focus {
+    transform: scale(1.05);
     box-shadow: 5px 5px 15px rgba(0,0,0,0.08);
   }
 }
