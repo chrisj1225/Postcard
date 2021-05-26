@@ -143,10 +143,7 @@ router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}
     return res.status(400).json("Not yet following that user")
   }
   let idx = user.following.indexOf(followedUser.id)
-  console.log(idx)
-  console.log(user.following)
   user.following.splice(idx, 1)
-  console.log(user.following)
   user.save()
     .then((user)=>{
       res.json(user)
