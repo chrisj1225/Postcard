@@ -14,11 +14,11 @@ const PostcardSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "trips"
   },
-  latitude: {
+  lat: {
     type: mongoose.Decimal128,
     required: true
   },
-  longitude: {
+  lng: {
     type: mongoose.Decimal128,
     required: true
   },
