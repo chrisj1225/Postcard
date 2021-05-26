@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
+
 
 class Header extends React.Component {
   constructor(props) {
@@ -21,9 +23,11 @@ class Header extends React.Component {
     return (
       <header className="site-header">
         <div className="content">
-          <h1 className="logo">
-            Postcard
-          </h1>
+          <Link to="/">
+            <h1 className="logo">
+              Postcard
+            </h1>
+          </Link>
           <div className="session-btns">
             { buttons }
           </div>
