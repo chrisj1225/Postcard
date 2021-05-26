@@ -3,13 +3,18 @@ import {
   RECEIVE_POSTCARD,
   REMOVE_POSTCARD
 } from '../../actions/postcard_actions';
+import {
+  RECEIVE_TRIPS
+} from '../../actions/trip_actions';
 // import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
 const PostcardsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_POSTCARDS:
-      return action.postcards.data;
+      return Object.assign({}, state, action.postcards.data);
+    case RECEIVE_TRIPS:
+      return Object.assign({}, state, action.data.postcards);
     case RECEIVE_POSTCARD:
       debugger
       return Object.assign({}, state, { [action.postcard.data._id]: action.postcard.data })

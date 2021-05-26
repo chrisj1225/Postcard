@@ -5,6 +5,7 @@ import Landing from './landing';				//display component
 
 const mapStateToProps = (state) => ({
   trips: state.entities.trips,
+  postcards: state.entities.postcards
   // currentUserId: state.session.id, 
 });
 

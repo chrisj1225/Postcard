@@ -8,6 +8,9 @@ class TripShow extends React.Component {
     super(props); 
   }
 
+  componentDidMount() {
+    this.props.fetchTripPostcards(this.props.tripId)
+  }
 
   render() {
     const { postcards } = this.props; 
@@ -16,7 +19,7 @@ class TripShow extends React.Component {
       <>
         TripShow
         <TripShowMap postcards={postcards} />
-        {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
+        { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) }
       </>
     )
   }

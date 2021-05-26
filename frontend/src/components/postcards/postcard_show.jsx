@@ -14,7 +14,7 @@ class PostcardShow extends React.Component{
 
   render() {
     const { postcard } = this.props; 
-
+    debugger
     return (
       <div>Postcard Show Page
         <h1>{postcard.title}</h1>
