@@ -1,4 +1,4 @@
-import * as PostcardAPIUtil from '../util/postcard_api_util';
+import * as PostcardAPIUtil from '../util/postcard_util';
 
 export const RECEIVE_POSTCARDS = "RECEIVE_POSTCARDS";
 export const RECEIVE_POSTCARD = "RECEIVE_POSTCARD";
@@ -41,13 +41,13 @@ export const clearPostcardErrors = () => {
 }
 
 export const fetchTripPostcards = tripId => dispatch => {
-  return PostcardAPIUtil.fetchUserTrips(tripId)
+  return PostcardAPIUtil.fetchTripPostcards(tripId)
     .then(postcards => dispatch(receivePostcards(postcards)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
 export const fetchPostcard = postcardId => dispatch => {
-  return PostcardAPIUtil.fetchTrip(postcardId)
+  return PostcardAPIUtil.fetchPostcard(postcardId)
     .then(postcard => dispatch(receivePostcard(postcard)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
@@ -59,7 +59,7 @@ export const createPostcard = (tripId, postcard) => dispatch => {
 }
 
 export const updatePostcard = (tripId, postcard) => dispatch => {
-  return PostcardAPIUtil.updateTrip(tripId, postcard)
+  return PostcardAPIUtil.updatePostcard(tripId, postcard)
     .then(postcard => dispatch(receivePostcard(postcard)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }

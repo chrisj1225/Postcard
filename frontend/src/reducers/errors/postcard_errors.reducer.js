@@ -1,7 +1,7 @@
 import { 
   RECEIVE_POSTCARD_ERRORS,
   CLEAR_POSTCARD_ERRORS
-} from '../../actions/trip_actions';
+} from '../../actions/postcard_actions';
 
 const PostcardErrorsReducer = (state = [], action) => {
   Object.freeze(state);

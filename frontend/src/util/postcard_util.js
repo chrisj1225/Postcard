@@ -13,7 +13,7 @@ export const createPostcard = (tripId, postcard) => {
 };
 
 export const updatePostcard = (tripId, postcard) => {
-  return axios.post(`/api/trips/${tripId}/postcards/${postcard.id}`, postcard);
+  return axios.patch(`/api/trips/${tripId}/postcards/${postcard.id}`, postcard);
 };
 
 // export const updatePostcardPhotos = (postcardId, photos) => {
