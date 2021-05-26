@@ -5,25 +5,27 @@ export const RECEIVE_TRIP = "RECEIVE_TRIP";
 export const REMOVE_TRIP = "REMOVE_TRIP";
 export const RECEIVE_TRIP_ERRORS = "RECEIVE_TRIP_ERRORS";
 export const CLEAR_TRIP_ERRORS = "CLEAR_TRIP_ERRORS";
+export const RECEIVE_NEW_TRIP = "RECEIVE_NEW_TRIP";
 
-export const receiveTrips = trips => {
+export const receiveTrips = data => {
   return({
     type: RECEIVE_TRIPS,
-    trips
+    trips: data.trips,
   })
 }
 
-export const receiveTrip = trip => {
+export const receiveTrip = data => {
+  debugger
   return({
     type: RECEIVE_TRIP,
-    trip
+    trip: data.trip,
   })
 }
 
-export const removeTrip = tripId => {
+export const removeTrip = data => {
   return({
     type: REMOVE_TRIP,
-    tripId
+    tripId: data.trip.id,
   })
 }
 
@@ -40,38 +42,49 @@ export const clearTripErrors = () => {
   })
 }
 
+export const receiveNewTrip = data => {
+  return({
+    type: RECEIVE_NEW_TRIP,
+    trip: data.trip,
+  });
+}
+
 export const fetchAllTrips = () => dispatch => {
   return TripAPIUtil.fetchAllTrips()
-    .then(trips => dispatch(receiveTrips(trips)))
+    .then(res => dispatch(receiveTrips(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
 export const fetchUserTrips = userId => dispatch => {
   return TripAPIUtil.fetchUserTrips(userId)
-    .then(trips => dispatch(receiveTrips(trips)))
+    .then(res => dispatch(receiveTrips(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
 export const fetchTrip = tripId => dispatch => {
   return TripAPIUtil.fetchTrip(tripId)
-    .then(trip => dispatch(receiveTrip(trip)))
+    .then(res => dispatch(receiveTrip(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
 export const createTrip = trip => dispatch => {
   return TripAPIUtil.createTrip(trip)
-    .then(trip => dispatch(receiveTrip(trip)))
-    .catch(err => dispatch(receiveTripErrors(err.response.data)))
+    .then(res => {
+      return dispatch(receiveNewTrip(res.data));
+    })
+    .catch(err => {
+      return dispatch(receiveTripErrors(err.response.data));
+    })
 }
 
 export const updateTrip = trip => dispatch => {
   return TripAPIUtil.updateTrip(trip)
-    .then(trip => dispatch(receiveTrip(trip)))
+    .then(res => dispatch(receiveTrip(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
 export const deleteTrip = tripId => dispatch => {
   return TripAPIUtil.deleteTrip(tripId)
-    .then(() => dispatch(removeTrip(tripId)))
+    .then(res => dispatch(removeTrip(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }

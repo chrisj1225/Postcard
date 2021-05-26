@@ -1,4 +1,4 @@
-import TripShowMap from './trip_show_map';
+import PostcardCreateMap from './postcard_create_map';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -16,4 +16,4 @@ const mDTP = dispatch => {
   }
 };
 
-export default withRouter(connect(mSTP, mDTP)(TripShowMap));
+export default withRouter(connect(mSTP, mDTP)(PostcardCreateMap));

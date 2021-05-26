@@ -1,7 +1,8 @@
 import { 
   RECEIVE_TRIPS,
   RECEIVE_TRIP,
-  REMOVE_TRIP
+  REMOVE_TRIP,
+  RECEIVE_NEW_TRIP,
 } from '../../actions/trip_actions';
 // import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
@@ -9,12 +10,14 @@ const TripsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_TRIPS:
-      return Object.assign({}, state, action.trips.data.trips);
+      return Object.assign({}, state, action.trips);
     case RECEIVE_TRIP:
-      return Object.assign({}, state, { [action.trip.data.trip._id]: action.trip.data.trip })
+      return Object.assign({}, state, { [action.trip._id]: action.trip })
+    case RECEIVE_NEW_TRIP:
+      return Object.assign({}, state, { [action.trip._id]: action.trip })
     case REMOVE_TRIP:
       let newState = Object.assign({}, state);
-      delete newState[action.trip.data.trip._id];
+      delete newState[action.tripId];
       return newState;
     default:
       return state;
