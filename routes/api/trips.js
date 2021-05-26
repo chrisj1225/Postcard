@@ -17,17 +17,35 @@ router.get("/", (req, res) => {
     .sort({date: -1})
     .then((trips) => {
       const tripsObj = {}
+      const pcObj = {}
       trips.forEach((trip) => {
         tripsObj[trip.id] = trip
+        Postcard.find({tripId: trip.id})
+          .sort({date: -1})
+          .then((postcards) => {
+            postcards.forEach(postcard => {
+              pcObj[postcard.id] = postcard
+            })
+          })
       })
-      return res.json(tripsObj)
+      return res.json({trips: tripsObj, postcards: pcObj})
     })
     .catch((err) => res.status(400).json({ trips: "no trips found" }))
 })
 
 router.get("/:id", (req, res) => {
   Trip.findById(req.params.id)
-    .then((trip) => res.json(trip))
+    .then((trip) => {
+      const pcObj = {}
+      Postcard.find({tripId: trip.id})
+          .sort({date: -1})
+          .then((postcards) => {
+            postcards.forEach(postcard => {
+              pcObj[postcard.id] = postcard
+            })
+          })
+      res.json({trip: trip, postcards: pcObj})
+    })
     .catch((err) => res.status(400).json({ trips: "No Trip found with that ID"}))
 })
 
