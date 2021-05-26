@@ -26,6 +26,7 @@ class Landing extends React.Component {
   
   handleClick() {
     // create trip
+    this.props.history.push('/trips/new');
   }
 
 
