@@ -57,6 +57,19 @@ class TripsIndexMap extends React.Component {
     this.markerPopups = [];
     this.markers = [];
 
+    this.map.addListener("click", e => {
+      if (this.placedMarker) this.placedMarker.setMap(null);
+      const lat = e.latLng.lat();
+      const lng = e.latLng.lng();
+      this.clickPosition = { lat, lng };
+      this.placedMarker = new this.maps.Marker({
+        position: this.clickPosition,
+        map: this.map,
+        icon: greenMarker,
+        animation: maps.Animation.DROP,
+      });
+    })
+
     // this.positions will become this.props.trips
 
     // this.markers = this.props.trips.map(trip => {
@@ -94,7 +107,7 @@ class TripsIndexMap extends React.Component {
       this.getPanes().markerLayer.id='marker-layer';
     };
     overlay.setMap(map);
-    setTimeout(this.idMarkers, 100);
+    setTimeout(this.idMarkers, 200);
   }
 
   idMarkers() {
