@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.put('/:id/upload', upload.array("images", 8), passport.authenticate('jwt', {session: false}), async (req, res) => {
-  // try {
+  try {
     const postcard = await Postcard.findById(req.params.id);
 
     if(!postcard){
@@ -48,6 +48,11 @@ router.put('/:id/upload', upload.array("images", 8), passport.authenticate('jwt'
       // res.status(400).json({req: req.body})
     }
 
+    if(req.files){
+      // res.status(400).json({errors: [{files: "Please upload a file"}]})
+      // console.log("hello")
+      res.status(400).json({req: req.files})
+    }
     
     const S3_BUCKET = keys.AWS.dev.bucket;
     const AWS_ACCESS_KEY_ID = keys.AWS.accessKeyId;
@@ -93,10 +98,10 @@ router.put('/:id/upload', upload.array("images", 8), passport.authenticate('jwt'
     });
 
     res.json(postcard);
-  // } catch(err){
-  //   console.log("hello")
-  //   res.json({error: err})
-  // }
+  } catch(err){
+    console.log("hello")
+    res.json({error: err})
+  }
 })
 
 // router.post("/:id/photos", passport.authenticate('jwt', {session: false}), upload.array("images", 8), (req, res) => {
