@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
 import TripsReducer from './trips_reducer';
+import PostcardsReducer from './postcard_reducer';
 
 export default combineReducers({
-  trips: TripsReducer
+  trips: TripsReducer,
+  postcards: PostcardsReducer
 });

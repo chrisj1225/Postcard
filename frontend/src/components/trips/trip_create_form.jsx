@@ -13,7 +13,6 @@ class TripCreateForm extends React.Component{
     e.preventDefault();
     this.props.createTrip(this.state)
       .then((res) => {
-        debugger
         this.props.history.push(`/trips/${res.trip.data._id}`)
       });
   }
