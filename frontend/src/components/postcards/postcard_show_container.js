@@ -4,10 +4,10 @@ import { fetchPostcard } from '../../actions/postcard_actions';				//actions
 import PostCardShow from './postcard_show';				//display component
 
 const mapStateToProps = (state, ownProps) => {
-  debugger
+  // debugger
   return ({
-    postcardId: ownProps.match.params.id,
-    postcard: state.entities.postcards[ownProps.match.params.id],
+    postcardId: ownProps.match.params.postcardId,
+    postcard: state.entities.postcards[ownProps.match.params.postcardId],
   });
 }
 
