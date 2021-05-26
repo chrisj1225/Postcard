@@ -1,6 +1,7 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
+import { limitChars } from '../../../util/func_util';
 
 const randPos = (lt, lg) => {
   let lat, lng;
@@ -13,6 +14,7 @@ const randPos = (lt, lg) => {
 class TripsIndexMap extends React.Component {
   constructor(props) {
     super(props);
+    this.idMarkers = this.idMarkers.bind(this);
 
     this.markers = [];
 
@@ -41,23 +43,38 @@ class TripsIndexMap extends React.Component {
     // this.props.fetchTrips(); ?
   }
 
+  componentWillUnmount() {
+    this.markers.forEach(marker => {
+      this.maps.event.clearInstanceListeners(marker);
+    });
+  }
+
   handleApiLoaded(map, maps) {
-    // can do stuff with map or maps here like make markers
     this.map = map;
     this.maps = maps;
     this.markerPopups = [];
-    
+    this.markers = [];
 
-    this.markers = this.positions.map(position => {
-      return new maps.Marker({ position, map });
-    });
+    // this.positions will become this.props.trips
 
-    this.markers.forEach((marker,i) => {
+    // this.markers = this.props.trips.map(trip => {
+    this.positions.forEach((position, i) => {
+      // const position = { lat: trip.lat, lng: trip.lng };
+      const marker = new maps.Marker({
+        position,
+        map,
+        animation: maps.Animation.DROP,
+        optimized: false,
+      });
       marker.addListener("mouseover", e => {
         const popup = document.getElementById("marker-popup");
         popup.classList.add("active");
         popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
         popup.style.left = e.domEvent.relatedTarget.x - 40 + "px";
+        // const title = document.querySelector("#marker-popup > h3");
+        // const desc = document.querySelector("#marker-popup > p");
+        // title.textContent = `${trip.title}`;
+        // desc.textContent = `${limitChars(trip.description, 20)}`;
         popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
       });
       marker.addListener("mouseout", e => {
@@ -66,8 +83,20 @@ class TripsIndexMap extends React.Component {
       marker.addListener("click", e => {
         this.props.history.push("/trips");
       });
+      this.markers.push(marker);
     });
     
+    const overlay = new maps.OverlayView();
+    overlay.draw = function() {
+      this.getPanes().markerLayer.id='marker-layer';
+    };
+    overlay.setMap(map);
+    setTimeout(this.idMarkers, 100);
+  }
+
+  idMarkers() {
+    const markerImgs = document.querySelectorAll("#marker-layer img");
+    this.positions.forEach((position, i) => markerImgs[i].id = `trip-${i}`);
   }
 
   createMapOptions(maps) {
@@ -80,11 +109,21 @@ class TripsIndexMap extends React.Component {
     }
   }
 
+  click() {
+    const test = document.getElementById("trip-0");
+    if (test) {
+      console.log(test);
+      test.classList.add("focused");
+    }
+  }
+
   render() {
 
     return (
-      <div className="trips-index map-wrapper" style={{ width: "1000px", height: "400px" }}>
+      <div className="trips-index map-wrapper">
         <div id="marker-popup" className="marker-info-wrapper">
+          <h3></h3>
+          <p></p>
         </div>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
@@ -94,8 +133,8 @@ class TripsIndexMap extends React.Component {
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
         >
-          
         </GoogleMapReact>
+        <div id="hello" onClick={this.click}>hello</div>
       </div>
     );
   }

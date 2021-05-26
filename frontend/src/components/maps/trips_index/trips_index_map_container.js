@@ -1,11 +1,12 @@
 import TripsIndexMap from './trips_index_map';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { attachAllTripPos } from '../../../util/selectors';
 
 const mSTP = (state, ownProps) => {
-  const trips = Object.values(state.entities.trips);
+  // const trips = attachAllTripPos(state.trips, state.postcards);
   return {
-    trips,
+    
   }
 };
 
