@@ -1,0 +1,60 @@
+.create-trip-container {
+  @include flex(center, center, column); 
+  background-color: $cream;
+  width: 100vw;
+  position: relative;
+  // @include postcard-border();
+
+  h1 {
+    font-size: 26px;
+    margin: 20px 0;
+    border-bottom: 1px solid slategray;
+  }
+
+
+  form {
+    padding: 40px;
+    @include flex(space-around, center, column); 
+    min-width: 350px;
+    max-width: 650px;
+
+    > label {
+      @include flex(center, flex-start, column); 
+      margin-bottom: 30px;
+      
+      width: 100%;
+      position: relative;
+    }
+    
+    input, textarea {
+      width: 100%;
+      border: none; 
+      margin: 7px 0;
+      padding: 5px 10px;
+
+      @include paper-bounce(); 
+
+      &:active, &:focus  {
+        box-shadow: 0 0 0 2px $red;
+        outline: none; 
+      }
+
+    }
+
+    input[type="submit"] {
+      @include button($red, $cream); 
+      margin: 20px 0;
+    }
+    
+    // errors
+    .errors {
+      color: $red; 
+      font-size: 14px;
+      position: absolute;
+      bottom: -20px;
+    }
+
+
+  }
+
+}

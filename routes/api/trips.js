@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
@@ -13,23 +12,53 @@ const Postcard = require('../../models/Postcard');
 
 router.use('/:tripId/postcards', postcardRouter)
 
-router.get("/", (req, res) => {
-  Trip.find()
-    .sort({date: -1})
-    .then((trips) => {
-      const tripsObj = {}
-      trips.forEach((trip) => {
-        tripsObj[trip.id] = trip
-      })
-      return res.json(tripsObj)
-    })
-    .catch((err) => res.status(400).json({ noTripsFound: "no trips found" }))
+// router.get("/", (req, res) => {
+//   debugger
+//   Trip.find()
+//     .sort({date: -1})
+//     .then((trips) => {
+//       const tripsObj = {}
+//       const pcObj = {}
+//       trips.forEach((trip) => {
+//         tripsObj[trip.id] = trip
+//         Postcard.find({tripId: trip.id})
+//           .sort({date: -1})
+//           .then((postcards) => {
+//             postcards.forEach(postcard => {
+//               pcObj[postcard.id] = postcard
+//               console.log(Object.values(pcObj).length)
+//             })
+//           })
+//       })
+//       console.log(Object.values(pcObj).length)
+//       return res.json({trips: tripsObj, postcards: pcObj})
+//     })
+//     .catch((err) => res.status(400).json({ trips: "no trips found" }))
+// })
+
+router.get("/", async (req, res) => {
+  const trips = await Trip.find().sort({date: -1})
+  const postcards = await Postcard.find().sort({date: -1})
+  const tripsObj = {}
+  const pcObj = {}
+
+  trips.forEach((trip) => {
+    tripsObj[trip.id] = trip
+  })
+  postcards.forEach(postcard => {
+    pcObj[postcard.id] = postcard
+  })
+  return res.json({trips: tripsObj, postcards: pcObj})
 })
 
-router.get("/:id", (req, res) => {
-  Trip.findById(req.params.id)
-    .then((trip) => res.json(trip))
-    .catch((err) => res.status(400).json({ noTripFound: "No Trip found with that ID"}))
+router.get("/:id", async (req, res) => {
+  const trip = await Trip.findById(req.params.id)
+  const pcObj = {}
+  const postcards = await Postcard.find({tripId: trip.id}).sort({date: -1})
+  postcards.forEach(postcard => {
+    pcObj[postcard.id] = postcard
+  })
+  res.json({trip: trip, postcards: pcObj})
 })
 
 router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -124,8 +153,8 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, r
           title: req.body.title,
           body: req.body.body,
           tripId: req.params.tripId,
-          latitude: req.body.latitude,
-          longitude: req.body.longitude,
+          lat: req.body.lat,
+          lng: req.body.lng,
           photos: req.body.photos || []
         })
         newPostcard.save()
@@ -155,8 +184,8 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
             } else{
               postcard.title = req.body.title;
               postcard.body = req.body.body;
-              postcard.latitude = req.body.latitude;
-              postcard.longitude = req.body.longitude;
+              postcard.lat = req.body.lat;
+              postcard.lng = req.body.lng;
               postcard.photos = req.body.photos || [];
               postcard.save()
                 .then((postcard) => res.json(postcard))
