@@ -13,13 +13,13 @@ const PostcardsReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_POSTCARDS:
-      return Object.assign({}, state, action.postcards.data);
+      return Object.assign({}, state, action.postcards);
     case RECEIVE_TRIPS:
-      return Object.assign({}, state, action.trips.data.postcards);
+      return Object.assign({}, state, action.postcards);
     case RECEIVE_TRIP:
-      return action.trip.data.postcards;
+      return Object.assign({}, state, action.postcards);
     case RECEIVE_POSTCARD:
-      return Object.assign({}, state, { [action.postcard.data._id]: action.postcard.data })
+      return Object.assign({}, state, { [action.postcard._id]: action.postcard })
     case REMOVE_POSTCARD:
       let newState = Object.assign({}, state);
       delete newState[action.postcardId];

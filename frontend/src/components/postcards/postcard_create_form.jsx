@@ -1,4 +1,5 @@
 import React from 'react';
+import PostcardCreateMapContainer from '../maps/postcard_create/postcard_create_map_container';
 
 class PostcardCreateForm extends React.Component{
   constructor(props) {
@@ -8,14 +9,21 @@ class PostcardCreateForm extends React.Component{
   
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
+    this.handlePositionInput = this.handlePositionInput.bind(this);
+  }
+
+  handlePositionInput(position) {
+    this.setState({
+      lat: position.lat,
+      lng: position.lng,
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.createPostcard(this.state.tripId, this.state)
       .then((res) => {
-        debugger
-        this.props.history.push(`/postcards/${res.postcard.data._id}`)
+        this.props.history.push(`/postcards/${res.postcard._id}`)
       });
   }
 
@@ -31,6 +39,8 @@ class PostcardCreateForm extends React.Component{
     return(
       <div>
         <div className="create-postcard-container">
+          <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
+          <input type="text" id="cpf-search" />
           <h1>Create New Postcard</h1>
           <form onSubmit={this.handleSubmit}>
             <label>Postcard Title
