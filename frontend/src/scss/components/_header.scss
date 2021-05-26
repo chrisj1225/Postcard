@@ -3,12 +3,14 @@
   padding: $site-margin/2 0;
 
   .logo {
-    font-family: $header-font;
-    font-weight: 800;
-    font-size: 48px; 
-    line-height: 1.2;
-    letter-spacing: 6px;
-    
+    // font-family: $header-font;
+    // font-weight: 800;
+    // font-size: 48px; 
+    // line-height: 1.2;
+    // letter-spacing: 6px;
+    width: 250px;
+    height: auto;
+    cursor: pointer;
   }
   
   > * {
