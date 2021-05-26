@@ -6,7 +6,7 @@ import '../App.scss'
 
 import LandingContainer from './landing/landing_container'; 
 import TripShowContainer from './trips/trip_show_container'; 
-// import PostcardShowContainer from './postcards/postcard_show_container'; 
+import PostcardShowContainer from './postcards/postcard_show_container'; 
 import TripCreateContainer from './trips/trip_create_container';
 import PostcardCreateContainer from './postcards/postcard_create_container';
 // import TripEditContainer from './trips/trip_edit_container';
@@ -25,9 +25,9 @@ const App = () => {
       <ModalContainer />
       <Switch>
         <ProtectedRoute exact path="/trips/:tripId/postcards/new" component={PostcardCreateContainer} />
-        <Route exact path="/trips/:tripId/" component={TripShowContainer} />
-        {/* <Route to="/postcards/:postcardId/" component={PostcardShowContainer} /> */}
         <ProtectedRoute exact path="/trips/new" component={TripCreateContainer} />
+        <Route exact path="/trips/:tripId/" component={TripShowContainer} />
+        <Route exact path="/postcards/:postcardId/" component={PostcardShowContainer} />
         {/* <Route to="/trips/edit" component={TripEditContainer} /> */}
         {/* <Route to="/postcards/new" component={PostcardCreateContainer} /> */}
         {/* <Route to="/postcards/edit" component={PostcardEditContainer} /> */}
