@@ -11,8 +11,8 @@ const mapStateToProps = (state, ownProps) => {
       title: "",
       body: "",
       tripId: tripId,
-      latitude: null,
-      longitude: null,
+      lat: null,
+      lng: null,
       photos: []
     }
   });

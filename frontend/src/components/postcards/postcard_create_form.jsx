@@ -45,15 +45,15 @@ class PostcardCreateForm extends React.Component{
                 rows="10"
                 cols="80" />
             </label>
-            <label>Lat
+            <label>Latitude
               <input 
-                onChange={this.update('latitude')}
-                value={this.state.latitude} />
+                onChange={this.update('lat')}
+                value={this.state.lat} />
             </label>
-            <label>Lng
+            <label>Longitude
               <input 
-                onChange={this.update('longitude')}
-                value={this.state.longitude} />
+                onChange={this.update('lng')}
+                value={this.state.lng} />
             </label>
             <input 
               onClick={this.handleSubmit}
