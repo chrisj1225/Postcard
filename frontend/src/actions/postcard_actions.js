@@ -6,24 +6,24 @@ export const REMOVE_POSTCARD = "REMOVE_POSTCARD";
 export const RECEIVE_POSTCARD_ERRORS = "RECEIVE_POSTCARD_ERRORS";
 export const CLEAR_POSTCARD_ERRORS = "CLEAR_POSTCARD_ERRORS";
 
-export const receivePostcards = postcards => {
+export const receivePostcards = data => {
   return({
     type: RECEIVE_POSTCARDS,
-    postcards
+    postcards: data.postcards,
   })
 }
 
-export const receivePostcard = postcard => {
+export const receivePostcard = data => {
   return({
     type: RECEIVE_POSTCARD,
-    postcard
+    postcard: data.postcard,
   })
 }
 
-export const removePostcard = postcardId => {
+export const removePostcard = data => {
   return({
     type: REMOVE_POSTCARD,
-    postcardId
+    postcardId: data.postcard.id,
   })
 }
 
@@ -44,30 +44,30 @@ export const clearPostcardErrors = () => {
 
 export const fetchTripPostcards = tripId => dispatch => {
   return PostcardAPIUtil.fetchTripPostcards(tripId)
-    .then(postcards => dispatch(receivePostcards(postcards)))
+    .then(res => dispatch(receivePostcards(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
 export const fetchPostcard = postcardId => dispatch => {
   return PostcardAPIUtil.fetchPostcard(postcardId)
-    .then(postcard => dispatch(receivePostcard(postcard)))
+    .then(res => dispatch(receivePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
 export const createPostcard = (tripId, postcard) => dispatch => {
   return PostcardAPIUtil.createPostcard(tripId, postcard)
-    .then(postcard => dispatch(receivePostcard(postcard)))
+    .then(res => dispatch(receivePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
 export const updatePostcard = (tripId, postcard) => dispatch => {
   return PostcardAPIUtil.updatePostcard(tripId, postcard)
-    .then(postcard => dispatch(receivePostcard(postcard)))
+    .then(res => dispatch(receivePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
 export const deleteTrip = (tripId, postcardId) => dispatch => {
   return PostcardAPIUtil.deletePostcard(tripId, postcardId)
-    .then(() => dispatch(removePostcard(postcardId)))
+    .then((res) => dispatch(removePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }

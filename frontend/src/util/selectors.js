@@ -9,7 +9,7 @@ export const attachTripPos = (trip, postcardsState) => {
     tripCopy.lng = lngAvg;
     return tripCopy;
   }
-  return {};
+  return [];
 };
 
 export const attachAllTripPos = (tripsState, postcardsState) => {
@@ -40,7 +40,7 @@ export const attachPhotoTiles = (trip, postcardsState) => {
     tripCopy.photoTiles = firstFourImages;
     return tripCopy;
   }
-  return {};
+  return [];
 };
 
 export const attachAllPhotoTiles = (tripsState, postcardsState) => {
