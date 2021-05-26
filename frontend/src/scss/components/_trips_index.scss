@@ -12,17 +12,33 @@
 
   margin: 0 15px 15px 15px;
   padding: 5px;
-  // min-height: 150px;
   min-height: 300px;
 
-  // @include flex(space-between); 
   display: grid; 
   grid-template-columns: 2fr 3fr;
+
+  transition: box-shadow 150ms, transform 150ms;
+
+  &:hover {
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3); 
+    transform: scale(1.008); 
+  }
+  
 
   section {
     @include flex(flex-start, flex-start, column); 
     height: 100%;
     align-self: flex-start;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+      }
+    }
   }
 
   > div {

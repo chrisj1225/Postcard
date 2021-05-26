@@ -1,12 +1,14 @@
 import React from 'react'; 
+import { Link } from 'react-router-dom'; 
 
 const TripIndexItem = ({ trip }) => {
-
 
   return (
     <div className="trips-index-item">
       <section>
-        <h2>{trip.title}</h2>
+        <Link to={`trips/${trip._id}`}>
+          <h2>{trip.title}</h2>
+        </Link>
         <p>{trip.description}</p>
       </section>
       <div>
