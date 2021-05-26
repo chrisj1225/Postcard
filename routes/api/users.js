@@ -120,5 +120,38 @@ tripRouter.get('/', (req, res) => {
     .catch((err) => res.status(400).json({ trip: "no trips found" }))
 })
 
+router.put('/:userId/follow', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  //takes the userId of the user you want to follow
+  const user = await User.findById(req.user.id);
+  const followedUser = await User.findById(req.params.userId);
+  if(user.following.includes(followedUser.id)){
+    return res.status(400).json("Already following that user")
+  }
+
+
+  user.following = user.following.concat(req.params.userId);
+  user.save()
+    .then((user) => {
+      res.json(user)
+    })
+})
+
+router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}), async (req, res)=>{
+  const user = await User.findById(req.user.id);
+  const followedUser = await User.findById(req.params.userId);
+  if(!user.following.includes(followedUser.id)){
+    return res.status(400).json("Not yet following that user")
+  }
+  let idx = user.following.indexOf(followedUser.id)
+  console.log(idx)
+  console.log(user.following)
+  user.following.splice(idx, 1)
+  console.log(user.following)
+  user.save()
+    .then((user)=>{
+      res.json(user)
+    })
+})
+
 
 module.exports = router;
