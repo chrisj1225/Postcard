@@ -5,7 +5,7 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import '../App.scss'
 
 import LandingContainer from './landing/landing_container'; 
-// import TripShowContainer from './trips/trip_show_container'; 
+import TripShowContainer from './trips/trip_show_container'; 
 // import PostcardShowContainer from './postcards/postcard_show_container'; 
 import TripCreateContainer from './trips/trip_create_container';
 // import TripEditContainer from './trips/trip_edit_container';
@@ -23,15 +23,15 @@ const App = () => {
       <HeaderContainer />
       <ModalContainer />
       <Switch>
-        {/* <Route to="/trips/:tripId/" component={TripsShowContainer} /> */}
+        <Route exact path="/trips/:tripId/" component={TripShowContainer} />
         {/* <Route to="/postcards/:postcardId/" component={PostcardShowContainer} /> */}
-        <ProtectedRoute exact to="/trips/new" component={TripCreateContainer} />
+        <ProtectedRoute exact path="/trips/new" component={TripCreateContainer} />
         {/* <Route to="/trips/edit" component={TripEditContainer} /> */}
         {/* <Route to="/postcards/new" component={PostcardCreateContainer} /> */}
         {/* <Route to="/postcards/edit" component={PostcardEditContainer} /> */}
         {/* <Route to="/login" component={LoginFormContainer} />
         <Route to="/signup" component={SignupFormContainer} /> */}
-        <Route exact to="/trips" component={LandingContainer} />
+        <Route path="/" component={LandingContainer} />
       </Switch>
       {/* <Footer /> */}
     </>

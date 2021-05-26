@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { fetchAllTrips /* fetchFollowedTrips */ } from '../../actions/trip_actions';				//actions
 import Landing from './landing';				//display component
 
@@ -12,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   // fetchFollowedTrips: (userId) => dispatch(fetchFollowedTrips(userId)),
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Landing);
+)(Landing));
