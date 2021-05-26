@@ -2,6 +2,7 @@
 
 .trips-index {
   width: 100%;
+  height: 100%;
 }
 
 .trips-index-item {
@@ -11,7 +12,8 @@
 
   margin: 0 15px 15px 15px;
   padding: 5px;
-  min-height: 150px;
+  // min-height: 150px;
+  min-height: 300px;
 
   // @include flex(space-between); 
   display: grid; 
