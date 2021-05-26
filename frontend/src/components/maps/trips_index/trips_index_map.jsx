@@ -2,6 +2,8 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { limitChars } from '../../../util/func_util';
+import redMarker from '../../../assets/images/spotlight-poi2red.png'
+import greenMarker from '../../../assets/images/spotlight-poi2green.png'
 
 const randPos = (lt, lg) => {
   let lat, lng;
@@ -65,6 +67,7 @@ class TripsIndexMap extends React.Component {
         map,
         animation: maps.Animation.DROP,
         optimized: false,
+        icon: redMarker,
       });
       marker.addListener("mouseover", e => {
         const popup = document.getElementById("marker-popup");
@@ -114,6 +117,7 @@ class TripsIndexMap extends React.Component {
     if (test) {
       console.log(test);
       test.classList.add("focused");
+      test.src = greenMarker;
     }
   }
 
