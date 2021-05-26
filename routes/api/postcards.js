@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
     .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
 })
 
-router.put('/:id/upload', upload.any(), passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.put('/:id/upload', upload.array("images", 8), passport.authenticate('jwt', {session: false}), async (req, res) => {
   // try {
     const postcard = await Postcard.findById(req.params.id);
 
