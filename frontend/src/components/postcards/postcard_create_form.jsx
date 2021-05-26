@@ -4,17 +4,18 @@ class PostcardCreateForm extends React.Component{
   constructor(props) {
     super(props)
 
-    this.state = this.props.newPostcard
+    this.state = this.props.newPostcard;
   
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.update = this.update.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createPostcard(this.state)
+    this.props.createPostcard(this.state.tripId, this.state)
       .then((res) => {
         debugger
-        this.props.history.push(`/trips/${res.postcard.data._tripId}/postcards/${res.postcard.data._id}`)
+        this.props.history.push(`/postcards/${res.postcard.data._id}`)
       });
   }
 

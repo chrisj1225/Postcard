@@ -40,6 +40,8 @@ export const clearPostcardErrors = () => {
   })
 }
 
+// export const fetchAllPostcards = () => dispatch => 
+
 export const fetchTripPostcards = tripId => dispatch => {
   return PostcardAPIUtil.fetchTripPostcards(tripId)
     .then(postcards => dispatch(receivePostcards(postcards)))

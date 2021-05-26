@@ -5,7 +5,7 @@ export const fetchTripPostcards = (tripId) => {
 };
 
 export const fetchPostcard = postcardId => {
-  return axios.get(`/api/postcards/${postcardId}}`);
+  return axios.get(`/api/postcards/${postcardId}`);
 };
 
 export const createPostcard = (tripId, postcard) => {
