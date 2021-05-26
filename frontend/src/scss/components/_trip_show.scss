@@ -30,8 +30,10 @@
   }
 }
 
+$card-width: 450px; 
+
 .postcard-index-item {
-  width: 450px;
+  width: $card-width;
   height: 250px;
   background-color: $yellow;
   border: 3px solid black;
@@ -77,22 +79,23 @@
 }
 
 .arrow {
-  height: auto;
-  width: 170px;
+  position: absolute;
+  width: 15vw;
+  height: 20vh;
 }
 
 .postcard-index-item:first-child > .arrow {
   display: none;
 }
 
-$distance-from-center: -35%;
+$distance-from-center: -20%;
 
 .postcard-index-item:nth-child(even) {
   position: relative;
   right: $distance-from-center;
 
   .arrow {
-    transform: translate(-250px, -10px);
+    transform: translateX(-190%);
   }
 }
 
@@ -101,8 +104,15 @@ $distance-from-center: -35%;
   left: $distance-from-center;
   
   .arrow {
-    transform: scaleX(-1) translate(-350px, -10px); 
+    transform: scaleX(-1) translateX(-300%);
   }
+}
+
+@media only screen and (min-width: 1350px) {
+  .postcard-index-item:nth-child(odd) .arrow {
+    transform: scaleX(-1) translateX(-250%);
+  }
+  
 }
 
 .create-postcard-wrapper.postcard-index-item {  
@@ -113,7 +123,7 @@ $distance-from-center: -35%;
     position: relative;
     border: 4px dashed black;
     height: 100%;
-    width: 100%;
+    width: $card-width; 
 
     @include paper-bounce(); 
     &:hover {
@@ -136,17 +146,5 @@ $distance-from-center: -35%;
   }
   h2 {
     text-decoration: none;
-  }
-
-  .arrow {
-    position: absolute;
-  }
-
-  &.left .arrow {
-    transform: scaleX(-1) translate(-350px, -200px); 
-  }
-  
-  &.right .arrow {
-    transform: translate(-200px, -200px); 
   }
 }

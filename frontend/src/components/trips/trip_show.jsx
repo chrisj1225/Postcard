@@ -21,7 +21,7 @@ class TripShow extends React.Component {
     const { /*postcards,*/ trip, currentUser } = this.props; 
 
     // TESTING *************** also uncomment above
-    let postcards = { 1: 1, 2: 2, 3: 3, 4: 4}; 
+    let postcards = { 1: 1, 2: 2, 3: 3}; 
 
     if (!trip) return null; 
 
@@ -39,12 +39,9 @@ class TripShow extends React.Component {
       )
     }
 
-
-    const side = postcards.length % 2 === 0 ? "left" : "right";
-
     if (currentUser) {
       createPostcardComponent = currentUser.id === trip.travellerId ? (
-        <div className={"create-postcard-wrapper postcard-index-item " + side}>
+        <div className={"create-postcard-wrapper postcard-index-item "}>
           <div className="create-postcard-card">
             <Link to={`/trips/${trip._id}/postcards/new`}>
               <h3>Create New Postcard</h3>
