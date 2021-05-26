@@ -14,28 +14,66 @@
     }
   }
 
+  article {
+    width: 100%;
+    @include flex(flex-start, center, column); 
+  }
+
   .map-wrapper {
     margin: 30px 0;
     width: 90vw;
-    height: 200px;
+    height: 225px;
     position: sticky;
     top: 20px;
     z-index: 1;
     box-shadow: 0 0 0 20px $cream;
   }
-
-
-  article {
-
-  }
 }
 
 .postcard-index-item {
-  width: 300px;
-  height: 200px;
+  width: 450px;
+  height: 250px;
   background-color: $yellow;
-  border: 4px solid black;
+  border: 3px solid black;
   list-style: none;
+
+  display: grid; 
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: "article aside";
+
+  padding: 5px;
+
+  article {
+    grid-area: article;
+    // overflow-y: hidden;
+
+    h2 {
+      font-family: $header-font;
+      font-size: 28px;
+    }
+
+  }
+
+  aside {
+    grid-area: aside;
+
+    @include flex(flex-start, center, column); 
+    text-align: center;
+    white-space: nowrap;
+
+    p {
+      font-size: 14px;
+    }
+
+    img {
+      margin-top: 10px;
+      $width: 85%; 
+      width: $width;
+      height: auto;
+    }
+  }
+
+
 }
 
 .arrow {
@@ -43,10 +81,15 @@
   width: 170px;
 }
 
+.postcard-index-item:first-child > .arrow {
+  display: none;
+}
+
+$distance-from-center: -35%;
 
 .postcard-index-item:nth-child(even) {
   position: relative;
-  right: -60%;
+  right: $distance-from-center;
 
   .arrow {
     transform: translate(-250px, -10px);
@@ -55,7 +98,7 @@
 
 .postcard-index-item:nth-child(odd) {
   position: relative;
-  left: -60%;
+  left: $distance-from-center;
   
   .arrow {
     transform: scaleX(-1) translate(-350px, -10px); 

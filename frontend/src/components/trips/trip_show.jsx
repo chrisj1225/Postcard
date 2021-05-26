@@ -18,7 +18,10 @@ class TripShow extends React.Component {
   }
 
   render() {
-    const { postcards, trip, currentUser } = this.props; 
+    const { /*postcards,*/ trip, currentUser } = this.props; 
+
+    // TESTING *************** also uncomment above
+    let postcards = { 1: 1, 2: 2, 3: 3, 4: 4}; 
 
     if (!trip) return null; 
 
@@ -26,23 +29,18 @@ class TripShow extends React.Component {
 
     let createPostcardComponent; 
 
-    debugger // is it trip.id or trip._id?
-
-    // if (!postcards) {
-    //   return (
-    //     <section>
-    //       <h2>There aren't any postcards here yet.</h2>
-    //       <h3>Make a postcard</h3>
-    //       <AddButton />
-    //     </section>
-    //   )
-    // }
+    if (!postcards) {
+      return (
+        <section>
+          <h2>There aren't any postcards here yet.</h2>
+          <h3>Make a postcard</h3>
+          <AddButton />
+        </section>
+      )
+    }
 
 
-    // const side = postcards.length % 2 === 0 ? "left" : "right";
-
-    // UNTIL POSTCARDS ARE IMPLEMENTED 
-    const side = "right"
+    const side = postcards.length % 2 === 0 ? "left" : "right";
 
     if (currentUser) {
       createPostcardComponent = currentUser.id === trip.travellerId ? (
@@ -67,22 +65,7 @@ class TripShow extends React.Component {
         </section>
         <TripShowMap postcards={postcards} />
         <article>
-          {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
-          <li className="postcard-index-item">
-            <div></div>
-          </li>
-          <li className="postcard-index-item">
-            { arrowComponent }
-            <div></div>
-          </li>
-          <li className="postcard-index-item">
-            { arrowComponent }
-            <div></div>
-          </li>
-          {/* <li className="postcard-index-item">
-            { arrowComponent }
-            <div></div>
-          </li> */}
+          { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard} arrow={arrowComponent}/> ) }
           { createPostcardComponent }
         </article>
       </main>
