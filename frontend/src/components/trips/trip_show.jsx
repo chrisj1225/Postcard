@@ -1,7 +1,12 @@
 import React from 'react'; 
+import { Link } from 'react-router-dom'; 
 
 import PostcardIndexItem from '../postcards/postcards_index_item'; 
-import TripShowMap from '../maps/trip_show/trip_show_map_container'; 
+import TripShowMap from '../maps/trip_show/trip_show_map_container';
+import AddButton from '../util/add_button'; 
+
+import arrow from '../../assets/images/arrow.png'; 
+
 
 class TripShow extends React.Component {
   constructor(props) {
@@ -17,11 +22,42 @@ class TripShow extends React.Component {
 
     if (!trip) return null; 
 
-    const createCardComponent = currentUser.id === trip.travellerId ? (
-      <div></div>
-    ) : null; 
+    const arrowComponent = <img className="arrow" src={arrow} alt=""/>
 
-    debugger
+    let createPostcardComponent; 
+
+    debugger // is it trip.id or trip._id?
+
+    // if (!postcards) {
+    //   return (
+    //     <section>
+    //       <h2>There aren't any postcards here yet.</h2>
+    //       <h3>Make a postcard</h3>
+    //       <AddButton />
+    //     </section>
+    //   )
+    // }
+
+
+    // const side = postcards.length % 2 === 0 ? "left" : "right";
+
+    // UNTIL POSTCARDS ARE IMPLEMENTED 
+    const side = "right"
+
+    if (currentUser) {
+      createPostcardComponent = currentUser.id === trip.travellerId ? (
+        <div className={"create-postcard-wrapper postcard-index-item " + side}>
+          <div className="create-postcard-card">
+            <Link to={`/trips/${trip._id}/postcards/new`}>
+              <h3>Create New Postcard</h3>
+            </Link>
+            <AddButton />
+          </div>
+          { arrowComponent }
+        </div>
+      ) : null; 
+    }
+
 
     return (
       <main className="trip-show-wrapper">
@@ -32,10 +68,22 @@ class TripShow extends React.Component {
         <TripShowMap postcards={postcards} />
         <article>
           {/* { Object.values(postcards).map(postcard => <PostcardIndexItem postcard={postcard}/> ) } */}
-          <div className="postcard-index-item"></div>
-          <div className="postcard-index-item"></div>
-          <div className="postcard-index-item"></div>
-          <div className="postcard-index-item"></div>
+          <li className="postcard-index-item">
+            <div></div>
+          </li>
+          <li className="postcard-index-item">
+            { arrowComponent }
+            <div></div>
+          </li>
+          <li className="postcard-index-item">
+            { arrowComponent }
+            <div></div>
+          </li>
+          {/* <li className="postcard-index-item">
+            { arrowComponent }
+            <div></div>
+          </li> */}
+          { createPostcardComponent }
         </article>
       </main>
     )
