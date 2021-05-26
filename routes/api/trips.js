@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
@@ -23,13 +22,13 @@ router.get("/", (req, res) => {
       })
       return res.json(tripsObj)
     })
-    .catch((err) => res.status(400).json({ noTripsFound: "no trips found" }))
+    .catch((err) => res.status(400).json({ trips: "no trips found" }))
 })
 
 router.get("/:id", (req, res) => {
   Trip.findById(req.params.id)
     .then((trip) => res.json(trip))
-    .catch((err) => res.status(400).json({ noTripFound: "No Trip found with that ID"}))
+    .catch((err) => res.status(400).json({ trips: "No Trip found with that ID"}))
 })
 
 router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -124,8 +123,8 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, r
           title: req.body.title,
           body: req.body.body,
           tripId: req.params.tripId,
-          latitude: req.body.latitude,
-          longitude: req.body.longitude,
+          lat: req.body.lat,
+          lng: req.body.lng,
           photos: req.body.photos || []
         })
         newPostcard.save()
@@ -155,8 +154,8 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
             } else{
               postcard.title = req.body.title;
               postcard.body = req.body.body;
-              postcard.latitude = req.body.latitude;
-              postcard.longitude = req.body.longitude;
+              postcard.lat = req.body.lat;
+              postcard.lng = req.body.lng;
               postcard.photos = req.body.photos || [];
               postcard.save()
                 .then((postcard) => res.json(postcard))

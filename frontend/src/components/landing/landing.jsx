@@ -32,17 +32,17 @@ class Landing extends React.Component {
 
   render() {
     const { trips } = this.props; 
-    
+
     return (
       <div className="landing-container">
         <TripsIndexMapContainer trips={trips} />
         <aside>
           <div className="filter-dropdown">
-            <a className="filter-button">{this.state.followed ? "All" : "Followed"}</a>
+            <a className="filter-button">{this.state.followed ? "Followed" : "All"}</a>
           </div>
           <TripsIndex trips={trips} />
-          <AddButton handleClick={this.handleClick}/>
         </aside>
+        <AddButton handleClick={this.handleClick}/>
       </div>
     )
   }

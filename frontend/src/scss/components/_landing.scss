@@ -6,17 +6,41 @@ $body-height: 70vh;
   gap: 20px; 
   margin: $site-margin;
   height: $body-height;
+  position: relative;
 
   aside {
     @include flex($flex-direction: column); 
     background-color: $yellow;
-    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
-    .add-btn {
-      position: absolute;
-      bottom: -($add-btn-radius/2.8);
-      right: -($add-btn-radius/2.8);
+    &::-webkit-scrollbar {
+      transition: background-color 1s;
+      background-color: $yellow;
+      width: 20px;
     }
+
+    &:hover {
+      &::-webkit-scrollbar {
+        border: 1px solid rgba(0,0,0,0.2);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: $blue;
+        border-radius: 5px; 
+        border: 1px solid rgba(0,0,0,0.2);
+      }
+    }
+
+    
+    
+  }
+  
+
+  .add-btn {
+    position: absolute;
+    bottom: -($add-btn-radius/2.5);
+    right: -($add-btn-radius/4);
   }
 }
 
