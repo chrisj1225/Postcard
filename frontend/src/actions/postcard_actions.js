@@ -13,17 +13,17 @@ export const receivePostcards = data => {
   })
 }
 
-export const receivePostcard = data => {
+export const receivePostcard = postcard => {
   return({
     type: RECEIVE_POSTCARD,
-    postcard: data.postcard,
+    postcard,
   })
 }
 
-export const removePostcard = data => {
+export const removePostcard = postcard => {
   return({
     type: REMOVE_POSTCARD,
-    postcardId: data.postcard.id,
+    postcardId: postcard.id,
   })
 }
 
