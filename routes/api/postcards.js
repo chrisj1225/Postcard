@@ -48,21 +48,21 @@ router.put('/:id/upload', upload.array("images", 8), passport.authenticate('jwt'
       // res.status(400).json({req: req.body})
     }
 
-    if(req.files){
-      // res.status(400).json({errors: [{files: "Please upload a file"}]})
-      // console.log("hello")
-      res.status(400).json({req: req.files})
-    }
+    // if(req.files){
+    //   // res.status(400).json({errors: [{files: "Please upload a file"}]})
+    //   // console.log("hello")
+    //   res.status(400).json({req: req.files})
+    // }
     
-    const S3_BUCKET = keys.AWS.dev.bucket;
-    const AWS_ACCESS_KEY_ID = keys.AWS.accessKeyId;
-    const AWS_SECRET_ACCESS_KEY = keys.AWS.secretAccessKey;
-    const s3 = new AWS.S3();
+    // const S3_BUCKET = keys.AWS.dev.bucket;
+    // const AWS_ACCESS_KEY_ID = keys.AWS.accessKeyId;
+    // const AWS_SECRET_ACCESS_KEY = keys.AWS.secretAccessKey;
+    // const s3 = new AWS.S3();
     
-    AWS.config.update({
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY
-    })
+    // AWS.config.update({
+    //   accessKeyId: AWS_ACCESS_KEY_ID,
+    //   secretAccessKey: AWS_SECRET_ACCESS_KEY
+    // })
     
     
     const files = req.files;
