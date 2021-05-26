@@ -3,9 +3,11 @@
   z-index: 10;
   position: absolute; 
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
+  // bottom: 0;
+  // right: 0;
+  width: 110vw;
+  height: 110vh;
   background-color: rgba(0,0,0,0.7);
   @include flex(center, center); 
 }
