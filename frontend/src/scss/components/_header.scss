@@ -60,24 +60,3 @@
     margin-left: 15px;
   }
 }
-
-#marker-popup {
-  position: absolute;
-  display: none;
-  background-color: #fff;
-  width: auto;
-  height: 50px;
-  font-size: 12px;
-  border-radius: 7px;
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
-  box-shadow: 1px 1px 5px #00000046;
-
-  &.active {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    z-index: 100;
-  }
-
-}

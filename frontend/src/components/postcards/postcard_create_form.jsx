@@ -40,7 +40,7 @@ class PostcardCreateForm extends React.Component{
       <div>
         <div className="create-postcard-container">
           <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
-          <input type="text" id="cpf-search" />
+          <input type="text" id="cpf-search" style={{visibility: "hidden", position: "absolute"}}/>
           <h1>Create New Postcard</h1>
           <form onSubmit={this.handleSubmit}>
             <label>Postcard Title

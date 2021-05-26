@@ -82,19 +82,18 @@ class TripsIndexMap extends React.Component {
         optimized: false,
         icon: redMarker,
       });
+      const infoWindow = new this.maps.InfoWindow({
+
+      });
       marker.addListener("mouseover", e => {
-        const popup = document.getElementById("marker-popup");
-        popup.classList.add("active");
-        popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
-        popup.style.left = e.domEvent.relatedTarget.x - 40 + "px";
+        
         // const title = document.querySelector("#marker-popup > h3");
         // const desc = document.querySelector("#marker-popup > p");
         // title.textContent = `${trip.title}`;
         // desc.textContent = `${limitChars(trip.description, 20)}`;
-        popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
+        // popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
       });
       marker.addListener("mouseout", e => {
-        document.getElementById("marker-popup").classList.remove("active");
       });
       marker.addListener("click", e => {
         this.props.history.push("/trips");
