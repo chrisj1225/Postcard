@@ -5,7 +5,28 @@
   section {
     width: 90vw;
 
+    a {
+      font-style: italic;
+      position: absolute;
+      transition: font-size 200ms;
+      color: $blue;
+      font-size: 15px;
+
+      &:hover {
+        font-size: 16px;
+        text-decoration-thickness: 1px;
+      }
+      &:visited {
+        color: $blue;
+      }
+  
+      &:active, &:focus {
+        color: $red; 
+      }  
+    }
+
     h1 {
+      margin-top: 20px;
       font-size: 40px;
       font-family: $header-font;
     }
@@ -58,7 +79,7 @@ $card-width: 450px;
         color: darken($blue, 10%); 
         transform: scale(1.05);
       }
-        
+
       &:active, &:focus {
         color: $red; 
       }

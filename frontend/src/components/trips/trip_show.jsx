@@ -56,6 +56,7 @@ class TripShow extends React.Component {
     return (
       <main className="trip-show-wrapper">
         <section>
+          <Link to="/">Back to trips</Link>
           <h1>{trip.title}</h1>
           <p>{trip.description}</p>
         </section>
