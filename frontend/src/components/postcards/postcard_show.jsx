@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-import PostcardImage from './postcard_image'; 
+// import PostcardImage from './postcard_image'; 
 
 class PostcardShow extends React.Component{
   constructor(props){
@@ -8,13 +8,17 @@ class PostcardShow extends React.Component{
 
   }
 
+  componentDidMount() {
+    this.props.fetchPostcard(this.props.postcardId)
+  }
+
   render() {
     const { postcard } = this.props; 
-
+    debugger
     return (
       <div>Postcard Show Page
-        {/* <h1>{postcard.title}</h1> */}
-        {/* <p>{postcard.body}</p> */}
+        <h1>{postcard.title}</h1>
+        <p>{postcard.body}</p>
         {/* { postcard.images.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) } */}
       </div>
     )
