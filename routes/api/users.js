@@ -153,5 +153,18 @@ router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}
     })
 })
 
+router.get('/follows', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const currentUser = await User.findById(req.user.id);
+  let followedUsers = {}
+  for(let i = 0; i < currentUser.following.length; i++){
+    let followId = currentUser.following[i];
+    let followUser = await User.findById(followId);
+    followedUsers[followId] = followUser;
+  }
+  // currentUser.following.forEach(follow=>{
+  //   followedUsers[follow.id] = follow
+  // })
+  res.json({followedUsers: followedUsers})
+})
 
 module.exports = router;
