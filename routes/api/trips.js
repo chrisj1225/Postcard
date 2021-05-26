@@ -76,7 +76,7 @@ router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
   })
 
   newTrip.save()
-    .then((trip) => res.json(trip))
+    .then((trip) => res.json({trip: trip}))
     .catch((err) => res.json(err))
 })
 
@@ -101,7 +101,7 @@ router.patch("/:id", passport.authenticate('jwt', {session: false}), (req, res) 
         trip.title = req.body.title;
         trip.description = req.body.description;
         trip.save()
-          .then((trip) => res.json(trip))
+          .then((trip) => res.json({trip: tripId}))
       }
     }) 
 })
@@ -115,7 +115,7 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req, res)
         return res.status(400).json({user: "You do not have permission to delete this trip"});
       } else{
         trip.delete()
-        .then((trip) => res.json(trip))
+        .then((trip) => res.json({trip: trip}))
       }
     })
 })
