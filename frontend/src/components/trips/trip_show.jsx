@@ -9,7 +9,7 @@ class TripShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchTripPostcards(this.props.tripId)
+    this.props.fetchTrip(this.props.tripId)
   }
 
   render() {
