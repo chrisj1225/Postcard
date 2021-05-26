@@ -4,6 +4,12 @@ import SignupFormContainer from '../session/signup_form_container';
 
 const Modal = ({ modalName, closeModal }) => {
 
+  const handleModal = () => {
+    document.body.style.overflow = 'unset';
+    closeModal();
+  }
+
+
   if (!modalName) return null; 
   
   let component; 
@@ -22,7 +28,7 @@ const Modal = ({ modalName, closeModal }) => {
   }
 
   return (
-    <div className="modal-container" onClick={closeModal}>
+    <div className="modal-container" onClick={handleModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>
         { component }
       </div>

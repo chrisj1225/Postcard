@@ -30,13 +30,16 @@ class LoginForm extends React.Component {
     };
 
     this.props.login(user)
-      .then(this.props.history.push('/landing'))
+      .then( () => {
+        document.body.style.overflow = 'unset';
+        this.props.history.push('/landing'); 
+      })
   }
 
   handleDemoLogin(e) {
     e.preventDefault();
     const demoUser = { email: 'demo@mail.com', password: 'password' }; 
-    this.props.login(demoUser); 
+    this.props.login(demoUser).then(() => document.body.style.overflow = 'unset'); 
   }
 
   render() {

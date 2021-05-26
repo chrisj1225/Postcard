@@ -12,10 +12,18 @@ class Header extends React.Component {
     this.state = { filled: false }; 
 
     this.toggleFilled = this.toggleFilled.bind(this); 
+    this.openModal = this.openModal.bind(this)
   }
 
   toggleFilled() {
     this.setState({filled: !this.state.filled})
+  }
+
+  openModal(type) {
+    return () => {
+      document.body.style.overflow = 'hidden';
+      this.props.openModal(type); 
+    }
   }
 
   render() {
@@ -25,8 +33,8 @@ class Header extends React.Component {
       </>
     ) : (
       <>
-        <button onClick={() => this.props.openModal("signup")}>Signup</button>
-        <button onClick={() => this.props.openModal("login")}>Login</button>
+        <button onClick={this.openModal("signup")}>Signup</button>
+        <button onClick={this.openModal("login")}>Login</button>
       </>
     )
 
