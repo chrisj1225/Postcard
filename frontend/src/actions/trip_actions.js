@@ -15,7 +15,6 @@ export const receiveTrips = data => {
 }
 
 export const receiveTrip = data => {
-  debugger
   return({
     type: RECEIVE_TRIP,
     trip: data.trip,
