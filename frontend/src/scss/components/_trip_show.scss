@@ -58,6 +58,10 @@ $card-width: 450px;
         color: darken($blue, 10%); 
         transform: scale(1.05);
       }
+        
+      &:active, &:focus {
+        color: $red; 
+      }
     }
 
     h2 {
