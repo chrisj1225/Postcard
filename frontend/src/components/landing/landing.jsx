@@ -14,7 +14,7 @@ class Landing extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchAllTrips()
+    this.props.fetchAllTrips();
   }
 
   toggleFollowed() {
@@ -32,7 +32,6 @@ class Landing extends React.Component {
       this.props.openModal("login"); 
     }
   }
-
 
   render() {
     const { trips } = this.props; 

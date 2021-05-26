@@ -6,7 +6,8 @@ import Landing from './landing';				//display component
 
 const mapStateToProps = (state) => ({
   trips: state.entities.trips,
-  loggedIn: state.session.isAuthenticated
+  loggedIn: state.session.isAuthenticated,
+  postcards: state.entities.postcards
   // currentUserId: state.session.id, 
 });
 
