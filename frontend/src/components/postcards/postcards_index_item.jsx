@@ -1,4 +1,6 @@
 import React from 'react'; 
+import { Link } from 'react-router-dom'; 
+
 import { limitChars } from '../../util/func_util'; 
 
 // TESTING
@@ -11,7 +13,9 @@ const PostcardsIndexItem = (props) => {
     <div className="postcard-index-item">
       {/* test data */}
       <article>
-        <h2>{postcard.title}</h2>
+        <Link to={`/postcards/${postcard._id}`}>
+          <h2>{postcard.title}</h2>
+        </Link>
         <p>{ limitChars(postcard.body, 215)}</p>
       </article>
       <aside>

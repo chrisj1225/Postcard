@@ -32,7 +32,10 @@ class SignupForm extends React.Component {
     };
 
     this.props.signup(user)
-      .then(this.props.history.push('/landing'))
+      .then( () => {
+        document.body.style.overflow = 'unset';
+        this.props.history.push('/landing'); 
+      })
   }
 
   render() {

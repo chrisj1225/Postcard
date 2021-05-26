@@ -49,6 +49,17 @@ $card-width: 450px;
     grid-area: article;
     // overflow-y: hidden;
 
+    a {
+      color: black; 
+      text-decoration: none;
+      transition: color 150ms, transform 150ms;
+
+      &:hover {
+        color: darken($blue, 10%); 
+        transform: scale(1.05);
+      }
+    }
+
     h2 {
       font-family: $header-font;
       font-size: 28px;
