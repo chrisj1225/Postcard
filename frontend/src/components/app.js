@@ -23,9 +23,9 @@ const App = () => {
       <HeaderContainer />
       <ModalContainer />
       <Switch>
+        <ProtectedRoute exact path="/trips/new" component={TripCreateContainer} />
         <Route exact path="/trips/:tripId/" component={TripShowContainer} />
         {/* <Route to="/postcards/:postcardId/" component={PostcardShowContainer} /> */}
-        <ProtectedRoute exact path="/trips/new" component={TripCreateContainer} />
         {/* <Route to="/trips/edit" component={TripEditContainer} /> */}
         {/* <Route to="/postcards/new" component={PostcardCreateContainer} /> */}
         {/* <Route to="/postcards/edit" component={PostcardEditContainer} /> */}
