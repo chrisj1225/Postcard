@@ -2,7 +2,8 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { limitChars } from '../../../util/func_util';
 import { attachTripPos } from '../../../util/selectors';
-import redMarker from '../../../assets/images/spotlight-poi2red.png'
+import redMarker from '../../../assets/images/spotlight-poi2red.png';
+import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 
 
 class TripShowMap extends React.Component {
@@ -23,7 +24,6 @@ class TripShowMap extends React.Component {
     const postcards = Object.values(Object.assign({}, this.props.postcards));
     this.postcards = postcards.filter(postcard => postcard.tripId === this.props.trip._id);
     this.center = { lat, lng };
-    debugger
     this.zoom = 8;
   }
 
@@ -31,23 +31,38 @@ class TripShowMap extends React.Component {
     this.markers.forEach(marker => {
       this.maps.event.clearInstanceListeners(marker);
     });
+    let postcardItems = document.getElementsByClassName("postcard-index-item");
+    postcardItems = Array.from(postcardItems);
+    postcardItems.forEach(postcardItem => {
+      postcardItem.removeEventListener("mouseenter", () => true);
+      postcardItem.removeEventListener("mouseleave", () => true);
+    });
+
   }
 
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
-    this.markerPopups = [];
-    this.markers = [];
-    const bounds = new this.maps.LatLngBounds();
+    this.bounds = new this.maps.LatLngBounds();
 
     if (this.postcards.length) {
 
       this.postcards.forEach(postcard => {
 
-        if (postcard.lat > 180 || postcard.lng > 180) return;
-        const position = { lat: parseFloat(postcard.lat.$numberDecimal), lng: parseFloat(postcard.lng.$numberDecimal) };
-        bounds.extend(position);
-        debugger
+        if (
+          parseFloat(postcard.lat.$numberDecimal) > 180 || 
+          parseFloat(postcard.lng.$numberDecimal) > 180
+          ) return;
+
+        const position = {
+          lat: parseFloat(postcard.lat.$numberDecimal),
+          lng: parseFloat(postcard.lng.$numberDecimal)
+        };
+
+        // add position to bounds
+        this.bounds.extend(position);
+
+        // create marker
         const marker = new maps.Marker({
           position,
           map,
@@ -55,33 +70,50 @@ class TripShowMap extends React.Component {
           optimized: false,
           icon: redMarker,
         });
-        this.markers.push(marker);
+        
 
-        const content =
-          '<div id="index-info-content-wrapper">' +
-          '<h1 class="postcard-title-info">' +
-          `${postcard.title}` + '</h1>' +
-          '<p class="postcard-desc-info">' +
-          `${postcard.body}` + '</p>' +
-          '</div>';
+        // event listener for hovering the markers
 
-        const infoWindow = new this.maps.InfoWindow({
-          content
-        });
         marker.addListener("mouseover", e => {
-          infoWindow.open(map, marker);
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
+          const postcardItem = document.getElementById(`postcard-item-${postcard._id}`);
+          postcardItem.scrollIntoView({ behavior: "smooth", block: "center" });
+          postcardItem.classList.add("focused");
         });
         marker.addListener("mouseout", e => {
-          infoWindow.close();
+          const postcardItem = document.getElementById(`postcard-item-${postcard._id}`);
+          postcardItem.classList.remove("focused");
         });
+        
+        // event listener for clicking the marker
         marker.addListener("click", e => {
-          this.props.history.push(`/trips/${postcard._id}`);
+          this.props.history.push(`/postcards/${postcard._id}`);
         });
+
+        // event listeners for hovering the trips list item
+        document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseenter", () =>{
+          let lat, lng;
+          lat = marker.position.lat();
+          lng = marker.position.lng();
+          this.map.panTo({ lat,lng })
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
+          marker.setAnimation(this.maps.Animation.BOUNCE);
+        });
+
+        document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseleave", () =>{
+          marker.setAnimation(null);
+        });
+
+        ///////////////////////////////////////////////////////
+
+        // add marker to state markers
         this.markers.push(marker);
-        return true;
       });
-      this.map.fitBounds(bounds);
+      this.map.fitBounds(this.bounds);
       if (this.postcards.length === 1) this.map.setZoom(15);
+      
       
       const overlay = new maps.OverlayView();
       overlay.draw = function() {

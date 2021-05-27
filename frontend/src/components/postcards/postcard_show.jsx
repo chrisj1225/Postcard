@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 
-import PostcardShowMapContainer from '../maps/postcard_show/postcard_show_map_container';
+import PostcardShowMap from '../maps/postcard_show/postcard_show_map';
 
 // import PostcardImage from './postcard_image'; 
 
@@ -31,7 +31,7 @@ class PostcardShow extends React.Component{
             <p>{postcard.body}</p>
           </section>
           <aside>
-            { <PostcardShowMapContainer postcard={postcard} /> }
+            { <PostcardShowMap postcard={postcard} /> }
           </aside>
         </header>
         <main>

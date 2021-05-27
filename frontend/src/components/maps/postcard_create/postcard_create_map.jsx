@@ -162,6 +162,7 @@ class TripsIndexMap extends React.Component {
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
         >
+          <input type="text" id="cpf-search" placeholder="Search for a destination" />
         </GoogleMapReact>
       </div>
     );

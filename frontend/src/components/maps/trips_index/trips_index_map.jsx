@@ -9,7 +9,6 @@ import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 class TripsIndexMap extends React.Component {
   constructor(props) {
     super(props);
-    this.idMarkers = this.idMarkers.bind(this);
 
     this.markers = [];
     this.trips = [];
@@ -25,11 +24,31 @@ class TripsIndexMap extends React.Component {
     this.markers.forEach(marker => {
       this.maps.event.clearInstanceListeners(marker);
     });
+    let tripItems = document.getElementsByClassName("trips-index-item");
+    tripItems = Array.from(tripItems);
+    debugger
+    tripItems.forEach(tripItem => {
+      tripItem.removeEventListener("mouseenter", () => true);
+      tripItem.removeEventListener("mouseleave", () => true);
+    });
+    
   }
+
+  animateZoomTo(targetZoom) {
+    const currentZoom = this.map.getZoom();
+    if (!currentZoom === targetZoom) {
+      this.maps.event.addListener(this.map, 'zoom_changed', e => {
+        this.animateMapZoomTo(targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
+      });
+      setTimeout(() => this.map.setZoom(currentZoom), 80);
+    }
+  };
 
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
+
+    
 
     if (this.tripsWithPos.length) {
 
@@ -68,6 +87,8 @@ class TripsIndexMap extends React.Component {
         
         // event listener for hovering the markers
         marker.addListener("mouseover", e => {
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
           infoWindow.open(map, marker);
           const tripItem = document.getElementById(`trip-item-${trip._id}`);
           tripItem.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -86,18 +107,32 @@ class TripsIndexMap extends React.Component {
 
         // event listeners for hovering the trips list item
         document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseenter", () =>{
+          let lat, lng, position;
+          lat = marker.position.lat();
+          lng = marker.position.lng();
+          position = { lat,lng }
           this.markers.forEach(m => m.setIcon(redMarker));
           marker.setIcon(greenMarker);
+          this.map.panTo(position);
+          if (this.center !== position) {
+            this.center = position;
+            setTimeout(() => {
+              this.map.setZoom(6);
+            }, 200);
+          } else {
+            this.map.setZoom(6);
+          }
+          
           marker.setAnimation(this.maps.Animation.BOUNCE);
         });
 
         document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", () =>{
           marker.setAnimation(null);
+          this.map.setZoom(0);
         });
 
         // add the marker to the array after we're done with it
         this.markers.push(marker);
-        return true;
       });
       
 
@@ -107,13 +142,7 @@ class TripsIndexMap extends React.Component {
         this.getPanes().markerLayer.id='marker-layer';
       };
       overlay.setMap(map);
-      setTimeout(this.idMarkers, 200);
     }
-  }
-
-  idMarkers() {
-    const markerImgs = document.querySelectorAll("#marker-layer img");
-    this.trips.forEach((trip, i) => markerImgs[i].id = `trip-${trip._id}`);
   }
 
   createMapOptions(maps) {
