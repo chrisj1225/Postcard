@@ -9,6 +9,7 @@ import stamp from '../../assets/images/blue-stamp.png'
 const PostcardsIndexItem = (props) => {
   const { postcard, arrow } = props; 
 
+  debugger
   return (
     <div className="postcard-index-item">
       {/* test data */}
@@ -20,15 +21,10 @@ const PostcardsIndexItem = (props) => {
       </article>
       <aside>
         <p>{postcard.lat.$numberDecimal}, {postcard.lng.$numberDecimal}</p>
-        <img src={stamp} alt=""/>
+        <img src={postcard.photos.imageUrl || stamp} alt="Postcard image"/> 
       </aside>
       { arrow }
 
-      {/* <h2>{postcard.title}</h2>
-      <p>{limitChars(postcard.body, 120)}</p>
-      <img src={postcard.imageUrl} alt=""/> 
-      { `${postcard.pos.lat}, ${postcard.pos.lng}` }
-      */}
     </div>
   )
 }; 
