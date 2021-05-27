@@ -17,7 +17,7 @@ export const createTrip = trip => {
 };
 
 export const updateTrip = trip => {
-  return axios.patch(`/api/trips/${trip.id}`, trip);
+  return axios.patch(`/api/trips/${trip._id}`, trip);
 }
 
 export const deleteTrip = tripId => {
