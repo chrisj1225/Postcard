@@ -17,7 +17,12 @@ export const updatePostcard = (tripId, postcard) => {
 };
 
 export const updatePostcardPhotos = (postcardId, photos) => {
-  return axios.post(`/api/postcards/${postcardId}/upload`, photos)
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  return axios.post(`/api/postcards/${postcardId}/upload`, photos, config)
 }
 
 export const deletePostcard = (tripId, postcardId) => {

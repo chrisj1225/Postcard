@@ -32,7 +32,9 @@ class PostcardShow extends React.Component{
     e.preventDefault();
     let formData = new FormData();
 
-    formData = formData.append("images", this.state.files);
+    for (const file of this.state.files) {
+      formData.append("images", file);
+    }
     debugger
     this.props.updatePostcardPhotos(this.props.postcardId, formData);
 
