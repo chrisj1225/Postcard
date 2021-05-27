@@ -5,8 +5,13 @@ export const attachTripPos = (trip, postcardsState) => {
     const tripPostcards = postcards.filter(postcard => postcard.tripId === trip.id);
     const latAvg = tripPostcards.reduce((total, postcard) => total + postcard.lat, 0)/tripPostcards.length;
     const lngAvg = tripPostcards.reduce((total, postcard) => total + postcard.lng, 0)/tripPostcards.length;
-    tripCopy.lat = latAvg;
-    tripCopy.lng = lngAvg;
+    if (latAvg && lngAvg) {
+      tripCopy.lng = lngAvg;
+      tripCopy.lat = latAvg;
+    } else {
+      tripCopy.lng = 23.68437587797855;
+      tripCopy.lat = -3.202092257879451;
+    }
     return tripCopy;
   }
   return [];
