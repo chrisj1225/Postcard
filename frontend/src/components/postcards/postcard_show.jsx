@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 import PostcardShowMapContainer from '../maps/postcard_show/postcard_show_map_container';
-
-// import PostcardImage from './postcard_image'; 
+import PostcardImage from './postcard_image'; 
 
 class PostcardShow extends React.Component{
   constructor(props){
@@ -21,7 +20,7 @@ class PostcardShow extends React.Component{
 
     if (!postcard) return null; 
 
-    // debugger
+    debugger
     return (
       <div className="postcard-show-wrapper">
         <header>
@@ -35,7 +34,9 @@ class PostcardShow extends React.Component{
           </aside>
         </header>
         <main>
-          {/* { postcard.images.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) } */}
+          <ul role="list">
+            { postcard.photos.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) }
+          </ul>
         </main>
       </div>
     )

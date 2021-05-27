@@ -1,8 +1,13 @@
 import React from 'react'; 
 
-const PostcardImage = (props) => {
+const PostcardImage = ({ imageUrl }) => {
+  debugger
   return(
-    <img src="#" alt="postcard image"/>
+    <li className="postcard-image-item-wrapper">
+      <div>
+        <img src={imageUrl} alt="postcard image" className="postcard-image"/>
+      </div>
+    </li>
   )
 }; 
 
