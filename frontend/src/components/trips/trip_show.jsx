@@ -52,7 +52,6 @@ class TripShow extends React.Component {
       ) : null; 
     };
 
-
     return (
       <main className="trip-show-wrapper">
         <section>
@@ -63,7 +62,7 @@ class TripShow extends React.Component {
         <TripShowMap postcards={postcards} />
         <article>
           { Object.values(postcards).map(postcard => <PostcardIndexItem 
-            key={postcard.id} 
+            key={postcard._id} 
             postcard={postcard} 
             arrow={arrowComponent}/> ) }
           { createPostcardComponent }
