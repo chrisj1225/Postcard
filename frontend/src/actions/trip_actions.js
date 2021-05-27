@@ -10,12 +10,11 @@ export const RECEIVE_NEW_TRIP = "RECEIVE_NEW_TRIP";
 export const receiveTrips = data => {
   return({
     type: RECEIVE_TRIPS,
-    trips: data.trips,
+    data
   })
 }
 
 export const receiveTrip = data => {
-  
   return({
     type: RECEIVE_TRIP,
     trip: data.trip,

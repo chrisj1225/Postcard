@@ -1,17 +1,17 @@
 import React from 'react';
 
-class TripCreateForm extends React.Component{
+class TripForm extends React.Component{
   constructor(props) {
     super(props)
 
-    this.state = this.props.newTrip
+    this.state = this.props.trip
   
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createTrip(this.state)
+    this.props.action(this.state)
       .then((res) => {
         this.props.history.push(`/trips/${res.trip._id}`)
       });
@@ -28,7 +28,7 @@ class TripCreateForm extends React.Component{
   render() {
     return(
       <div className="create-trip-container">
-        <h1>Create New Trip</h1>
+        <h1>{this.props.formType}</h1>
         <form onSubmit={this.handleSubmit}>
           <label>Trip Title
             <input 
@@ -46,9 +46,8 @@ class TripCreateForm extends React.Component{
           </label>
           <br />
           <input 
-            onClick={this.handleSubmit}
             type="submit" 
-            value="Create" />
+            value={this.props.formType} />
         </form>
 
       </div>
@@ -56,4 +55,4 @@ class TripCreateForm extends React.Component{
   }
 }
 
-export default TripCreateForm;
+export default TripForm;
