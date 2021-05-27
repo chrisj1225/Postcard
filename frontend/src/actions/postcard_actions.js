@@ -51,10 +51,7 @@ export const fetchTripPostcards = tripId => dispatch => {
 
 export const fetchPostcard = postcardId => dispatch => {
   return PostcardAPIUtil.fetchPostcard(postcardId)
-    .then(res => {
-      debugger
-      dispatch(receivePostcard(res.data));
-    })
+    .then(res => dispatch(receivePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
