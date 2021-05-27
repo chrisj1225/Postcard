@@ -102,7 +102,7 @@ router.patch("/:id", passport.authenticate('jwt', {session: false}), (req, res) 
         trip.title = req.body.title;
         trip.description = req.body.description;
         trip.save()
-          .then((trip) => res.json({trip: tripId}))
+          .then((trip) => res.json({trip: trip}))
       }
     }) 
 })
