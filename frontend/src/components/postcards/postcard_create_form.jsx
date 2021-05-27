@@ -37,42 +37,45 @@ class PostcardCreateForm extends React.Component{
 
   render() {
     return(
-      <div>
-        <div className="create-postcard-container">
-          <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
-          <input type="text" id="cpf-search" />
+      <div className="create-postcard-container">
+        <form onSubmit={this.handleSubmit}>
           <h1>Create New Postcard</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>Postcard Title
-              <input 
-                type="text"
-                onChange={this.update('title')}
-                value={this.state.title} />
-            </label>
-            <label>Body
-              <textarea 
-                onChange={this.update('body')}
-                value={this.state.body}
-                rows="10"
-                cols="80" />
-            </label>
-            <label>Latitude
-              <input 
-                onChange={this.update('lat')}
-                value={this.state.lat} />
-            </label>
-            <label>Longitude
-              <input 
-                onChange={this.update('lng')}
-                value={this.state.lng} />
-            </label>
+          <label>Postcard Title
             <input 
-              onClick={this.handleSubmit}
-              type="submit" 
-              value="Create Postcard" />
-          </form>
-
-        </div>
+              type="text"
+              onChange={this.update('title')}
+              value={this.state.title} />
+          </label>
+          <label>Body
+            <textarea 
+              onChange={this.update('body')}
+              value={this.state.body}
+              rows="6"
+              cols="50" />
+          </label>
+          {/* <label>Latitude
+            <input 
+              onChange={this.update('lat')}
+              value={this.state.lat} />
+          </label>
+          <label>Longitude
+            <input 
+              onChange={this.update('lng')}
+              value={this.state.lng} />
+          </label> */}
+          <input 
+            onClick={this.handleSubmit}
+            type="submit" 
+            value="Create Postcard" />
+        </form>
+        <aside>
+          <header className="coordinates">
+            <p>Lat: <span>{this.state.lat}</span></p>
+            <p>Lng: <span>{this.state.lng}</span></p>
+          </header>
+          <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
+          <input type="text" id="cpf-search" placeholder="Search for a destination" />
+        </aside>
       </div>
     )
   }
