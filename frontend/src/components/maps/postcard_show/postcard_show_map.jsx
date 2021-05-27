@@ -40,7 +40,6 @@ class PostcardShow extends React.Component {
       },500);
     }, 250);
     
-    
   }
 
   createMapOptions(maps) {

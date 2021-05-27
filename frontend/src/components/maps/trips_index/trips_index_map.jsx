@@ -140,14 +140,6 @@ class TripsIndexMap extends React.Component {
         // add the marker to the array after we're done with it
         this.markers.push(marker);
       });
-      
-
-      // creates a layer to hold all the markers
-      const overlay = new maps.OverlayView();
-      overlay.draw = function() {
-        this.getPanes().markerLayer.id='marker-layer';
-      };
-      overlay.setMap(map);
     }
   }
 
