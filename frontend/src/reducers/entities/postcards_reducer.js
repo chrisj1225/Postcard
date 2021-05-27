@@ -1,3 +1,4 @@
+import { RECEIVE_FOLLOWED_TRIPS } from '../../actions/follow_actions';
 import { 
   RECEIVE_POSTCARDS,
   RECEIVE_POSTCARD,
