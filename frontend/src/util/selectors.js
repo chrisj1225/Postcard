@@ -2,11 +2,16 @@ export const attachTripPos = (trip, postcardsState) => {
   if (trip) {
     let tripCopy = Object.assign({}, trip);
     const postcards = Object.values(Object.assign({},postcardsState));
-    const tripPostcards = postcards.filter(postcard => postcard.tripId === trip.id);
-    const latAvg = tripPostcards.reduce((total, postcard) => total + postcard.lat, 0)/tripPostcards.length;
-    const lngAvg = tripPostcards.reduce((total, postcard) => total + postcard.lng, 0)/tripPostcards.length;
-    tripCopy.lat = latAvg;
-    tripCopy.lng = lngAvg;
+    const tripPostcards = postcards.filter(postcard => postcard.tripId === trip._id);
+    const latAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(postcard.lat.$numberDecimal), 0)/tripPostcards.length;
+    const lngAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(postcard.lng.$numberDecimal), 0)/tripPostcards.length;
+    if (latAvg && lngAvg) {
+      tripCopy.lng = lngAvg;
+      tripCopy.lat = latAvg;
+    } else {
+      tripCopy.lng = 200;
+      tripCopy.lat = 200;
+    }
     return tripCopy;
   }
   return [];
@@ -49,4 +54,4 @@ export const attachPhotoTiles = (trip, postcardsState) => {
 export const attachAllPhotoTiles = (tripsState, postcardsState) => {
   const trips = Object.values(Object.assign({}, tripsState));
   return trips.map(trip => attachPhotoTiles(trip, postcardsState));
-}
+};
