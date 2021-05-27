@@ -8,6 +8,7 @@ import LandingContainer from './landing/landing_container';
 import TripShowContainer from './trips/trip_show_container'; 
 import PostcardShowContainer from './postcards/postcard_show_container'; 
 import TripCreateContainer from './trips/trip_create_container';
+import TripEditContainer from './trips/trip_edit_container';
 import PostcardCreateContainer from './postcards/postcard_create_container';
 // import TripEditContainer from './trips/trip_edit_container';
 // import PostcardCreateContainer from './postcards/postcard_create_container';
@@ -25,6 +26,7 @@ const App = () => {
       <ModalContainer />
       <Switch>
         <ProtectedRoute exact path="/trips/new" component={TripCreateContainer} />
+        <ProtectedRoute exact path="/trips/:tripId/edit" component={TripEditContainer} />
         <ProtectedRoute exact path="/trips/:tripId/postcards/new" component={PostcardCreateContainer} />
         <Route exact path="/trips/:tripId/" component={TripShowContainer} />
         <Route exact path="/postcards/:postcardId/" component={PostcardShowContainer} />
