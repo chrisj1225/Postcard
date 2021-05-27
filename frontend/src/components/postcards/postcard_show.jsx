@@ -54,12 +54,17 @@ class PostcardShow extends React.Component{
 
     // debugger
     const imageUpload = (
-      <form onSubmit={this.uploadImages} encType="multipart/form-data" >
-        <div> {/* upload-box */}
-          <input type="file" multiple
+      <form 
+        onSubmit={this.uploadImages} 
+        encType="multipart/form-data" 
+        className="upload-image-form"
+        >
+        <label htmlFor="photo">
+          <span>Add Photos</span>
+          <input type="file" name='photo' id='photo' multiple
             onChange={this.handleChange} />
-          <button type="submit">Upload</button>
-        </div>
+        </label>
+        <button type="submit">Upload</button>
       </form>
     )
 
@@ -85,8 +90,8 @@ class PostcardShow extends React.Component{
                 toggleActive={this.toggleActive} 
                 active={this.state.active}/>
             )) }
+            { imageUpload }
           </ul>
-          { imageUpload }
         </main>
       </div>
     )
