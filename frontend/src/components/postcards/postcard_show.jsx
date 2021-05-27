@@ -9,10 +9,21 @@ class PostcardShow extends React.Component{
   constructor(props){
     super(props); 
 
+    this.state = { active: null }
+
+    this.toggleActive = this.toggleActive.bind(this); 
   }
 
   componentDidMount() {
     this.props.fetchPostcard(this.props.postcardId)
+  }
+
+  toggleActive(e) {
+    if (e.currentTarget.id === this.state.active) {
+      this.setState({active: null}); 
+    } else {
+      this.setState({active: e.currentTarget.id}); 
+    }
   }
 
   render() {
@@ -20,7 +31,6 @@ class PostcardShow extends React.Component{
 
     if (!postcard) return null; 
 
-    debugger
     return (
       <div className="postcard-show-wrapper">
         <header>
@@ -35,7 +45,14 @@ class PostcardShow extends React.Component{
         </header>
         <main>
           <ul role="list">
-            { postcard.photos.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) }
+            { postcard.photos.map((imageUrl, i) => (
+              <PostcardImage 
+                key={i} 
+                idx={i}
+                imageUrl={imageUrl} 
+                toggleActive={this.toggleActive} 
+                active={this.state.active}/>
+            )) }
           </ul>
         </main>
       </div>

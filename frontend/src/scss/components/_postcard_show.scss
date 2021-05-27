@@ -60,7 +60,7 @@
 
   main {
     border: 1px solid black;
-    padding: 5px;
+    padding: 15px 5px;
 
     ul {
       display: grid; 
@@ -69,22 +69,23 @@
       gap: 5px; 
 
       li {
-        background-color: $green;
-        @include flex(); 
+        @include flex(center); 
         object-fit: cover; 
-        border-radius: 5px;
-
+        
         div {
           // position: relative;
           height: 100%;
           width: 100%;
-
-          &:hover img {
-            position: absolute;
+          max-width: 300px;
+          background-color: $green;
+          border-radius: 5px;
+          
+          &.active img {
+            position: fixed;
             bottom: 50%;
             left: 50%;
-            height: 50%;
-            width: 50%;
+            height: 60%;
+            width: auto; 
             transform: translate(-50%, 50%);
           }
         }
