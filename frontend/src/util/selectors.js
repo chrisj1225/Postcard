@@ -51,4 +51,4 @@ export const attachPhotoTiles = (trip, postcardsState) => {
 export const attachAllPhotoTiles = (tripsState, postcardsState) => {
   const trips = Object.values(Object.assign({}, tripsState));
   return trips.map(trip => attachPhotoTiles(trip, postcardsState));
-}
+};

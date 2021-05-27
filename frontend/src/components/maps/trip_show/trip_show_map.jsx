@@ -1,45 +1,29 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Link } from 'react-router-dom';
 import { limitChars } from '../../../util/func_util';
+import { attachTripPos } from '../../../util/selectors';
+import redMarker from '../../../assets/images/spotlight-poi2red.png'
 
-const randPos = (lt, lg) => {
-  let lat, lng;
-  const either = [-1, 1];
-  lat = lt + Math.random()*5*either[Math.floor(Math.random()*2)];
-  lng = lg + Math.random()*5*either[Math.floor(Math.random()*2)];
-  return { lat, lng };
-}
 
-class TripShow extends React.Component {
+class TripShowMap extends React.Component {
   constructor(props) {
     super(props);
+    this.idMarkers = this.idMarkers.bind(this);
 
     this.markers = [];
-
-    const lat = 23.68437587797855;
-    const lng = -3.202092257879451;
-
-    this.positions = [];
-
-    for (let i = 0; i < 10; i++) { this.positions.push(randPos(lat, lng)) }
-
-    // expect to receive Trip objects as an array.
-      // make Markers from Trip objects using their first lat/lng coords
-    
-
-    // this will be the default position and zoom the map centers on
-    this.state = {
-      center: {
-        lat: lat,
-        lng: lng
-      },
-      zoom: 0,
+    this.trips = [];
+    let lat, lng;
+    this.tripWithPos = attachTripPos(this.props.trip, this.props.postcards);
+    if (this.tripWithPos.lat > 180 || this.tripWithPos.lng > 180) {
+      lat = 40.78054494676642;
+      lng = -73.96702023848366;
+    } else {
+      lat = this.tripWithPos.lat;
+      lng = this.tripWithPos.lng;
     }
-  }
-
-  componentDidMount() {
-    // this.props.fetchTrips(); ?
+    
+    this.center = { lat, lng };
+    this.zoom = 0;
   }
 
   componentWillUnmount() {
@@ -54,32 +38,57 @@ class TripShow extends React.Component {
     this.markerPopups = [];
     this.markers = [];
 
-    // this.positions will become this.props.trips
+    if (this.tripsWithPos.length) {
 
-    // this.markers = this.props.trips.map(trip => {
-    this.positions.forEach(position => {
-      // const position = { lat: trip.lat, lng: trip.lng };
-      const marker = new maps.Marker({ position, map })
-      marker.addListener("mouseover", e => {
-        const popup = document.getElementById("marker-popup");
-        popup.classList.add("active");
-        popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
-        popup.style.left = e.domEvent.relatedTarget.x - 40 + "px";
-        // const title = document.querySelector("#marker-popup > h3");
-        // const desc = document.querySelector("#marker-popup > p");
-        // title.textContent = `${trip.title}`;
-        // desc.textContent = `${limitChars(trip.description, 20)}`;
-        popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
+      this.tripsWithPos.forEach(trip => {
+        if (trip.lat > 180 || trip.lng > 180) return;
+        this.trips.push(trip);
+        const position = { lat: trip.lat, lng: trip.lng };
+        const marker = new maps.Marker({
+          position,
+          map,
+          animation: maps.Animation.DROP,
+          optimized: false,
+          icon: redMarker,
+        });
+        this.markers.push(marker);
+
+        const content =
+          '<div id="index-info-content-wrapper">' +
+          '<h1 class="trip-title-info">' +
+          `${trip.title}` + '</h1>' +
+          '<p class="trip-desc-info">' +
+          `${trip.description}` + '</p>' +
+          '</div>';
+
+        const infoWindow = new this.maps.InfoWindow({
+          content
+        });
+        marker.addListener("mouseover", e => {
+          infoWindow.open(map, marker);
+        });
+        marker.addListener("mouseout", e => {
+          infoWindow.close();
+        });
+        marker.addListener("click", e => {
+          this.props.history.push(`/trips/${trip._id}`);
+        });
+        this.markers.push(marker);
+        return true;
       });
-      marker.addListener("mouseout", e => {
-        document.getElementById("marker-popup").classList.remove("active");
-      });
-      marker.addListener("click", e => {
-        this.props.history.push("/trips");
-      });
-      this.markers.push(marker);
-    });
-    
+      
+      const overlay = new maps.OverlayView();
+      overlay.draw = function() {
+        this.getPanes().markerLayer.id='marker-layer';
+      };
+      overlay.setMap(map);
+      setTimeout(this.idMarkers, 200);
+    }
+  }
+
+  idMarkers() {
+    const markerImgs = document.querySelectorAll("#marker-layer img");
+    this.trips.forEach((trip, i) => markerImgs[i].id = `trip-${trip._id}`);
   }
 
   createMapOptions(maps) {
@@ -93,17 +102,14 @@ class TripShow extends React.Component {
   }
 
   render() {
-
+    debugger
     return (
-      <div className="trips-index map-wrapper">
-        <div id="marker-popup" className="marker-info-wrapper">
-          <h3></h3>
-          <p></p>
-        </div>
+      <div className="trip-show map-wrapper">
         <GoogleMapReact
+          key={`trip-show-${this.trip._id}`}
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
-          defaultCenter={ this.state.center }
-          defaultZoom={ this.state.zoom }
+          defaultCenter={ this.center }
+          defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
@@ -114,4 +120,4 @@ class TripShow extends React.Component {
   }
 }
 
-export default TripShow;
+export default TripShowMap;

@@ -99,10 +99,6 @@ class TripsIndexMap extends React.Component {
 
     return (
       <div className="trips-index map-wrapper">
-        <div id="marker-popup" className="marker-info-wrapper">
-          <h3></h3>
-          <p></p>
-        </div>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
           defaultCenter={ this.center }
