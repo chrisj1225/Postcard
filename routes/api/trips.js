@@ -25,13 +25,22 @@ router.get("/", async (req, res) => {
   //   pcObj[postcard.id] = postcard
   // })
   // return res.json({trips: tripsObj, postcards: pcObj})
-  const trips = await Trip.find().sort({date: -1});
+  const trips = await Trip.find().sort({updatedAt: -1});
   const tripsObj = {};
   const pcObj = {};
   for(let i = 0; i < trips.length; i++){
     let trip = trips[i];
     let user = await User.findById(trip.travellerId);
-    tripsObj[trip.id] = trip;
+    tripsObj[trip.id] = {
+      _id: trip.id,
+      title: trip.title,
+      description: trip.description,
+      travellerId: trip.travellerId,
+      createdAt: trip.createdAt,
+      updatedAt: trip.updatedAt,
+      __v: trip.__v,
+      travellerName: user.displayName
+    };
     let postcards = await Postcard.find({tripId: trip.id});
     for(let j = 0; j < postcards.length; j++){
       let postcard = postcards[j];
@@ -63,7 +72,16 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
     if(trips){
       for(let j = 0; j < trips.length; j++){
         let trip = trips[j];
-        tripsObj[trip.id] = trip;
+        tripsObj[trip.id] = {
+          _id: trip.id,
+          title: trip.title,
+          description: trip.description,
+          travellerId: trip.travellerId,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt,
+          __v: trip.__v,
+          travellerName: user.displayName
+        };
         let postcards = await Postcard.find({tripId: trip.id}).sort({date: -1});
         if(postcards){
           for(let k = 0; k < postcards.length; k++){
@@ -91,7 +109,17 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
 
 
 router.get("/:id",  async (req, res) => {
-  const trip = await Trip.findById(req.params.id)
+  const trip = await Trip.findById(req.params.id);
+  const tripObj = {
+    _id: trip.id,
+    title: trip.title,
+    description: trip.description,
+    travellerId: trip.travellerId,
+    createdAt: trip.createdAt,
+    updatedAt: trip.updatedAt,
+    __v: trip.__v,
+    travellerName: user.displayName
+  };
   const pcObj = {}
   const postcards = await Postcard.find({tripId: trip.id}).sort({date: -1})
   postcards.forEach(postcard => {
@@ -109,7 +137,7 @@ router.get("/:id",  async (req, res) => {
       travellerId: user.id
     }
   })
-  res.json({trip: trip, postcards: pcObj})
+  res.json({trip: tripObj, postcards: pcObj})
 })
 
 router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -127,7 +155,19 @@ router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
   })
 
   newTrip.save()
-    .then((trip) => res.json({trip: trip}))
+    .then((trip) => {
+      const tripObj = {
+        _id: trip.id,
+        title: trip.title,
+        description: trip.description,
+        travellerId: trip.travellerId,
+        createdAt: trip.createdAt,
+        updatedAt: trip.updatedAt,
+        __v: trip.__v,
+        travellerName: user.displayName
+      };
+      res.json({trip: tripObj})
+    })
     .catch((err) => res.json(err))
 })
 
@@ -152,7 +192,19 @@ router.patch("/:id", passport.authenticate('jwt', {session: false}), (req, res) 
         trip.title = req.body.title;
         trip.description = req.body.description;
         trip.save()
-          .then((trip) => res.json({trip: trip}))
+          .then((trip) => {
+            const tripObj = {
+              _id: trip.id,
+              title: trip.title,
+              description: trip.description,
+              travellerId: trip.travellerId,
+              createdAt: trip.createdAt,
+              updatedAt: trip.updatedAt,
+              __v: trip.__v,
+              travellerName: user.displayName
+            };
+            res.json({trip: tripObj})
+          })
       }
     }) 
 })
@@ -166,7 +218,19 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req, res)
         return res.status(400).json({user: "You do not have permission to delete this trip"});
       } else{
         trip.delete()
-        .then((trip) => res.json({trip: trip}))
+        .then((trip) => {
+          const tripObj = {
+            _id: trip.id,
+            title: trip.title,
+            description: trip.description,
+            travellerId: trip.travellerId,
+            createdAt: trip.createdAt,
+            updatedAt: trip.updatedAt,
+            __v: trip.__v,
+            travellerName: user.displayName
+          };
+          res.json({trip: tripObj})
+        })
       }
     })
 })
