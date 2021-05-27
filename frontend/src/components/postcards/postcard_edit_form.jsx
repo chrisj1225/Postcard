@@ -96,7 +96,6 @@ class PostcardEditForm extends React.Component{
             handlePositionInput={position => this.handlePositionInput(position)}
             formType={'edit'} 
             postcard={postcard}/>
-          <input type="text" id="cpf-search" placeholder="Search for a destination" />
         </aside>
       </div>
     )
