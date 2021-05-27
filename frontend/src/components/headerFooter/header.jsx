@@ -46,11 +46,14 @@ class Header extends React.Component {
               Postcard
             </h1> */}
             {/* {<img className="logo" src={Logo} alt="Postcard logo"/>} */}
-            <img 
-              className="logo"
-              onMouseOver={this.toggleFilled}  
-              onMouseLeave={this.toggleFilled}  
-              src={this.state.filled ? filledLogo : unfilledLogo} alt="Postcard Logo"/>
+            <figure>
+              <img 
+                className="logo"
+                src={unfilledLogo} alt="Postcard Logo"/>
+              <img 
+                className="logo"
+                src={filledLogo} alt="Postcard Logo"/>
+            </figure>
           </Link>
           <div className="session-btns">
             { buttons }

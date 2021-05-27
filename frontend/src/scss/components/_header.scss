@@ -38,6 +38,27 @@
         color: $blue;
       }
     }
+
+    figure {
+      position: relative; 
+
+      img:last-child {
+        position: absolute; 
+        top: 0;
+        left: 0; 
+        z-index: 10; 
+        opacity: 0;
+        transition: opacity ease-in-out 150ms; 
+
+        &:hover {
+          opacity: 1; 
+        }
+
+      }
+
+      
+    }
+
   }
 
   button {
