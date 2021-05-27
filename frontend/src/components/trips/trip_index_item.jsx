@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const TripIndexItem = ({ trip }) => {
 
-  debugger
+  // debugger
 
   return (
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>
