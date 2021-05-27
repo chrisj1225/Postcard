@@ -5,6 +5,12 @@
   height: 100%;
 }
 
+.empty-list-item {
+  list-style: none;
+
+  height: 500px;
+}
+
 .trips-index-item {
   border: 3px solid $blue;
   color: darken($blue, 15%);

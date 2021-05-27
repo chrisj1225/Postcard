@@ -13,6 +13,7 @@ class TripsIndex extends React.Component {
 
       <div className="trips-index">
         { trips.map((trip, i) => <TripIndexItem key={i} trip={trip} />) }
+        <li className="empty-list-item"></li>
       </div>
     )
   }
