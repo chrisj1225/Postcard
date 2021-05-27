@@ -73,7 +73,9 @@ class PostcardCreateForm extends React.Component{
             <p>Lat: <span>{this.state.lat}</span></p>
             <p>Lng: <span>{this.state.lng}</span></p>
           </header>
-          <PostcardCreateMap handlePositionInput={position => this.handlePositionInput(position)} />
+          <PostcardCreateMap 
+            handlePositionInput={position => this.handlePositionInput(position)}
+            formType={'create'} />
         </aside>
       </div>
     )
