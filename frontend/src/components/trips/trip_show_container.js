@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchTrip } from '../../actions/trip_actions';				//actions
+import { fetchTrip, deleteTrip } from '../../actions/trip_actions';				//actions
 import TripShow from './trip_show';				//display component
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTrip: (tripId) => dispatch(fetchTrip(tripId)),
+  deleteTrip: (tripId) => dispatch(deleteTrip(tripId))
 });
 
 export default withRouter(connect(
