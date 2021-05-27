@@ -13,9 +13,9 @@ const upload = require("../../services/ImageUpload");
 const deleteImage = require("../../services/imageDelete")
 
 router.get('/:id', async (req, res) => {
-  const postcard = Postcard.findById(req.params.id);
-  const trip = Trip.findById(postcard.tripId);
-  const user = User.findById(trip.travellerId);
+  const postcard = await Postcard.findById(req.params.id);
+  const trip = await Trip.findById(postcard.tripId);
+  const user = await User.findById(trip.travellerId);
   let postcardObj = {
     photos: postcard.photos,
     _id: postcard.id,
@@ -119,7 +119,7 @@ router.delete('/:id/deleteImage', passport.authenticate('jwt', {session: false})
     return res.status(404).json({trip: "Trip not found"})
   }
 
-  const user = User.findById(req.user.id)
+  const user = await User.findById(req.user.id)
 
   if(trip.travellerId != user.id){
     return res.status(401).json(

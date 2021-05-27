@@ -54,7 +54,7 @@ class PostcardEditForm extends React.Component{
     const { postcard } = this.props;
     if (!postcard) return null;
     if (!this.state) return null;
-
+    debugger
     return(
       <div className="create-postcard-container">
         <form onSubmit={this.handleSubmit}>
@@ -92,7 +92,9 @@ class PostcardEditForm extends React.Component{
             <p>Lat: <span>{this.state.lat}</span></p>
             <p>Lng: <span>{this.state.lng}</span></p>
           </header>
-          <PostcardCreateMap handlePositionInput={position => this.handlePositionInput(position)} />
+          <PostcardCreateMap 
+            handlePositionInput={position => this.handlePositionInput(position)}
+            formType={'edit'} />
           <input type="text" id="cpf-search" placeholder="Search for a destination" />
         </aside>
       </div>
