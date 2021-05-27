@@ -77,7 +77,7 @@ $card-width: 450px;
 
   article {
     grid-area: article;
-    // overflow-y: hidden;
+    @include flex(flex-start, flex-start, column);
 
     a {
       color: black; 
@@ -109,13 +109,15 @@ $card-width: 450px;
     white-space: nowrap;
 
     p {
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 400;
     }
 
     img {
-      margin-top: 10px;
-      $width: 85%; 
+      margin-top: 5px;
+      $width: 90%; 
       width: $width;
+      
       height: auto;
     }
   }
