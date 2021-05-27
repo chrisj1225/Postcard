@@ -25,6 +25,14 @@
       }  
     }
 
+    .edit-trip {
+      transform: translateX(100px);
+    }
+
+    .delete-trip {
+      transform: translateX(180px);
+    }
+
     h1 {
       margin-top: 20px;
       font-size: 40px;
