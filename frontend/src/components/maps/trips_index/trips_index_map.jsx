@@ -70,7 +70,13 @@ class TripsIndexMap extends React.Component {
           id: `trip-marker-${trip._id}`,
         });
         this.markers.push(marker);
-
+        let desc;
+        const limit = 20;
+        if (trip.description.length > limit) {
+          desc = limitChars(trip.description, limit);
+        } else {
+          desc = trip.description;
+        }
 
         // setting up interactive events
         const content =
@@ -78,7 +84,7 @@ class TripsIndexMap extends React.Component {
           '<h1 class="trip-title-info">' +
           `${trip.title}` + '</h1>' +
           '<p class="trip-desc-info">' +
-          `${trip.description}` + '</p>' +
+          `${desc}` + '</p>' +
           '</div>';
 
         const infoWindow = new this.maps.InfoWindow({
