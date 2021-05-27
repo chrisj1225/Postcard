@@ -37,6 +37,9 @@ transparent 97.5%, transparent 100%
   color: $txt-color; 
   padding: 8px 18px;
   @include paper-bounce(); 
+  &:hover {
+    transform: scale(1.08); 
+  }
 
   &:active {
     transform: scale(1);

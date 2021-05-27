@@ -10,7 +10,9 @@ class PostcardShow extends React.Component{
 
     this.state = {
       files: "",
-      active: null
+      active: null, 
+      imgUrls: [], 
+      btnDisabled: true, 
     }
     
     this.toggleActive = this.toggleActive.bind(this); 
@@ -32,9 +34,23 @@ class PostcardShow extends React.Component{
   }
 
   handleChange(e) {
-    this.setState({
-      files: e.target.files
-    })
+    const files = e.target.files; 
+    this.setState({ imgUrls: [] })
+
+    // IMAGE PREVIEWS
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      
+      let fileReader = new FileReader(); 
+      fileReader.onloadend = () => {
+        this.setState({ imgUrls: [...this.state.imgUrls, fileReader.result] }) 
+      }   
+      
+      fileReader.readAsDataURL(file)
+      
+    }
+
+    this.setState({ files, btnDisabled: false }); 
   }
 
   deletePostcard() {
@@ -55,14 +71,18 @@ class PostcardShow extends React.Component{
     this.props.updatePostcardPhotos(this.props.postcardId, formData);
   }
 
+
   render() {
     const { postcard, currentUser } = this.props; 
+    const { imgUrls, btnDisabled } = this.state; 
 
     if (!postcard) return null; 
     
     let imageUpload;
     let editPostcardLink;
     let deletePostcardButton;
+    let imgPreviews; 
+
     if ((currentUser) && (currentUser.id === postcard.travellerId)) {
       imageUpload = (
         <form onSubmit={this.uploadImages} encType="multipart/form-data" >
@@ -73,8 +93,44 @@ class PostcardShow extends React.Component{
           </div>
         </form>
       );
+        
+      const firstImgPreview = imgUrls.length ? (
+        <img 
+          src={imgUrls[0]} 
+          alt="img preview" 
+          className="img-preview"/> 
+      ) : null; 
 
-      editPostcardLink = <Link className="edit-postcard" to={`/postcards/${postcard._id}/edit`}>Edit Postcard</Link>
+      imgPreviews = imgUrls.length > 1 ? (
+        imgUrls.slice(1).map(imgUrl => (
+          <li className="postcard-image-item-wrapper img-preview-wrapper">
+            <div>
+              <img src={imgUrl} alt="image preview" className="img-preview"/>
+            </div>
+          </li>
+        ))
+      ) : null;
+
+      imageUpload = (
+        <form 
+          onSubmit={this.uploadImages} 
+          encType="multipart/form-data" 
+          className="upload-image-form"
+          >
+          <label htmlFor="photo">
+            { firstImgPreview }
+            <span>Add Photos</span>
+            <input type="file" name='photo' id='photo' multiple
+              onChange={this.handleChange} />
+          </label>
+          <button 
+            type="submit" 
+            className={btnDisabled ? "disabled" : "active"}
+          >Upload</button>
+        </form>
+      )
+
+      editPostcardLink = <Link className="edit-postcard" to={`/postcards/${postcard._id}/edit`}>Edit Postcard</Link>; 
 
       deletePostcardButton = (
         <a onClick={this.deletePostcard}
@@ -106,8 +162,9 @@ class PostcardShow extends React.Component{
                 toggleActive={this.toggleActive} 
                 active={this.state.active}/>
             )) }
+            { imageUpload }
+            { imgPreviews }
           </ul>
-          { imageUpload }
         </main>
       </div>
     )

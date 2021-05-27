@@ -75,7 +75,7 @@
       display: grid; 
       grid-template-rows: repeat(2, 1fr);
       grid-template-columns: repeat(4, 1fr);
-      gap: 5px; 
+      gap: 10px; 
 
       li {
         @include flex(center); 
@@ -86,7 +86,7 @@
           height: 100%;
           width: 100%;
           max-width: 300px;
-          background-color: $green;
+          background-color: darken($cream, 5%);
           border-radius: 5px;
           
           &.active img {
@@ -100,7 +100,7 @@
         }
         
         img {
-          border-radius: 5px;
+          border-radius: 8px;
           height: 100%;
           width: 100%;
 
@@ -110,5 +110,61 @@
       }
     }
 
+  }
+}
+
+.postcard-image-item-wrapper.img-preview-wrapper {
+  // max-height: 200px;
+  height: 70%;
+  width: 100%;
+  @include flex(center);
+  
+  div {
+    border: 2px dashed black;
+  }
+}
+
+.img-preview {
+  opacity: 0.5; 
+}
+
+.upload-image-form {
+  width: 100%;
+  height: 100%;
+  @include flex(space-around, center, column); 
+  
+  
+  label {
+    @include flex(center, center, column); 
+    max-width: 300px;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed black;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute; 
+    width: 0.1px; 
+    height: 0.1px; 
+    overflow: hidden; 
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 18px;
+    color: white; 
+  }
+
+  button.active {
+    @include button($red, white); 
+  }
+
+  button.disabled {
+    cursor: not-allowed;
+    background-color: lighten($red, 10%);
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
   }
 }

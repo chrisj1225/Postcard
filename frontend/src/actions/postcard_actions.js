@@ -68,6 +68,7 @@ export const updatePostcard = (tripId, postcard) => dispatch => {
 }
 
 export const updatePostcardPhotos = (postcardId, photos) => dispatch => {
+  debugger
   return PostcardAPIUtil.updatePostcardPhotos(postcardId, photos)
     .then(res => {
       return dispatch(receivePostcard(res.data.postcard))

@@ -53,10 +53,7 @@
         &:hover {
           opacity: 1; 
         }
-
       }
-
-      
     }
 
   }
@@ -64,5 +61,9 @@
   button {
     @include button($blue, white); 
     margin-left: 15px;
+
+    &:focus {
+      box-shadow: 0 0 2px 2px $red;
+    }
   }
 }
