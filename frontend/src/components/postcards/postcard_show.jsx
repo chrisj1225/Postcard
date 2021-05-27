@@ -60,7 +60,6 @@ class PostcardShow extends React.Component{
 
     if (!postcard) return null; 
 
-    // debugger
     let imageUpload;
     let editPostcardLink;
     let deletePostcardButton;
