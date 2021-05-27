@@ -1,10 +1,8 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Link } from 'react-router-dom';
 import { limitChars } from '../../../util/func_util';
 import { attachAllTripPos } from '../../../util/selectors';
 import redMarker from '../../../assets/images/spotlight-poi2red.png'
-import greenMarker from '../../../assets/images/spotlight-poi2green.png'
 
 
 class TripsIndexMap extends React.Component {
