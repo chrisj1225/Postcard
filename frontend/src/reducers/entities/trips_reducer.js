@@ -12,7 +12,7 @@ const TripsReducer = (state = {}, action) => {
     case RECEIVE_TRIPS:
       return Object.assign({}, state, action.data.trips);
     case RECEIVE_TRIP:
-      return Object.assign({}, state, { [action.trip._id]: action.trip })
+      return Object.assign({}, state, { [action.data.trip._id]: action.data.trip })
     case RECEIVE_NEW_TRIP:
       return Object.assign({}, state, { [action.trip._id]: action.trip })
     case REMOVE_TRIP:
