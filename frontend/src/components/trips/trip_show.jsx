@@ -26,7 +26,6 @@ class TripShow extends React.Component {
 
   render() {
     const { postcards, trip, currentUser } = this.props; 
-
     if (!trip) return null; 
 
     const arrowComponent = <img className="arrow" src={arrow} alt=""/>
@@ -79,7 +78,7 @@ class TripShow extends React.Component {
           <h1>{trip.title}</h1>
           <p>{trip.description}</p>
         </section>
-        <TripShowMap postcards={postcards} trip={trip}/>
+        <TripShowMap key={`trip-show-map-${trip._id}`} postcards={postcards} trip={trip}/>
         <article>
           { Object.values(postcards).map(postcard => <PostcardIndexItem 
             key={postcard._id} 

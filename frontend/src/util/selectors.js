@@ -3,8 +3,8 @@ export const attachTripPos = (trip, postcardsState) => {
     let tripCopy = Object.assign({}, trip);
     const postcards = Object.values(Object.assign({},postcardsState));
     const tripPostcards = postcards.filter(postcard => postcard.tripId === trip._id);
-    const latAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(tripPostcards[0].lat.$numberDecimal), 0)/tripPostcards.length;
-    const lngAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(tripPostcards[0].lng.$numberDecimal), 0)/tripPostcards.length;
+    const latAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(postcard.lat.$numberDecimal), 0)/tripPostcards.length;
+    const lngAvg = tripPostcards.reduce((total, postcard) => total + parseFloat(postcard.lng.$numberDecimal), 0)/tripPostcards.length;
     if (latAvg && lngAvg) {
       tripCopy.lng = lngAvg;
       tripCopy.lat = latAvg;

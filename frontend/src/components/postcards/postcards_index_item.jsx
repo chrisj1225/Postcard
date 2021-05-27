@@ -8,8 +8,6 @@ import stamp from '../../assets/images/blue-stamp.png'
 
 const PostcardsIndexItem = (props) => {
   const { postcard, arrow } = props; 
-
-  debugger
   return (
     <div className="postcard-index-item">
       {/* test data */}

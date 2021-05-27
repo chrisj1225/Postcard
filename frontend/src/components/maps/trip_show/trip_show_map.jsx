@@ -8,10 +8,9 @@ import redMarker from '../../../assets/images/spotlight-poi2red.png'
 class TripShowMap extends React.Component {
   constructor(props) {
     super(props);
-    this.idMarkers = this.idMarkers.bind(this);
 
     this.markers = [];
-    this.trips = [];
+
     let lat, lng;
     this.tripWithPos = attachTripPos(this.props.trip, this.props.postcards);
     if (this.tripWithPos.lat > 180 || this.tripWithPos.lng > 180) {
@@ -21,9 +20,11 @@ class TripShowMap extends React.Component {
       lat = this.tripWithPos.lat;
       lng = this.tripWithPos.lng;
     }
-    
+    const postcards = Object.values(Object.assign({}, this.props.postcards));
+    this.postcards = postcards.filter(postcard => postcard.tripId === this.props.trip._id);
     this.center = { lat, lng };
-    this.zoom = 0;
+    debugger
+    this.zoom = 8;
   }
 
   componentWillUnmount() {
@@ -37,13 +38,16 @@ class TripShowMap extends React.Component {
     this.maps = maps;
     this.markerPopups = [];
     this.markers = [];
+    const bounds = new this.maps.LatLngBounds();
 
-    if (this.tripsWithPos.length) {
+    if (this.postcards.length) {
 
-      this.tripsWithPos.forEach(trip => {
-        if (trip.lat > 180 || trip.lng > 180) return;
-        this.trips.push(trip);
-        const position = { lat: trip.lat, lng: trip.lng };
+      this.postcards.forEach(postcard => {
+
+        if (postcard.lat > 180 || postcard.lng > 180) return;
+        const position = { lat: parseFloat(postcard.lat.$numberDecimal), lng: parseFloat(postcard.lng.$numberDecimal) };
+        bounds.extend(position);
+        debugger
         const marker = new maps.Marker({
           position,
           map,
@@ -55,10 +59,10 @@ class TripShowMap extends React.Component {
 
         const content =
           '<div id="index-info-content-wrapper">' +
-          '<h1 class="trip-title-info">' +
-          `${trip.title}` + '</h1>' +
-          '<p class="trip-desc-info">' +
-          `${trip.description}` + '</p>' +
+          '<h1 class="postcard-title-info">' +
+          `${postcard.title}` + '</h1>' +
+          '<p class="postcard-desc-info">' +
+          `${postcard.body}` + '</p>' +
           '</div>';
 
         const infoWindow = new this.maps.InfoWindow({
@@ -71,25 +75,22 @@ class TripShowMap extends React.Component {
           infoWindow.close();
         });
         marker.addListener("click", e => {
-          this.props.history.push(`/trips/${trip._id}`);
+          this.props.history.push(`/trips/${postcard._id}`);
         });
         this.markers.push(marker);
         return true;
       });
+      this.map.fitBounds(bounds);
+      if (this.postcards.length === 1) this.map.setZoom(15);
       
       const overlay = new maps.OverlayView();
       overlay.draw = function() {
         this.getPanes().markerLayer.id='marker-layer';
       };
       overlay.setMap(map);
-      setTimeout(this.idMarkers, 200);
     }
   }
 
-  idMarkers() {
-    const markerImgs = document.querySelectorAll("#marker-layer img");
-    this.trips.forEach((trip, i) => markerImgs[i].id = `trip-${trip._id}`);
-  }
 
   createMapOptions(maps) {
     return {
@@ -102,11 +103,9 @@ class TripShowMap extends React.Component {
   }
 
   render() {
-    debugger
     return (
       <div className="trip-show map-wrapper">
         <GoogleMapReact
-          key={`trip-show-${this.trip._id}`}
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
