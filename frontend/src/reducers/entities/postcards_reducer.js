@@ -24,6 +24,8 @@ const PostcardsReducer = (state = {}, action) => {
       let newState = Object.assign({}, state);
       delete newState[action.postcardId];
       return newState;
+    case RECEIVE_FOLLOWED_TRIPS:
+        return Object.assign({}, action.data.postcards)
     default:
       return state;
   }
