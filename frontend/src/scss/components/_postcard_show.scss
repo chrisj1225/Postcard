@@ -58,6 +58,15 @@
     }
   }
 
+  .edit-postcard {
+    transform: translateX(180px);
+  }
+
+  .delete-postcard {
+    transform: translateX(310px);
+    cursor: pointer;
+  }
+
   main {
     border: 1px solid black;
     padding: 15px 5px;
