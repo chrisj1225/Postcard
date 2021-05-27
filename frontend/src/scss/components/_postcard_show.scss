@@ -113,6 +113,21 @@
   }
 }
 
+.postcard-image-item-wrapper.img-preview-wrapper {
+  // max-height: 200px;
+  height: 70%;
+  width: 100%;
+  @include flex(center);
+  
+  div {
+    border: 2px dashed black;
+  }
+}
+
+.img-preview {
+  opacity: 0.5; 
+}
+
 .upload-image-form {
   width: 100%;
   height: 100%;
@@ -126,6 +141,7 @@
     height: 100%;
     border: 2px dashed black;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 
   input {
@@ -137,7 +153,18 @@
   }
 
   button {
-    @include button($red, white); 
     font-size: 14px;
+    padding: 8px 18px;
+    color: white; 
+  }
+
+  button.active {
+    @include button($red, white); 
+  }
+
+  button.disabled {
+    cursor: not-allowed;
+    background-color: lighten($red, 10%);
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
   }
 }
