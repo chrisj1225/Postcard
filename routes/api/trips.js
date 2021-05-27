@@ -142,7 +142,7 @@ router.get("/:id",  async (req, res) => {
   res.json({trip: tripObj, postcards: pcObj})
 })
 
-router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
+router.post("/", passport.authenticate('jwt', {session: false}), async (req, res) => {
 
   const {errors, isValid} = validateTripsInput(req.body);
 
