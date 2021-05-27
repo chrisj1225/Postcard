@@ -66,6 +66,7 @@ class TripsIndexMap extends React.Component {
           content
         });
         
+        // event listener for hovering the markers
         marker.addListener("mouseover", e => {
           infoWindow.open(map, marker);
           const tripItem = document.getElementById(`trip-item-${trip._id}`);
@@ -78,10 +79,12 @@ class TripsIndexMap extends React.Component {
           tripItem.classList.remove("focused");
         });
         
+        // event listener for clicking the marker
         marker.addListener("click", e => {
           this.props.history.push(`/trips/${trip._id}`);
         });
 
+        // event listeners for hovering the trips list item
         document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseenter", () =>{
           this.markers.forEach(m => m.setIcon(redMarker));
           marker.setIcon(greenMarker);
@@ -92,6 +95,7 @@ class TripsIndexMap extends React.Component {
           marker.setAnimation(null);
         });
 
+        // add the marker to the array after we're done with it
         this.markers.push(marker);
         return true;
       });
