@@ -17,7 +17,10 @@ const UserSchema = new Schema({
   following: [{
     type: Schema.ObjectId,
     ref: "users"
-  }]
+  }],
+  profilePic: {
+    type: String
+  }
 }, {
   timestamps: true
 })

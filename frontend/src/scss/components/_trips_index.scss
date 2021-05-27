@@ -5,6 +5,12 @@
   height: 100%;
 }
 
+.empty-list-item {
+  list-style: none;
+
+  height: 500px;
+}
+
 .trips-index-item {
   border: 3px solid $blue;
   color: darken($blue, 15%);
@@ -73,6 +79,12 @@
     // TESTING
     background-color: $green;
     border: 1px solid gray;
+
+    img {
+      height: 100%; 
+      object-fit: cover;
+    }
+
   }
 
   $breakpoint: 1400px; 
@@ -96,6 +108,14 @@
     li {
       flex-grow: 1; 
       height: 90%;
+      overflow: hidden;
+
+      @include flex(center, center, column); 
+
+      img {
+        height: 100%; 
+        object-fit: cover;
+      }
     }
   }
   
