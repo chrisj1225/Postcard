@@ -23,7 +23,6 @@ class PostcardCreateForm extends React.Component{
     e.preventDefault();
     this.props.createPostcard(this.state.tripId, this.state)
       .then((res) => {
-        debugger
         this.props.history.push(`/postcards/${res.postcard._id}`)
       });
   }
