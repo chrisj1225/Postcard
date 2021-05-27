@@ -23,7 +23,7 @@ export const receivePostcard = postcard => {
 export const removePostcard = postcard => {
   return({
     type: REMOVE_POSTCARD,
-    postcardId: postcard.id,
+    postcardId: postcard._id,
   })
 }
 
@@ -67,16 +67,14 @@ export const updatePostcard = (tripId, postcard) => dispatch => {
 }
 
 export const updatePostcardPhotos = (postcardId, photos) => dispatch => {
-  debugger
   return PostcardAPIUtil.updatePostcardPhotos(postcardId, photos)
     .then(res => {
-      debugger
-      return dispatch(receivePostcard(res.data))
+      return dispatch(receivePostcard(res.data.postcard))
     })
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 } 
 
-export const deleteTrip = (tripId, postcardId) => dispatch => {
+export const deletePostcard = (tripId, postcardId) => dispatch => {
   return PostcardAPIUtil.deletePostcard(tripId, postcardId)
     .then((res) => dispatch(removePostcard(res.data)))
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))

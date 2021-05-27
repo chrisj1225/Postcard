@@ -15,6 +15,10 @@ const deleteImage = require("../../services/imageDelete")
 
 router.use('/:userId/trips', tripRouter)
 
+// router.get("/", async (req, res) => {
+//   const users = await User.find();
+// })
+
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
     id: req.user.id,
@@ -116,7 +120,16 @@ tripRouter.get('/', (req, res) => {
     .then((trips) => {
       const tripsObj = {}
       trips.forEach((trip) => {
-        tripsObj[trip.id] = trip
+        tripsObj[trip.id] = {
+          _id: trip.id,
+          title: trip.title,
+          description: trip.description,
+          travellerId: trip.travellerId,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt,
+          __v: trip.__v,
+          travellerName: user.displayName
+        };
       })
       return res.json(tripsObj)
     })
@@ -155,6 +168,12 @@ router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}
 
 router.post("/profile/image", upload.single("image"), passport.authenticate('jwt', {session: false}), async (req, res) => {
   const currentUser = await User.findById(req.user.id);
+  if (currentUser.profilePic){
+    let imageUrl = currentUser.profilePic;
+    let bucket = imageUrl.split("/")[2].split(".")[0];
+    let key = imageUrl.split("/")[3];
+    deleteImage(bucket, key);
+  }
   currentUser.profilePic = req.file.location
   currentUser.save()
     .then((user) => {
@@ -167,6 +186,12 @@ router.post("/profile/image", upload.single("image"), passport.authenticate('jwt
 
 router.delete("/profile/image", passport.authenticate('jwt', {session: false}), async (req, res) => {
   const currentUser = await User.findById(req.user.id);
+  let imageUrl = currentUser.profilePic;
+  let bucket = imageUrl.split("/")[2].split(".")[0];
+  let key = imageUrl.split("/")[3];
+
+  deleteImage(bucket, key);
+
   currentUser.profilePic = null;
   currentUser.save()
     .then((user) => {
