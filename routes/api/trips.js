@@ -13,18 +13,44 @@ const Postcard = require('../../models/Postcard');
 router.use('/:tripId/postcards', postcardRouter)
 
 router.get("/", async (req, res) => {
-  const trips = await Trip.find().sort({date: -1})
-  const postcards = await Postcard.find().sort({date: -1})
-  const tripsObj = {}
-  const pcObj = {}
+  // const trips = await Trip.find().sort({date: -1})
+  // const postcards = await Postcard.find().sort({date: -1})
+  // const tripsObj = {}
+  // const pcObj = {}
 
-  trips.forEach((trip) => {
-    tripsObj[trip.id] = trip
-  })
-  postcards.forEach(postcard => {
-    pcObj[postcard.id] = postcard
-  })
-  return res.json({trips: tripsObj, postcards: pcObj})
+  // trips.forEach((trip) => {
+  //   tripsObj[trip.id] = trip
+  // })
+  // postcards.forEach(postcard => {
+  //   pcObj[postcard.id] = postcard
+  // })
+  // return res.json({trips: tripsObj, postcards: pcObj})
+  const trips = await Trip.find().sort({date: -1});
+  const tripsObj = {};
+  const pcObj = {};
+  for(let i = 0; i < trips.length; i++){
+    let trip = trips[i];
+    let user = await User.findById(trip.travellerId);
+    tripsObj[trip.id] = trip;
+    let postcards = await Postcard.find({tripId: trip.id});
+    for(let j = 0; j < postcards.length; j++){
+      let postcard = postcards[j];
+      pcObj[postcard.id] = { 
+        photos: postcard.photos,
+        _id: postcard.id,
+        title: postcard.id,
+        body: postcard.body,
+        tripId: postcard.tripId,
+        lat: postcard.lat,
+        lng: postcard.lng,
+        createdAt: postcard.createdAt,
+        updatedAt: postcard.updatedAt,
+        __v: postcard.__v,
+        travellerId: user.id
+      };
+    }
+  }
+  res.json({trips: tripsObj, postcards: pcObj})
 })
 
 router.get("/follows", passport.authenticate('jwt', {session: false}), async (req, res) => {
@@ -42,7 +68,19 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
         if(postcards){
           for(let k = 0; k < postcards.length; k++){
             let postcard = postcards[k];
-            pcObj[postcard.id] = postcard;
+            pcObj[postcard.id] = pcObj[postcard.id] = { 
+              photos: postcard.photos,
+              _id: postcard.id,
+              title: postcard.id,
+              body: postcard.body,
+              tripId: postcard.tripId,
+              lat: postcard.lat,
+              lng: postcard.lng,
+              createdAt: postcard.createdAt,
+              updatedAt: postcard.updatedAt,
+              __v: postcard.__v,
+              travellerId: user.id
+            };
           }
         }
       }
@@ -57,7 +95,19 @@ router.get("/:id",  async (req, res) => {
   const pcObj = {}
   const postcards = await Postcard.find({tripId: trip.id}).sort({date: -1})
   postcards.forEach(postcard => {
-    pcObj[postcard.id] = postcard
+    pcObj[postcard.id] = {
+      photos: postcard.photos,
+      _id: postcard.id,
+      title: postcard.id,
+      body: postcard.body,
+      tripId: postcard.tripId,
+      lat: postcard.lat,
+      lng: postcard.lng,
+      createdAt: postcard.createdAt,
+      updatedAt: postcard.updatedAt,
+      __v: postcard.__v,
+      travellerId: user.id
+    }
   })
   res.json({trip: trip, postcards: pcObj})
 })
@@ -129,7 +179,19 @@ postcardRouter.get('/', (req, res) => {
     .then((postcards) => {
       const pcObj = {}
       postcards.forEach((postcard) => {
-        pcObj[postcard.id] = postcard
+        pcObj[postcard.id] = {
+          photos: postcard.photos,
+          _id: postcard.id,
+          title: postcard.id,
+          body: postcard.body,
+          tripId: postcard.tripId,
+          lat: postcard.lat,
+          lng: postcard.lng,
+          createdAt: postcard.createdAt,
+          updatedAt: postcard.updatedAt,
+          __v: postcard.__v,
+          travellerId: user.id
+        }
       })
       return res.json(pcObj)
     })
@@ -138,7 +200,22 @@ postcardRouter.get('/', (req, res) => {
 
 postcardRouter.get('/:id', (req, res) => {
   Postcard.findById(req.params.id)
-    .then((postcard) => res.json(postcard))
+    .then((postcard) => {
+      let postcardObj = {
+        photos: postcard.photos,
+        _id: postcard.id,
+        title: postcard.id,
+        body: postcard.body,
+        tripId: postcard.tripId,
+        lat: postcard.lat,
+        lng: postcard.lng,
+        createdAt: postcard.createdAt,
+        updatedAt: postcard.updatedAt,
+        __v: postcard.__v,
+        travellerId: user.id
+      }
+      res.json(postcardObj)
+    })
     .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
 })
 
@@ -161,7 +238,22 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, r
           photos: req.body.photos || []
         })
         newPostcard.save()
-          .then((postcard) => res.json(postcard))
+          .then((postcard) => {
+            let postcardObj = {
+              photos: postcard.photos,
+              _id: postcard.id,
+              title: postcard.id,
+              body: postcard.body,
+              tripId: postcard.tripId,
+              lat: postcard.lat,
+              lng: postcard.lng,
+              createdAt: postcard.createdAt,
+              updatedAt: postcard.updatedAt,
+              __v: postcard.__v,
+              travellerId: user.id
+            }
+            res.json(postcardObj)
+          })
           .catch((err) => res.json(err))
       } else{
         return res.status(400).json({user: `You don't have permission to do that because you are ${req.user.id} and you need to be ${trip.travellerId}`})
@@ -191,7 +283,22 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
               postcard.lng = req.body.lng;
               postcard.photos = req.body.photos || [];
               postcard.save()
-                .then((postcard) => res.json(postcard))
+                .then((postcard) => {
+                  let postcardObj = {
+                    photos: postcard.photos,
+                    _id: postcard.id,
+                    title: postcard.id,
+                    body: postcard.body,
+                    tripId: postcard.tripId,
+                    lat: postcard.lat,
+                    lng: postcard.lng,
+                    createdAt: postcard.createdAt,
+                    updatedAt: postcard.updatedAt,
+                    __v: postcard.__v,
+                    travellerId: user.id
+                  }
+                  res.json(postcardObj)
+                })
             }
           })
       } else {
@@ -210,7 +317,22 @@ postcardRouter.delete('/:id', passport.authenticate('jwt', {session: false}), (r
               return res.status(400).json({postcard: "Postcard not found"})
             } else{
               postcard.delete()
-                .then((postcard) => res.json(postcard))
+                .then((postcard) => {
+                  let postcardObj = {
+                    photos: postcard.photos,
+                    _id: postcard.id,
+                    title: postcard.id,
+                    body: postcard.body,
+                    tripId: postcard.tripId,
+                    lat: postcard.lat,
+                    lng: postcard.lng,
+                    createdAt: postcard.createdAt,
+                    updatedAt: postcard.updatedAt,
+                    __v: postcard.__v,
+                    travellerId: user.id
+                  }
+                  res.json(postcardObj)
+                })
             }
           })
       } else{

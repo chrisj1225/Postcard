@@ -1,25 +1,33 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom'; 
 
-
-import PostcardShowMapContainer from '../maps/postcard_show/postcard_show_map_container';
-
-// import PostcardImage from './postcard_image'; 
+import PostcardImage from './postcard_image'; 
+import PostcardShowMap from '../maps/postcard_show/postcard_show_map';
 
 class PostcardShow extends React.Component{
   constructor(props){
     super(props); 
 
     this.state = {
-      files: ""
+      files: "",
+      active: null
     }
-
+    
+    this.toggleActive = this.toggleActive.bind(this); 
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPostcard(this.props.postcardId)
+  }
+
+  toggleActive(e) {
+    if (e.currentTarget.id === this.state.active) {
+      this.setState({active: null}); 
+    } else {
+      this.setState({active: e.currentTarget.id}); 
+    }
   }
 
   handleChange(e) {
@@ -35,9 +43,8 @@ class PostcardShow extends React.Component{
     for (const file of this.state.files) {
       formData.append("images", file);
     }
-    debugger
-    this.props.updatePostcardPhotos(this.props.postcardId, formData);
 
+    this.props.updatePostcardPhotos(this.props.postcardId, formData);
   }
 
   render() {
@@ -65,12 +72,21 @@ class PostcardShow extends React.Component{
             <p>{postcard.body}</p>
           </section>
           <aside>
-            { <PostcardShowMapContainer postcard={postcard} /> }
+            { <PostcardShowMap postcard={postcard} /> }
           </aside>
         </header>
         <main>
-          {/* { postcard.images.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) } */}
-          {imageUpload}
+          <ul role="list">
+            { postcard.photos.map((imageUrl, i) => (
+              <PostcardImage 
+                key={i} 
+                idx={i}
+                imageUrl={imageUrl} 
+                toggleActive={this.toggleActive} 
+                active={this.state.active}/>
+            )) }
+          </ul>
+          { imageUpload }
         </main>
       </div>
     )

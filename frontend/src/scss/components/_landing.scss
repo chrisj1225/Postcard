@@ -21,14 +21,15 @@ $body-height: 70vh;
       width: 20px;
     }
 
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba( $blue, .6 ); 
+      border-radius: 5px; 
+    }
+
     &:hover {
-      &::-webkit-scrollbar {
-        border: 1px solid rgba(0,0,0,0.2);
-      }
-      
       &::-webkit-scrollbar-thumb {
         background-color: $blue;
-        border-radius: 5px; 
+        
         border: 1px solid rgba(0,0,0,0.2);
       }
     }

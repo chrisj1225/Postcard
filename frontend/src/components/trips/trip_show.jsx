@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 import PostcardIndexItem from '../postcards/postcards_index_item'; 
-import TripShowMap from '../maps/trip_show/trip_show_map_container';
+import TripShowMap from '../maps/trip_show/trip_show_map';
 import AddButton from '../util/add_button'; 
 
 import arrow from '../../assets/images/arrow.png'; 
@@ -26,7 +26,6 @@ class TripShow extends React.Component {
 
   render() {
     const { postcards, trip, currentUser } = this.props; 
-
     if (!trip) return null; 
 
     const arrowComponent = <img className="arrow" src={arrow} alt=""/>
@@ -79,7 +78,7 @@ class TripShow extends React.Component {
           <h1>{trip.title}</h1>
           <p>{trip.description}</p>
         </section>
-        <TripShowMap postcards={postcards} />
+        <TripShowMap key={`trip-show-map-${trip._id}`} postcards={postcards} trip={trip}/>
         <article>
           { Object.values(postcards).map(postcard => <PostcardIndexItem 
             key={postcard._id} 

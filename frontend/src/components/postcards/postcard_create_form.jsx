@@ -74,7 +74,6 @@ class PostcardCreateForm extends React.Component{
             <p>Lng: <span>{this.state.lng}</span></p>
           </header>
           <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
-          <input type="text" id="cpf-search" placeholder="Search for a destination" />
         </aside>
       </div>
     )
