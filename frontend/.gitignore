@@ -2,6 +2,7 @@
 
 .env
 .env.development
+.env2
 # dependencies
 /node_modules
 /.pnp

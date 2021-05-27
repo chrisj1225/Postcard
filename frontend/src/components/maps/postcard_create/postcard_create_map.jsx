@@ -153,7 +153,7 @@ class TripsIndexMap extends React.Component {
   render() {
 
     return (
-      <div className="trips-index map-wrapper" style={{ width: "1000px", height: "500px" }}>
+      <div className="trips-index map-wrapper">
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY, libraries:['places'] }}
           defaultCenter={ this.center }

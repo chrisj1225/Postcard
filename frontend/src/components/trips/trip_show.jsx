@@ -11,10 +11,17 @@ import arrow from '../../assets/images/arrow.png';
 class TripShow extends React.Component {
   constructor(props) {
     super(props); 
+
+    this.deleteTrip = this.deleteTrip.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchTrip(this.props.tripId)
+  }
+
+  deleteTrip() {
+    this.props.deleteTrip(this.props.tripId)
+      .then(this.props.history.push('/'));
   }
 
   render() {
@@ -25,6 +32,8 @@ class TripShow extends React.Component {
     const arrowComponent = <img className="arrow" src={arrow} alt=""/>
 
     let createPostcardComponent; 
+    let editTripLink;
+    let deleteTripButton;
 
     if (currentUser && (currentUser.id === trip.travellerId)) {
       if (!postcards) {
@@ -38,8 +47,8 @@ class TripShow extends React.Component {
       }
     };
 
-    if (currentUser) {
-      createPostcardComponent = currentUser.id === trip.travellerId ? (
+    if ((currentUser) && (currentUser.id === trip.travellerId)) {
+      createPostcardComponent = (
         <div className={"create-postcard-wrapper postcard-index-item "}>
           <div className="create-postcard-card">
             <Link to={`/trips/${trip._id}/postcards/new`}>
@@ -49,21 +58,31 @@ class TripShow extends React.Component {
           </div>
           { arrowComponent }
         </div>
-      ) : null; 
-    };
+      );
 
+      editTripLink = (
+        <Link className="edit-trip" to={`/trips/${trip._id}/edit`}>Edit Trip</Link>
+      )
+
+      deleteTripButton = (
+        <a onClick={this.deleteTrip}
+          className="delete-trip" >Delete Trip</a>
+      )
+    };
 
     return (
       <main className="trip-show-wrapper">
         <section>
           <Link to="/">Back to trips</Link>
+          {editTripLink}
+          {deleteTripButton}
           <h1>{trip.title}</h1>
           <p>{trip.description}</p>
         </section>
         <TripShowMap postcards={postcards} trip={trip}/>
         <article>
           { Object.values(postcards).map(postcard => <PostcardIndexItem 
-            key={postcard.id} 
+            key={postcard._id} 
             postcard={postcard} 
             arrow={arrowComponent}/> ) }
           { createPostcardComponent }
