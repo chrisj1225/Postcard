@@ -1,5 +1,5 @@
 import React from 'react';
-import PostcardCreateMapContainer from '../maps/postcard_create/postcard_create_map_container';
+import PostcardCreateMap from '../maps/postcard_create/postcard_create_map';
 
 class PostcardCreateForm extends React.Component{
   constructor(props) {
@@ -73,7 +73,7 @@ class PostcardCreateForm extends React.Component{
             <p>Lat: <span>{this.state.lat}</span></p>
             <p>Lng: <span>{this.state.lng}</span></p>
           </header>
-          <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
+          <PostcardCreateMap handlePositionInput={position => this.handlePositionInput(position)} />
         </aside>
       </div>
     )
