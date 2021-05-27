@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { attachAllTripPos } from '../../../util/selectors';
 
 const mSTP = (state, ownProps) => {
-  // const trips = attachAllTripPos(state.trips, state.postcards);
+  
+  const trips = attachAllTripPos(state.trips, state.postcards);
   return {
     
   }

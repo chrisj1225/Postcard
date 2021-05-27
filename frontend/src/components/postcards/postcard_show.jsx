@@ -21,7 +21,7 @@ class PostcardShow extends React.Component{
 
     if (!postcard) return null; 
 
-    // debugger
+    // 
     return (
       <div className="postcard-show-wrapper">
         <header>

@@ -12,14 +12,8 @@ class TripsIndexMap extends React.Component {
     const lng = -3.202092257879451;
 
     this.positions = [];
-
-    this.state = {
-      center: {
-        lat: lat,
-        lng: lng
-      },
-      zoom: 0,
-    }
+    this.center = { lat, lng };
+    this.zoom = 0;
 
     this.createSearchBox = this.createSearchBox.bind(this);
   }
@@ -43,6 +37,7 @@ class TripsIndexMap extends React.Component {
     this.markers = [];
 
     this.map.addListener("click", e => {
+      if (this.markers) for (let marker of this.markers) { marker.setMap(null) }
       if (this.placedMarker) this.placedMarker.setMap(null);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
@@ -55,11 +50,10 @@ class TripsIndexMap extends React.Component {
       });
       this.props.handlePositionInput(clickPosition);
     });
-    setTimeout(this.createSearchBox, 10);
+    setTimeout(this.createSearchBox,100);
   }
 
   createSearchBox() {
-    
     const input = document.getElementById("cpf-search");
     input.style.display = "block";
     const searchBox = new this.maps.places.SearchBox(input);
@@ -125,7 +119,6 @@ class TripsIndexMap extends React.Component {
           let that = this;
 
           this.maps.event.addListener(marker, 'click', function() {
-            debugger
             for (let m of that.markers) { m.setIcon(redMarker) }
             marker.setIcon(greenMarker);
             that.placedMarker = marker;
@@ -141,11 +134,9 @@ class TripsIndexMap extends React.Component {
             bounds.extend(place.geometry.location);
           }
         });
-
+        this.map.fitBounds(bounds);
       }
 
-
-      
     });
   }
 
@@ -165,8 +156,8 @@ class TripsIndexMap extends React.Component {
       <div className="trips-index map-wrapper" style={{ width: "1000px", height: "500px" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY, libraries:['places'] }}
-          defaultCenter={ this.state.center }
-          defaultZoom={ this.state.zoom }
+          defaultCenter={ this.center }
+          defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
