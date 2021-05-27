@@ -26,7 +26,7 @@ class TripsIndexMap extends React.Component {
     });
     let tripItems = document.getElementsByClassName("trips-index-item");
     tripItems = Array.from(tripItems);
-    debugger
+    
     tripItems.forEach(tripItem => {
       tripItem.removeEventListener("mouseenter", () => true);
       tripItem.removeEventListener("mouseleave", () => true);
