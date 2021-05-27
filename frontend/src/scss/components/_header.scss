@@ -8,7 +8,7 @@
     // font-size: 48px; 
     // line-height: 1.2;
     // letter-spacing: 6px;
-    width: 250px;
+    width: 200px;
     height: auto;
     cursor: pointer;
   }
@@ -17,24 +17,9 @@
     padding: 10px $site-margin;
   }
   
-  // style 1
-  // background: $postcard-border; 
-  // padding: 10px 20px;
-  // border-radius: 20px;
-  // background-clip: content-box, padding-box;
-
-  // style 2
-  // @include postcard-border();
-
-  // style 3
   background: url('../../assets/images/postcard-border.png');
   background-size: 120px;
   background-repeat: round;
-
-  // style 4
-  // background-image: 
-  //   repeating-linear-gradient(-45deg,  transparent, transparent 20px, $red 20px, $red 30px),
-  //   repeating-linear-gradient(-45deg, $blue, $blue 10px, $cream 10px, $cream 20px); 
   
   .content {
     @include flex(space-between); 

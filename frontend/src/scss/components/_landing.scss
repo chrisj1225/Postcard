@@ -13,6 +13,7 @@ $body-height: 70vh;
     background-color: $yellow;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 20px 0;
 
     &::-webkit-scrollbar {
       transition: background-color 1s;
