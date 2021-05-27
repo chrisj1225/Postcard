@@ -1,5 +1,5 @@
 import React from 'react';
-import PostcardCreateMapContainer from '../maps/postcard_create/postcard_create_map_container';
+import PostcardCreateMap from '../maps/postcard_create/postcard_create_map';
 
 class PostcardEditForm extends React.Component{
   constructor(props) {
@@ -13,7 +13,8 @@ class PostcardEditForm extends React.Component{
 
   componentDidMount() {
     this.props.fetchPostcard(this.props.postcardId)
-      .then(() => {
+      .then(res => {
+        debugger
         this.setState({
           id: this.props.postcard._id,
           title: this.props.postcard.title,
@@ -91,7 +92,7 @@ class PostcardEditForm extends React.Component{
             <p>Lat: <span>{this.state.lat}</span></p>
             <p>Lng: <span>{this.state.lng}</span></p>
           </header>
-          <PostcardCreateMapContainer handlePositionInput={position => this.handlePositionInput(position)} />
+          <PostcardCreateMap handlePositionInput={position => this.handlePositionInput(position)} />
           <input type="text" id="cpf-search" placeholder="Search for a destination" />
         </aside>
       </div>
