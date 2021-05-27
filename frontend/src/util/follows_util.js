@@ -9,7 +9,7 @@ export const createFollow = (userId) => {
 };
 
 export const deleteFollow = (userId) => {
-  return axios.delete(`/users/${userId}/follow`)
+  return axios.delete(`/users/${userId}/unfollow`)
 }
 
 export const fetchFollowedTrips = () => {

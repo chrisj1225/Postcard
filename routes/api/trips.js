@@ -25,13 +25,22 @@ router.get("/", async (req, res) => {
   //   pcObj[postcard.id] = postcard
   // })
   // return res.json({trips: tripsObj, postcards: pcObj})
-  const trips = await Trip.find().sort({date: -1});
+  const trips = await Trip.find().sort({updatedAt: -1});
   const tripsObj = {};
   const pcObj = {};
   for(let i = 0; i < trips.length; i++){
     let trip = trips[i];
     let user = await User.findById(trip.travellerId);
-    tripsObj[trip.id] = trip;
+    tripsObj[trip.id] = {
+      _id: trip.id,
+      title: trip.title,
+      description: trip.description,
+      travellerId: trip.travellerId,
+      createdAt: trip.createdAt,
+      updatedAt: trip.updatedAt,
+      __v: trip.__v,
+      travellerName: user.displayName
+    };
     let postcards = await Postcard.find({tripId: trip.id});
     for(let j = 0; j < postcards.length; j++){
       let postcard = postcards[j];
@@ -62,8 +71,18 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
     let trips = await Trip.find({travellerId: followId});
     if(trips){
       for(let j = 0; j < trips.length; j++){
+        let user = await User.findById(trip.travellerId);
         let trip = trips[j];
-        tripsObj[trip.id] = trip;
+        tripsObj[trip.id] = {
+          _id: trip.id,
+          title: trip.title,
+          description: trip.description,
+          travellerId: trip.travellerId,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt,
+          __v: trip.__v,
+          travellerName: user.displayName
+        };
         let postcards = await Postcard.find({tripId: trip.id}).sort({date: -1});
         if(postcards){
           for(let k = 0; k < postcards.length; k++){
@@ -91,7 +110,18 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
 
 
 router.get("/:id",  async (req, res) => {
-  const trip = await Trip.findById(req.params.id)
+  const trip = await Trip.findById(req.params.id);
+  const user = await User.findById(trip.travellerId);
+  const tripObj = {
+    _id: trip.id,
+    title: trip.title,
+    description: trip.description,
+    travellerId: trip.travellerId,
+    createdAt: trip.createdAt,
+    updatedAt: trip.updatedAt,
+    __v: trip.__v,
+    travellerName: user.displayName
+  };
   const pcObj = {}
   const postcards = await Postcard.find({tripId: trip.id}).sort({date: -1})
   postcards.forEach(postcard => {
@@ -109,10 +139,10 @@ router.get("/:id",  async (req, res) => {
       travellerId: user.id
     }
   })
-  res.json({trip: trip, postcards: pcObj})
+  res.json({trip: tripObj, postcards: pcObj})
 })
 
-router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
+router.post("/", passport.authenticate('jwt', {session: false}), async (req, res) => {
 
   const {errors, isValid} = validateTripsInput(req.body);
 
@@ -126,12 +156,26 @@ router.post("/", passport.authenticate('jwt', {session: false}), (req, res) => {
     travellerId: req.user.id
   })
 
+  let user = await User.findById(req.user.id);
+
   newTrip.save()
-    .then((trip) => res.json({trip: trip}))
+    .then((trip) => {
+      const tripObj = {
+        _id: trip.id,
+        title: trip.title,
+        description: trip.description,
+        travellerId: trip.travellerId,
+        createdAt: trip.createdAt,
+        updatedAt: trip.updatedAt,
+        __v: trip.__v,
+        travellerName: user.displayName
+      };
+      res.json({trip: tripObj})
+    })
     .catch((err) => res.json(err))
 })
 
-router.patch("/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
+router.patch("/:id", passport.authenticate('jwt', {session: false}), async (req, res) => {
 
   const {errors, isValid} = validateTripsInput(req.body);
 
@@ -139,87 +183,109 @@ router.patch("/:id", passport.authenticate('jwt', {session: false}), (req, res) 
     return res.status(400).json(errors);
   }
 
-  Trip.findById(req.params.id)
-    .then((trip) => {
-      if(!trip){
-        errors.trip = "Trip not found";
-        return res.status(400).json(errors)
-      } else if(trip.travellerId != req.user.id){
-        errors.user = "You do not have permission to edit this trip";
-        //Change error code probably
-        return res.status(400).json(errors)
-      } else{
-        trip.title = req.body.title;
-        trip.description = req.body.description;
-        trip.save()
-          .then((trip) => res.json({trip: trip}))
-      }
-    }) 
-})
-
-router.delete("/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
-  Trip.findById(req.params.id)
-    .then((trip) => {
-      if(!trip){
-        return res.status(400).json({trip: "Trip not found"})
-      } else if(trip.travellerId != req.user.id){
-        return res.status(400).json({user: "You do not have permission to delete this trip"});
-      } else{
-        trip.delete()
-        .then((trip) => res.json({trip: trip}))
-      }
-    })
-})
-
-
-
-postcardRouter.get('/', (req, res) => {
-  Postcard.find({tripId: req.params.tripId})
-    .sort({date: -1})
-    .then((postcards) => {
-      const pcObj = {}
-      postcards.forEach((postcard) => {
-        pcObj[postcard.id] = {
-          photos: postcard.photos,
-          _id: postcard.id,
-          title: postcard.title,
-          body: postcard.body,
-          tripId: postcard.tripId,
-          lat: postcard.lat,
-          lng: postcard.lng,
-          createdAt: postcard.createdAt,
-          updatedAt: postcard.updatedAt,
-          __v: postcard.__v,
-          travellerId: user.id
-        }
+  const trip = await Trip.findById(req.params.id)
+  if(!trip){
+    errors.trip = "Trip not found";
+    return res.status(400).json(errors)
+  } else if(trip.travellerId != req.user.id){
+    errors.user = "You do not have permission to edit this trip";
+    //Change error code probably
+    return res.status(400).json(errors)
+  } else{
+    const user = await User.findById(req.user.id);
+    trip.title = req.body.title;
+    trip.description = req.body.description;
+    trip.save()
+      .then((trip) => {
+        const tripObj = {
+          _id: trip.id,
+          title: trip.title,
+          description: trip.description,
+          travellerId: trip.travellerId,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt,
+          __v: trip.__v,
+          travellerName: user.displayName
+        };
+        res.json({trip: tripObj})
       })
-      return res.json(pcObj)
-    })
-    .catch((err) => res.status(400).json({ postcard: "no postcards found" }))
+    }
 })
 
-postcardRouter.get('/:id', (req, res) => {
-  Postcard.findById(req.params.id)
-    .then((postcard) => {
-      let postcardObj = {
-        photos: postcard.photos,
-        _id: postcard.id,
-        title: postcard.title,
-        body: postcard.body,
-        tripId: postcard.tripId,
-        lat: postcard.lat,
-        lng: postcard.lng,
-        createdAt: postcard.createdAt,
-        updatedAt: postcard.updatedAt,
-        __v: postcard.__v,
-        travellerId: user.id
-      }
-      res.json(postcardObj)
+router.delete("/:id", passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const trip = await Trip.findById(req.params.id)
+  const user = await User.findById(req.user.id);
+  if(!trip){
+    return res.status(400).json({trip: "Trip not found"})
+  } else if(trip.travellerId != req.user.id){
+    return res.status(400).json({user: "You do not have permission to delete this trip"});
+  } else{
+    trip.delete()
+    .then((trip) => {
+      const tripObj = {
+        _id: trip.id,
+        title: trip.title,
+        description: trip.description,
+        travellerId: trip.travellerId,
+        createdAt: trip.createdAt,
+        updatedAt: trip.updatedAt,
+        __v: trip.__v,
+        travellerName: user.displayName
+      };
+      res.json({trip: tripObj})
     })
-    .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
+  }
+
 })
 
-postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+
+postcardRouter.get('/', async (req, res) => {
+  const postcards = await Postcard.find({tripId: req.params.tripId}).sort({date: -1})
+  const trip = await Trip.findById(req.params.tripId);
+  const user = await User.findById(trip.travellerId);
+  
+  const pcObj = {}
+  postcards.forEach((postcard) => {
+    pcObj[postcard.id] = {
+      photos: postcard.photos,
+      _id: postcard.id,
+      title: postcard.title,
+      body: postcard.body,
+      tripId: postcard.tripId,
+      lat: postcard.lat,
+      lng: postcard.lng,
+      createdAt: postcard.createdAt,
+      updatedAt: postcard.updatedAt,
+      __v: postcard.__v,
+      travellerId: user.id
+    }
+  })
+  return res.json(pcObj)
+})
+
+postcardRouter.get('/:id', async (req, res) => {
+  const postcard = await Postcard.findById(req.params.id)
+  const trip = await Trip.findById(req.params.tripId);
+  const user = await User.findById(trip.travellerId);
+  let postcardObj = {
+    photos: postcard.photos,
+    _id: postcard.id,
+    title: postcard.title,
+    body: postcard.body,
+    tripId: postcard.tripId,
+    lat: postcard.lat,
+    lng: postcard.lng,
+    createdAt: postcard.createdAt,
+    updatedAt: postcard.updatedAt,
+    __v: postcard.__v,
+    travellerId: user.id
+  }
+  res.json(postcardObj)
+
+})
+
+postcardRouter.post('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
   const {errors, isValid} = validPostcardsInput(req.body);
 
   if(!isValid){
@@ -250,7 +316,7 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, r
               createdAt: postcard.createdAt,
               updatedAt: postcard.updatedAt,
               __v: postcard.__v,
-              travellerId: user.id
+              travellerId: req.user.id
             }
             res.json(postcardObj)
           })
@@ -295,7 +361,7 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
                     createdAt: postcard.createdAt,
                     updatedAt: postcard.updatedAt,
                     __v: postcard.__v,
-                    travellerId: user.id
+                    travellerId: req.user.id
                   }
                   res.json(postcardObj)
                 })
@@ -329,7 +395,7 @@ postcardRouter.delete('/:id', passport.authenticate('jwt', {session: false}), (r
                     createdAt: postcard.createdAt,
                     updatedAt: postcard.updatedAt,
                     __v: postcard.__v,
-                    travellerId: user.id
+                    travellerId: req.user.id
                   }
                   res.json(postcardObj)
                 })

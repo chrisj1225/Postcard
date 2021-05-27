@@ -120,7 +120,16 @@ tripRouter.get('/', (req, res) => {
     .then((trips) => {
       const tripsObj = {}
       trips.forEach((trip) => {
-        tripsObj[trip.id] = trip
+        tripsObj[trip.id] = {
+          _id: trip.id,
+          title: trip.title,
+          description: trip.description,
+          travellerId: trip.travellerId,
+          createdAt: trip.createdAt,
+          updatedAt: trip.updatedAt,
+          __v: trip.__v,
+          travellerName: user.displayName
+        };
       })
       return res.json(tripsObj)
     })

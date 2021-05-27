@@ -14,6 +14,7 @@ export const receivePostcards = data => {
 }
 
 export const receivePostcard = postcard => {
+  
   return({
     type: RECEIVE_POSTCARD,
     postcard,
