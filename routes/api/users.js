@@ -10,6 +10,8 @@ const router = express.Router();
 const User = require('../../models/User');
 const tripRouter = express.Router({mergeParams: true});
 const Trip = require('../../models/Trip');
+const upload = require("../../services/ImageUpload");
+const deleteImage = require("../../services/imageDelete")
 
 router.use('/:userId/trips', tripRouter)
 
@@ -150,6 +152,18 @@ router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}
     })
 })
 
+router.post("/upload", upload.single("image"), passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const currentUser = await User.findById(req.user.id);
+  currentUser.profilePic = req.file.location
+  currentUser.save()
+    .then((user) => {
+      res.json(user)
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+})
+
 router.get('/follows', passport.authenticate('jwt', {session: false}), async (req, res) => {
   const currentUser = await User.findById(req.user.id);
   let followedUsers = {}
@@ -163,5 +177,7 @@ router.get('/follows', passport.authenticate('jwt', {session: false}), async (re
   // })
   res.json({followedUsers: followedUsers})
 })
+
+
 
 module.exports = router;
