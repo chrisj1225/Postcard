@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
       let postcardObj = {
         photos: postcard.photos,
         _id: postcard.id,
-        title: postcard.id,
+        title: postcard.title,
         body: postcard.body,
         tripId: postcard.tripId,
         lat: postcard.lat,
@@ -86,7 +86,7 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
     let postcardObj = {
       photos: postcard.photos,
       _id: postcard.id,
-      title: postcard.id,
+      title: postcard.title,
       body: postcard.body,
       tripId: postcard.tripId,
       lat: postcard.lat,
@@ -143,7 +143,7 @@ router.delete('/:id/deleteImage', passport.authenticate('jwt', {session: false})
       let postcardObj = {
         photos: postcard.photos,
         _id: postcard.id,
-        title: postcard.id,
+        title: postcard.title,
         body: postcard.body,
         tripId: postcard.tripId,
         lat: postcard.lat,

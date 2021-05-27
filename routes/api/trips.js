@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
       pcObj[postcard.id] = { 
         photos: postcard.photos,
         _id: postcard.id,
-        title: postcard.id,
+        title: postcard.title,
         body: postcard.body,
         tripId: postcard.tripId,
         lat: postcard.lat,
@@ -71,7 +71,7 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
             pcObj[postcard.id] = pcObj[postcard.id] = { 
               photos: postcard.photos,
               _id: postcard.id,
-              title: postcard.id,
+              title: postcard.title,
               body: postcard.body,
               tripId: postcard.tripId,
               lat: postcard.lat,
@@ -98,7 +98,7 @@ router.get("/:id",  async (req, res) => {
     pcObj[postcard.id] = {
       photos: postcard.photos,
       _id: postcard.id,
-      title: postcard.id,
+      title: postcard.title,
       body: postcard.body,
       tripId: postcard.tripId,
       lat: postcard.lat,
@@ -182,7 +182,7 @@ postcardRouter.get('/', (req, res) => {
         pcObj[postcard.id] = {
           photos: postcard.photos,
           _id: postcard.id,
-          title: postcard.id,
+          title: postcard.title,
           body: postcard.body,
           tripId: postcard.tripId,
           lat: postcard.lat,
@@ -204,7 +204,7 @@ postcardRouter.get('/:id', (req, res) => {
       let postcardObj = {
         photos: postcard.photos,
         _id: postcard.id,
-        title: postcard.id,
+        title: postcard.title,
         body: postcard.body,
         tripId: postcard.tripId,
         lat: postcard.lat,
@@ -242,7 +242,7 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), (req, r
             let postcardObj = {
               photos: postcard.photos,
               _id: postcard.id,
-              title: postcard.id,
+              title: postcard.title,
               body: postcard.body,
               tripId: postcard.tripId,
               lat: postcard.lat,
@@ -287,7 +287,7 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
                   let postcardObj = {
                     photos: postcard.photos,
                     _id: postcard.id,
-                    title: postcard.id,
+                    title: postcard.title,
                     body: postcard.body,
                     tripId: postcard.tripId,
                     lat: postcard.lat,
@@ -321,7 +321,7 @@ postcardRouter.delete('/:id', passport.authenticate('jwt', {session: false}), (r
                   let postcardObj = {
                     photos: postcard.photos,
                     _id: postcard.id,
-                    title: postcard.id,
+                    title: postcard.title,
                     body: postcard.body,
                     tripId: postcard.tripId,
                     lat: postcard.lat,

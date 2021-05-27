@@ -59,7 +59,7 @@ class PostcardShow extends React.Component{
     const { postcard, currentUser } = this.props; 
 
     if (!postcard) return null; 
-
+    debugger
     let imageUpload;
     let editPostcardLink;
     let deletePostcardButton;
