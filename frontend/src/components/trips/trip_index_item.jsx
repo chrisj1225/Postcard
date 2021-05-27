@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 const TripIndexItem = ({ trip }) => {
 
-  debugger
-
   return (
     <div className="trips-index-item">
       <section>

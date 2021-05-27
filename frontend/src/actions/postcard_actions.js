@@ -67,11 +67,9 @@ export const updatePostcard = (tripId, postcard) => dispatch => {
 }
 
 export const updatePostcardPhotos = (postcardId, photos) => dispatch => {
-  debugger
   return PostcardAPIUtil.updatePostcardPhotos(postcardId, photos)
     .then(res => {
-      debugger
-      return dispatch(receivePostcard(res.data))
+      return dispatch(receivePostcard(res.data.postcard))
     })
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 } 

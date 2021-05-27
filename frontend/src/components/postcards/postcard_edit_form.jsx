@@ -1,15 +1,29 @@
 import React from 'react';
 import PostcardCreateMapContainer from '../maps/postcard_create/postcard_create_map_container';
 
-class PostcardCreateForm extends React.Component{
+class PostcardEditForm extends React.Component{
   constructor(props) {
     super(props)
 
-    this.state = this.props.newPostcard;
-  
+    // this.state = this.props.postcard
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
     this.handlePositionInput = this.handlePositionInput.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchPostcard(this.props.postcardId)
+      .then(() => {
+        this.setState({
+          id: this.props.postcard._id,
+          title: this.props.postcard.title,
+          body: this.props.postcard.body,
+          tripId: this.props.postcard.tripId,
+          lat: this.props.postcard.lat.$numberDecimal,
+          lng: this.props.postcard.lng.$numberDecimal,
+          photos: this.props.postcard.photos
+        })
+      })
   }
 
   handlePositionInput(position) {
@@ -21,9 +35,8 @@ class PostcardCreateForm extends React.Component{
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createPostcard(this.state.tripId, this.state)
+    this.props.updatePostcard(this.state.tripId, this.state)
       .then((res) => {
-        debugger
         this.props.history.push(`/postcards/${res.postcard._id}`)
       });
   }
@@ -37,10 +50,14 @@ class PostcardCreateForm extends React.Component{
   }
 
   render() {
+    const { postcard } = this.props;
+    if (!postcard) return null;
+    if (!this.state) return null;
+
     return(
       <div className="create-postcard-container">
         <form onSubmit={this.handleSubmit}>
-          <h1>Create New Postcard</h1>
+          <h1>Update Postcard</h1>
           <label>Postcard Title
             <input 
               type="text"
@@ -67,7 +84,7 @@ class PostcardCreateForm extends React.Component{
           <input 
             onClick={this.handleSubmit}
             type="submit" 
-            value="Create Postcard" />
+            value="Update Postcard" />
         </form>
         <aside>
           <header className="coordinates">
@@ -82,4 +99,4 @@ class PostcardCreateForm extends React.Component{
   }
 }
 
-export default PostcardCreateForm;
+export default PostcardEditForm;
