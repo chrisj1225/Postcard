@@ -14,7 +14,22 @@ const deleteImage = require("../../services/imageDelete")
 
 router.get('/:id', (req, res) => {
   Postcard.findById(req.params.id)
-    .then((postcard) => res.json(postcard))
+    .then((postcard) => {
+      let postcardObj = {
+        photos: postcard.photos,
+        _id: postcard.id,
+        title: postcard.id,
+        body: postcard.body,
+        tripId: postcard.tripId,
+        lat: postcard.lat,
+        lng: postcard.lng,
+        createdAt: postcard.createdAt,
+        updatedAt: postcard.updatedAt,
+        __v: postcard.__v,
+        travellerId: user.id
+      }
+      res.json(postcardObj)
+    })
     .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
 })
 
@@ -68,7 +83,21 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
       
     });
 
-    res.json({postcard: postcard, error: error});
+    let postcardObj = {
+      photos: postcard.photos,
+      _id: postcard.id,
+      title: postcard.id,
+      body: postcard.body,
+      tripId: postcard.tripId,
+      lat: postcard.lat,
+      lng: postcard.lng,
+      createdAt: postcard.createdAt,
+      updatedAt: postcard.updatedAt,
+      __v: postcard.__v,
+      travellerId: user.id
+    }
+
+    res.json({postcard: postcardObj, error: error});
   } catch(err){
     console.log("hello")
     res.json({error: err})
@@ -111,7 +140,20 @@ router.delete('/:id/deleteImage', passport.authenticate('jwt', {session: false})
   postcard.photos.splice(idx, 1);
   postcard.save()
     .then((postcard) => {
-      res.json(postcard)
+      let postcardObj = {
+        photos: postcard.photos,
+        _id: postcard.id,
+        title: postcard.id,
+        body: postcard.body,
+        tripId: postcard.tripId,
+        lat: postcard.lat,
+        lng: postcard.lng,
+        createdAt: postcard.createdAt,
+        updatedAt: postcard.updatedAt,
+        __v: postcard.__v,
+        travellerId: user.id
+      }
+      res.json(postcardObj)
     })
 })
 
