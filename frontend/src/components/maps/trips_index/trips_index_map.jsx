@@ -48,7 +48,7 @@ class TripsIndexMap extends React.Component {
           animation: maps.Animation.DROP,
           optimized: false,
           icon: redMarker,
-          id: `marker-${trip._id}`,
+          id: `trip-marker-${trip._id}`,
         });
         this.markers.push(marker);
 
@@ -65,9 +65,11 @@ class TripsIndexMap extends React.Component {
         const infoWindow = new this.maps.InfoWindow({
           content
         });
+        
         marker.addListener("mouseover", e => {
           infoWindow.open(map, marker);
           const tripItem = document.getElementById(`trip-item-${trip._id}`);
+          tripItem.scrollIntoView({ behavior: "smooth", block: "center" });
           tripItem.classList.add("focused");
         });
         marker.addListener("mouseout", e => {
@@ -75,6 +77,7 @@ class TripsIndexMap extends React.Component {
           const tripItem = document.getElementById(`trip-item-${trip._id}`);
           tripItem.classList.remove("focused");
         });
+        
         marker.addListener("click", e => {
           this.props.history.push(`/trips/${trip._id}`);
         });
