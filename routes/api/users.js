@@ -38,7 +38,8 @@ router.post('/register', (req, res) => {
         const newUser = new User({
           displayName: req.body.displayName,
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
+          profilePic: null
         })
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -152,9 +153,21 @@ router.delete('/:userId/unfollow', passport.authenticate('jwt', {session: false}
     })
 })
 
-router.post("/upload", upload.single("image"), passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.post("/profile/image", upload.single("image"), passport.authenticate('jwt', {session: false}), async (req, res) => {
   const currentUser = await User.findById(req.user.id);
   currentUser.profilePic = req.file.location
+  currentUser.save()
+    .then((user) => {
+      res.json(user)
+    })
+    .catch((err) => {
+      res.status(400).json(err)
+    })
+})
+
+router.delete("/profile/image", passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const currentUser = await User.findById(req.user.id);
+  currentUser.profilePic = null;
   currentUser.save()
     .then((user) => {
       res.json(user)
