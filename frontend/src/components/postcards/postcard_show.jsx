@@ -16,6 +16,7 @@ class PostcardShow extends React.Component{
     this.toggleActive = this.toggleActive.bind(this); 
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.deletePostcard = this.deletePostcard.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +37,13 @@ class PostcardShow extends React.Component{
     })
   }
 
+  deletePostcard() {
+    this.props.deletePostcard(
+      this.props.postcard.tripId, 
+      this.props.postcardId)
+      .then(this.props.history.push(`/trips/${this.props.postcard.tripId}`));
+  }
+
   uploadImages(e) {
     e.preventDefault();
     let formData = new FormData();
@@ -48,26 +56,39 @@ class PostcardShow extends React.Component{
   }
 
   render() {
-    const { postcard } = this.props; 
+    const { postcard, currentUser } = this.props; 
 
     if (!postcard) return null; 
 
-    // debugger
-    const imageUpload = (
-      <form onSubmit={this.uploadImages} encType="multipart/form-data" >
-        <div> {/* upload-box */}
-          <input type="file" multiple
-            onChange={this.handleChange} />
-          <button type="submit">Upload</button>
-        </div>
-      </form>
-    )
+    let imageUpload;
+    let editPostcardLink;
+    let deletePostcardButton;
+    if ((currentUser) && (currentUser.id === postcard.travellerId)) {
+      imageUpload = (
+        <form onSubmit={this.uploadImages} encType="multipart/form-data" >
+          <div> {/* upload-box */}
+            <input type="file" multiple
+              onChange={this.handleChange} />
+            <button type="submit">Upload</button>
+          </div>
+        </form>
+      );
 
+      editPostcardLink = <Link className="edit-postcard" to={`/postcards/${postcard._id}/edit`}>Edit Postcard</Link>
+
+      deletePostcardButton = (
+        <a onClick={this.deletePostcard}
+          className="delete-postcard">Delete Postcard</a>
+      );
+    }
+    
     return (
       <div className="postcard-show-wrapper">
         <header>
           <section>
             <Link to={`/trips/${postcard.tripId}`}>Back to trip overview</Link>
+            {editPostcardLink}
+            {deletePostcardButton}
             <h1>{postcard.title}</h1>
             <p>{postcard.body}</p>
           </section>
