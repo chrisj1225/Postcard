@@ -1,3 +1,4 @@
+import { RECEIVE_FOLLOWED_TRIPS } from '../../actions/follow_actions';
 import { 
   RECEIVE_TRIPS,
   RECEIVE_TRIP,
@@ -19,6 +20,8 @@ const TripsReducer = (state = {}, action) => {
       let newState = Object.assign({}, state);
       delete newState[action.tripId];
       return newState;
+    case RECEIVE_FOLLOWED_TRIPS:
+      return Object.assign({}, action.data.trips)
     default:
       return state;
   }

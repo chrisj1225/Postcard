@@ -111,15 +111,10 @@ class TripShowMap extends React.Component {
         // add marker to state markers
         this.markers.push(marker);
       });
+
       this.map.fitBounds(this.bounds);
       if (this.postcards.length === 1) this.map.setZoom(15);
       
-      
-      const overlay = new maps.OverlayView();
-      overlay.draw = function() {
-        this.getPanes().markerLayer.id='marker-layer';
-      };
-      overlay.setMap(map);
     }
   }
 

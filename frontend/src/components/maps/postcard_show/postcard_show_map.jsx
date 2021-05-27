@@ -1,30 +1,45 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
+import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 
 class PostcardShow extends React.Component {
   constructor(props) {
     super(props);
-
-    // expect to receive Postcard objects as an array.
-      // make Markers from Postcard objects using their first lat/lng coords
-
-
-    // this will be the default position and zoom the map centers on
-    this.state = {
-      center: {
-        lat: 23.68437587797855,
-        lng: -3.202092257879451
-      },
-      zoom: 0,
+    this.postcard = props.postcard;
+    let lat, lng;
+    lat = parseFloat(this.postcard.lat.$numberDecimal);
+    lng = parseFloat(this.postcard.lng.$numberDecimal);
+    if (lat > 180 || lng > 180) {
+      lat = 40.78054494676642;
+      lng = -73.96702023848366;
     }
+    this.center = { lat, lng }
+    this.zoom = 13;
+    
   }
 
-  componentDidMount() {
-    // this.props.fetchPostcards();
+  componentWillUnmount() {
+
   }
 
   handleApiLoaded(map, maps) {
-    // can do stuff with map or maps here like make markers
+    this.map = map;
+    this.maps = maps;
+    const position = this.center;
+
+    setTimeout(() => {
+      this.map.setZoom(15);
+      setTimeout(() => {
+        this.marker = new this.maps.Marker({
+          position,
+          map,
+          animation: maps.Animation.DROP,
+          optimized: false,
+          icon: greenMarker,
+        });
+      },500);
+    }, 250);
+    
   }
 
   createMapOptions(maps) {
@@ -44,8 +59,8 @@ class PostcardShow extends React.Component {
       <div className="postcard-show map-wrapper" >
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
-          defaultCenter={ this.state.center }
-          defaultZoom={ this.state.zoom }
+          defaultCenter={ this.center }
+          defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }

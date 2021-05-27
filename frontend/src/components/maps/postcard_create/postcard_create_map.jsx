@@ -16,6 +16,23 @@ class TripsIndexMap extends React.Component {
     this.zoom = 0;
 
     this.createSearchBox = this.createSearchBox.bind(this);
+
+    if (this.props.formType === "edit") {
+      this.editPostcard = this.props.postcard;
+      let lat, lng;
+      lat = parseFloat(this.editPostcard.lat.$numberDecimal);
+      lng = parseFloat(this.editPostcard.lng.$numberDecimal);
+      debugger
+      if (lat > 180 || lng > 180) {
+        lat = 40.78054494676642;
+        lng = -73.96702023848366;
+      }
+      this.center = { lat, lng }
+      this.zoom = 13;
+    }
+
+
+
   }
 
   componentDidMount() {
@@ -35,6 +52,19 @@ class TripsIndexMap extends React.Component {
     this.maps = maps;
     this.markerPopups = [];
     this.markers = [];
+
+    if (this.props.formType === "edit") {
+      
+      setTimeout(() => {
+        this.placedMarker = new this.maps.Marker({
+          position: this.center,
+          map: this.map,
+          icon: greenMarker,
+          animation: maps.Animation.DROP,
+        });
+      },500);
+      
+    }
 
     this.map.addListener("click", e => {
       if (this.markers) for (let marker of this.markers) { marker.setMap(null) }

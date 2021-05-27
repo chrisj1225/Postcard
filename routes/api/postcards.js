@@ -12,25 +12,24 @@ const Postcard = require('../../models/Postcard');
 const upload = require("../../services/ImageUpload");
 const deleteImage = require("../../services/imageDelete")
 
-router.get('/:id', (req, res) => {
-  Postcard.findById(req.params.id)
-    .then((postcard) => {
-      let postcardObj = {
-        photos: postcard.photos,
-        _id: postcard.id,
-        title: postcard.title,
-        body: postcard.body,
-        tripId: postcard.tripId,
-        lat: postcard.lat,
-        lng: postcard.lng,
-        createdAt: postcard.createdAt,
-        updatedAt: postcard.updatedAt,
-        __v: postcard.__v,
-        travellerId: user.id
-      }
-      res.json(postcardObj)
-    })
-    .catch((err) => res.status(400).json({ postcard: "No postcard found with that ID"}))
+router.get('/:id', async (req, res) => {
+  const postcard = await Postcard.findById(req.params.id);
+  const trip = await Trip.findById(postcard.tripId);
+  const user = await User.findById(trip.travellerId);
+  let postcardObj = {
+    photos: postcard.photos,
+    _id: postcard.id,
+    title: postcard.title,
+    body: postcard.body,
+    tripId: postcard.tripId,
+    lat: postcard.lat,
+    lng: postcard.lng,
+    createdAt: postcard.createdAt,
+    updatedAt: postcard.updatedAt,
+    __v: postcard.__v,
+    travellerId: user.id
+  }
+  res.json(postcardObj)
 })
 
 router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt', {session: false}), async (req, res) => {
@@ -48,7 +47,9 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
       return res.status(404).json({trip: "Trip not found"})
     }
     
-    if(trip.travellerId != req.user.id){
+    const user = await User.findById(req.user.id)
+
+    if(trip.travellerId != user.id){
       return res.status(401).json(
         {
           user: "You do not have permission to upload a photo to this postcard"
@@ -118,13 +119,16 @@ router.delete('/:id/deleteImage', passport.authenticate('jwt', {session: false})
     return res.status(404).json({trip: "Trip not found"})
   }
 
-  if(trip.travellerId != req.user.id){
+  const user = await User.findById(req.user.id)
+
+  if(trip.travellerId != user.id){
     return res.status(401).json(
       {
         user: "You do not have permission to delete a photo from this postcard"
       }
     )
   }
+
   // if(req.body){
   //   return res.json({res: req.body.imageUrl})
   // }
