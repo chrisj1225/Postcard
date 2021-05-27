@@ -107,12 +107,12 @@ class TripsIndexMap extends React.Component {
       this.getPanes().markerLayer.id='marker-layer';
     };
     overlay.setMap(map);
-    // setTimeout(this.idMarkers, 200);
+    setTimeout(this.idMarkers, 200);
   }
 
   idMarkers() {
-    // const markerImgs = document.querySelectorAll("#marker-layer img");
-    // this.positions.forEach((position, i) => markerImgs[i].id = `trip-${i}`);
+    const markerImgs = document.querySelectorAll("#marker-layer img");
+    this.positions.forEach((position, i) => markerImgs[i].id = `trip-${i}`);
   }
 
   createMapOptions(maps) {
