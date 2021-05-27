@@ -66,6 +66,16 @@ export const updatePostcard = (tripId, postcard) => dispatch => {
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
 }
 
+export const updatePostcardPhotos = (postcardId, photos) => dispatch => {
+  debugger
+  return PostcardAPIUtil.updatePostcardPhotos(postcardId, photos)
+    .then(res => {
+      debugger
+      return dispatch(receivePostcard(res.data))
+    })
+    .catch(err => dispatch(receivePostcardErrors(err.response.data)))
+} 
+
 export const deleteTrip = (tripId, postcardId) => dispatch => {
   return PostcardAPIUtil.deletePostcard(tripId, postcardId)
     .then((res) => dispatch(removePostcard(res.data)))

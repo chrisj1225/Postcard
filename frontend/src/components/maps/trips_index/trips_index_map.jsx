@@ -1,118 +1,148 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Link } from 'react-router-dom';
 import { limitChars } from '../../../util/func_util';
-import redMarker from '../../../assets/images/spotlight-poi2red.png'
-import greenMarker from '../../../assets/images/spotlight-poi2green.png'
+import { attachAllTripPos } from '../../../util/selectors';
+import redMarker from '../../../assets/images/spotlight-poi2red.png';
+import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 
-const randPos = (lt, lg) => {
-  let lat, lng;
-  const either = [-1, 1];
-  lat = lt + Math.random()*5*either[Math.floor(Math.random()*2)];
-  lng = lg + Math.random()*5*either[Math.floor(Math.random()*2)];
-  return { lat, lng };
-}
 
 class TripsIndexMap extends React.Component {
   constructor(props) {
     super(props);
-    this.idMarkers = this.idMarkers.bind(this);
 
     this.markers = [];
-
+    this.trips = [];
+    this.tripsWithPos = attachAllTripPos(this.props.trips, this.props.postcards);
+    
     const lat = 23.68437587797855;
     const lng = -3.202092257879451;
-
-    this.positions = [];
-
-    for (let i = 0; i < 10; i++) { this.positions.push(randPos(lat, lng)) }
-
-    // expect to receive Trip objects as an array.
-      // make Markers from Trip objects using their first lat/lng coords
-    
-
-    // this will be the default position and zoom the map centers on
-    this.state = {
-      center: {
-        lat: lat,
-        lng: lng
-      },
-      zoom: 0,
-    }
-  }
-
-  componentDidMount() {
-    // this.props.fetchTrips(); ?
+    this.center = { lat, lng };
+    this.zoom = 0;
   }
 
   componentWillUnmount() {
     this.markers.forEach(marker => {
       this.maps.event.clearInstanceListeners(marker);
     });
+    let tripItems = document.getElementsByClassName("trips-index-item");
+    tripItems = Array.from(tripItems);
+    debugger
+    tripItems.forEach(tripItem => {
+      tripItem.removeEventListener("mouseenter", () => true);
+      tripItem.removeEventListener("mouseleave", () => true);
+    });
+    
   }
+
+  animateZoomTo(targetZoom) {
+    const currentZoom = this.map.getZoom();
+    if (!currentZoom === targetZoom) {
+      this.maps.event.addListener(this.map, 'zoom_changed', e => {
+        this.animateMapZoomTo(targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
+      });
+      setTimeout(() => this.map.setZoom(currentZoom), 80);
+    }
+  };
 
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
-    this.markerPopups = [];
-    this.markers = [];
 
-    this.map.addListener("click", e => {
-      if (this.placedMarker) this.placedMarker.setMap(null);
-      const lat = e.latLng.lat();
-      const lng = e.latLng.lng();
-      this.clickPosition = { lat, lng };
-      this.placedMarker = new this.maps.Marker({
-        position: this.clickPosition,
-        map: this.map,
-        icon: greenMarker,
-        animation: maps.Animation.DROP,
-      });
-    })
-
-    // this.positions will become this.props.trips
-
-    // this.markers = this.props.trips.map(trip => {
-    this.positions.forEach((position, i) => {
-      // const position = { lat: trip.lat, lng: trip.lng };
-      const marker = new maps.Marker({
-        position,
-        map,
-        animation: maps.Animation.DROP,
-        optimized: false,
-        icon: redMarker,
-      });
-      marker.addListener("mouseover", e => {
-        const popup = document.getElementById("marker-popup");
-        popup.classList.add("active");
-        popup.style.top = e.domEvent.relatedTarget.y - 55 + "px";
-        popup.style.left = e.domEvent.relatedTarget.x - 40 + "px";
-        // const title = document.querySelector("#marker-popup > h3");
-        // const desc = document.querySelector("#marker-popup > p");
-        // title.textContent = `${trip.title}`;
-        // desc.textContent = `${limitChars(trip.description, 20)}`;
-        popup.textContent = `${marker.position.lat().toString().slice(0,7)},${marker.position.lng().toString().slice(0,7)}`;
-      });
-      marker.addListener("mouseout", e => {
-        document.getElementById("marker-popup").classList.remove("active");
-      });
-      marker.addListener("click", e => {
-        this.props.history.push("/trips");
-      });
-      this.markers.push(marker);
-    });
     
-    const overlay = new maps.OverlayView();
-    overlay.draw = function() {
-      this.getPanes().markerLayer.id='marker-layer';
-    };
-    overlay.setMap(map);
-    // setTimeout(this.idMarkers, 200);
-  }
 
-  idMarkers() {
-    // const markerImgs = document.querySelectorAll("#marker-layer img");
-    // this.positions.forEach((position, i) => markerImgs[i].id = `trip-${i}`);
+    if (this.tripsWithPos.length) {
+
+      this.tripsWithPos.forEach(trip => {
+        
+        // if the trip has no postcards, la-lng are > 180 and so don't continue
+        if (trip.lat > 180 || trip.lng > 180) return;
+        
+        this.trips.push(trip);
+        
+        // set up marker on map
+        const position = { lat: trip.lat, lng: trip.lng };
+        const marker = new maps.Marker({
+          position,
+          map,
+          animation: maps.Animation.DROP,
+          optimized: false,
+          icon: redMarker,
+          id: `trip-marker-${trip._id}`,
+        });
+        this.markers.push(marker);
+
+
+        // setting up interactive events
+        const content =
+          '<div id="index-info-content-wrapper">' +
+          '<h1 class="trip-title-info">' +
+          `${trip.title}` + '</h1>' +
+          '<p class="trip-desc-info">' +
+          `${trip.description}` + '</p>' +
+          '</div>';
+
+        const infoWindow = new this.maps.InfoWindow({
+          content
+        });
+        
+        // event listener for hovering the markers
+        marker.addListener("mouseover", e => {
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
+          infoWindow.open(map, marker);
+          const tripItem = document.getElementById(`trip-item-${trip._id}`);
+          tripItem.scrollIntoView({ behavior: "smooth", block: "center" });
+          tripItem.classList.add("focused");
+        });
+        marker.addListener("mouseout", e => {
+          infoWindow.close();
+          const tripItem = document.getElementById(`trip-item-${trip._id}`);
+          tripItem.classList.remove("focused");
+        });
+        
+        // event listener for clicking the marker
+        marker.addListener("click", e => {
+          this.props.history.push(`/trips/${trip._id}`);
+        });
+
+        // event listeners for hovering the trips list item
+        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseenter", () =>{
+          let lat, lng, position;
+          lat = marker.position.lat();
+          lng = marker.position.lng();
+          position = { lat,lng }
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
+          this.map.panTo(position);
+          if (this.center !== position) {
+            this.center = position;
+            setTimeout(() => {
+              this.map.setZoom(6);
+            }, 200);
+          } else {
+            this.map.setZoom(6);
+          }
+          
+          marker.setAnimation(this.maps.Animation.BOUNCE);
+        });
+
+        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", () =>{
+          marker.setAnimation(null);
+          this.map.setZoom(0);
+        });
+
+        // add the marker to the array after we're done with it
+        this.markers.push(marker);
+      });
+      
+
+      // creates a layer to hold all the markers
+      const overlay = new maps.OverlayView();
+      overlay.draw = function() {
+        this.getPanes().markerLayer.id='marker-layer';
+      };
+      overlay.setMap(map);
+    }
   }
 
   createMapOptions(maps) {
@@ -125,33 +155,19 @@ class TripsIndexMap extends React.Component {
     }
   }
 
-  click() {
-    const test = document.getElementById("trip-0");
-    if (test) {
-      console.log(test);
-      test.classList.add("focused");
-      test.src = greenMarker;
-    }
-  }
-
   render() {
 
     return (
       <div className="trips-index map-wrapper">
-        <div id="marker-popup" className="marker-info-wrapper">
-          <h3></h3>
-          <p></p>
-        </div>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
-          defaultCenter={ this.state.center }
-          defaultZoom={ this.state.zoom }
+          defaultCenter={ this.center }
+          defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
           onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
         >
         </GoogleMapReact>
-        <div id="hello" onClick={this.click}>hello</div>
       </div>
     );
   }

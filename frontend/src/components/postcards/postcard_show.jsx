@@ -1,17 +1,21 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom'; 
 
-
-import PostcardShowMapContainer from '../maps/postcard_show/postcard_show_map_container';
 import PostcardImage from './postcard_image'; 
+import PostcardShowMap from '../maps/postcard_show/postcard_show_map';
 
 class PostcardShow extends React.Component{
   constructor(props){
     super(props); 
 
-    this.state = { active: null }
-
+    this.state = {
+      files: "",
+      active: null
+    }
+    
     this.toggleActive = this.toggleActive.bind(this); 
+    this.uploadImages = this.uploadImages.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -26,10 +30,38 @@ class PostcardShow extends React.Component{
     }
   }
 
+  handleChange(e) {
+    this.setState({
+      files: e.target.files
+    })
+  }
+
+  uploadImages(e) {
+    e.preventDefault();
+    let formData = new FormData();
+
+    for (const file of this.state.files) {
+      formData.append("images", file);
+    }
+
+    this.props.updatePostcardPhotos(this.props.postcardId, formData);
+  }
+
   render() {
     const { postcard } = this.props; 
 
     if (!postcard) return null; 
+
+    // debugger
+    const imageUpload = (
+      <form onSubmit={this.uploadImages} encType="multipart/form-data" >
+        <div> {/* upload-box */}
+          <input type="file" multiple
+            onChange={this.handleChange} />
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+    )
 
     return (
       <div className="postcard-show-wrapper">
@@ -40,7 +72,7 @@ class PostcardShow extends React.Component{
             <p>{postcard.body}</p>
           </section>
           <aside>
-            { <PostcardShowMapContainer postcard={postcard} /> }
+            { <PostcardShowMap postcard={postcard} /> }
           </aside>
         </header>
         <main>
@@ -54,6 +86,7 @@ class PostcardShow extends React.Component{
                 active={this.state.active}/>
             )) }
           </ul>
+          { imageUpload }
         </main>
       </div>
     )

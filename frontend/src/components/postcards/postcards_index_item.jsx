@@ -8,10 +8,9 @@ import stamp from '../../assets/images/blue-stamp.png'
 
 const PostcardsIndexItem = (props) => {
   const { postcard, arrow } = props; 
-
-  // debugger
   return (
-    <div className="postcard-index-item">
+    <div className="postcard-index-item" id={`postcard-item-${postcard._id}`}>
+      {/* test data */}
       <article>
         <Link to={`/postcards/${postcard._id}`}>
           <h2>{postcard.title}</h2>
