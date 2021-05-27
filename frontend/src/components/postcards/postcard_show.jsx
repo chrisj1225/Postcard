@@ -10,10 +10,34 @@ class PostcardShow extends React.Component{
   constructor(props){
     super(props); 
 
+    this.state = {
+      files: ""
+    }
+
+    this.uploadImages = this.uploadImages.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchPostcard(this.props.postcardId)
+  }
+
+  handleChange(e) {
+    this.setState({
+      files: e.target.files
+    })
+  }
+
+  uploadImages(e) {
+    e.preventDefault();
+    let formData = new FormData();
+
+    for (const file of this.state.files) {
+      formData.append("images", file);
+    }
+    debugger
+    this.props.updatePostcardPhotos(this.props.postcardId, formData);
+
   }
 
   render() {
@@ -22,6 +46,16 @@ class PostcardShow extends React.Component{
     if (!postcard) return null; 
 
     // debugger
+    const imageUpload = (
+      <form onSubmit={this.uploadImages} encType="multipart/form-data" >
+        <div> {/* upload-box */}
+          <input type="file" multiple
+            onChange={this.handleChange} />
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+    )
+
     return (
       <div className="postcard-show-wrapper">
         <header>
@@ -36,6 +70,7 @@ class PostcardShow extends React.Component{
         </header>
         <main>
           {/* { postcard.images.map((imageUrl, i) => <PostcardImage key={i} imageUrl={imageUrl} />) } */}
+          {imageUpload}
         </main>
       </div>
     )
