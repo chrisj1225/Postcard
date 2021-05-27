@@ -2,7 +2,8 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { limitChars } from '../../../util/func_util';
 import { attachAllTripPos } from '../../../util/selectors';
-import redMarker from '../../../assets/images/spotlight-poi2red.png'
+import redMarker from '../../../assets/images/spotlight-poi2red.png';
+import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 
 
 class TripsIndexMap extends React.Component {
@@ -29,14 +30,17 @@ class TripsIndexMap extends React.Component {
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
-    this.markerPopups = [];
-    this.markers = [];
 
     if (this.tripsWithPos.length) {
 
       this.tripsWithPos.forEach(trip => {
+        
+        // if the trip has no postcards, la-lng are > 180 and so don't continue
         if (trip.lat > 180 || trip.lng > 180) return;
+        
         this.trips.push(trip);
+        
+        // set up marker on map
         const position = { lat: trip.lat, lng: trip.lng };
         const marker = new maps.Marker({
           position,
@@ -44,9 +48,12 @@ class TripsIndexMap extends React.Component {
           animation: maps.Animation.DROP,
           optimized: false,
           icon: redMarker,
+          id: `marker-${trip._id}`,
         });
         this.markers.push(marker);
 
+
+        // setting up interactive events
         const content =
           '<div id="index-info-content-wrapper">' +
           '<h1 class="trip-title-info">' +
@@ -60,17 +67,34 @@ class TripsIndexMap extends React.Component {
         });
         marker.addListener("mouseover", e => {
           infoWindow.open(map, marker);
+          const tripItem = document.getElementById(`trip-item-${trip._id}`);
+          tripItem.classList.add("focused");
         });
         marker.addListener("mouseout", e => {
           infoWindow.close();
+          const tripItem = document.getElementById(`trip-item-${trip._id}`);
+          tripItem.classList.remove("focused");
         });
         marker.addListener("click", e => {
           this.props.history.push(`/trips/${trip._id}`);
         });
+
+        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseenter", () =>{
+          this.markers.forEach(m => m.setIcon(redMarker));
+          marker.setIcon(greenMarker);
+          marker.setAnimation(this.maps.Animation.BOUNCE);
+        });
+
+        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", () =>{
+          marker.setAnimation(null);
+        });
+
         this.markers.push(marker);
         return true;
       });
       
+
+      // creates a layer to hold all the markers
       const overlay = new maps.OverlayView();
       overlay.draw = function() {
         this.getPanes().markerLayer.id='marker-layer';
