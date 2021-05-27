@@ -49,17 +49,26 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
 
 
     const files = req.files;
-    
+    let error;
     files.forEach((file) => {
-      if (!file.mimetype.startsWith('image')){
+      if(!file.mimetype.startsWith('image')){
         res.status(400).json({errors: [{files: "Please upload a file"}]})
       }
+
+      if(postcard.photos.length < 8){
+        postcard.photos = postcard.photos.concat(file.location);
+        postcard.save();
+      } else{
+        let key = file.key;
+        let bucket = file.bucket;
+
+        deleteImage(bucket, key);
+        error = "You cannot have more than 8 images on a single postcard."
+      }
       
-      postcard.photos = postcard.photos.concat(file.location);
-      postcard.save();
     });
 
-    res.json(postcard);
+    res.json({postcard: postcard, error: error});
   } catch(err){
     console.log("hello")
     res.json({error: err})
