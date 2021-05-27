@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-import TripsIndexMapContainer from '../maps/trips_index/trips_index_map_container'; 
+import TripsIndexMap from '../maps/trips_index/trips_index_map'; 
 import TripsIndex from '../trips/trips_index'; 
 import AddButton from '../util/add_button'; 
 
@@ -34,11 +34,11 @@ class Landing extends React.Component {
   }
 
   render() {
-    const { trips } = this.props; 
+    const { trips, postcards } = this.props; 
 
     return (
       <div className="landing-container">
-        <TripsIndexMapContainer trips={trips} />
+        <TripsIndexMap key={`${Math.random()*100000000}`} history={this.props.history} trips={trips} postcards={postcards} />
         <aside>
           <div className="filter-dropdown">
             <a className="filter-button">{this.state.followed ? "Followed" : "All"}</a>
