@@ -73,7 +73,13 @@ export const updatePostcardPhotos = (postcardId, photos) => dispatch => {
       return dispatch(receivePostcard(res.data.postcard))
     })
     .catch(err => dispatch(receivePostcardErrors(err.response.data)))
-} 
+  } 
+  
+  export const deletePostcardPhoto = (postcardId, imageUrl) => dispatch => {
+    return PostcardAPIUtil.deletePostcardPhoto(postcardId, imageUrl)
+    .then(res => dispatch(receivePostcard(res.data)))
+    .catch(err => dispatch(receivePostcardErrors(err.response.data)))
+}
 
 export const deletePostcard = (tripId, postcardId) => dispatch => {
   return PostcardAPIUtil.deletePostcard(tripId, postcardId)

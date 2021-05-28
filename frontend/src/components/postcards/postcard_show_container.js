@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPostcard, updatePostcardPhotos, deletePostcard } from '../../actions/postcard_actions';				//actions
+import { fetchPostcard, updatePostcardPhotos, deletePostcard, deletePostcardPhoto } from '../../actions/postcard_actions';				//actions
+
 import PostCardShow from './postcard_show';				//display component
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,8 +17,15 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {  
   return ({
     fetchPostcard: (postcardId) => dispatch(fetchPostcard(postcardId)),
-    updatePostcardPhotos: (postcardId, photos) => dispatch(updatePostcardPhotos(postcardId, photos)),
-    deletePostcard: (tripId, postcardId) => dispatch(deletePostcard(tripId, postcardId))
+    updatePostcardPhotos: (postcardId, photos) => (
+      dispatch(updatePostcardPhotos(postcardId, photos))
+    ),
+    deletePostcard: (tripId, postcardId) => (
+      dispatch(deletePostcard(tripId, postcardId))
+    ), 
+    deletePostcardPhoto: (postcardId, imageUrl) => (
+      dispatch(deletePostcardPhoto(postcardId, imageUrl))
+    ),
   })
 };
 

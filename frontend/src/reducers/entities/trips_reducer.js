@@ -21,6 +21,7 @@ const TripsReducer = (state = {}, action) => {
       delete newState[action.tripId];
       return newState;
     case RECEIVE_FOLLOWED_TRIPS:
+      debugger
       return Object.assign({}, action.data.trips)
     default:
       return state;

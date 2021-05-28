@@ -29,7 +29,8 @@ export const deleteFollow = userId => dispatch => {
 
 export const fetchFollowedTrips = () => dispatch => {
   return FollowsUtil.fetchFollowedTrips()
-    .then(data => {
-      return dispatch(receiveFollowedTrips(data))
+    .then(res => {
+      debugger
+      return dispatch(receiveFollowedTrips(res.data))
     })
 }
