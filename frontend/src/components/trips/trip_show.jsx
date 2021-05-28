@@ -12,16 +12,50 @@ class TripShow extends React.Component {
   constructor(props) {
     super(props); 
 
+    this.state = {
+      followed: false
+    }
+
     this.deleteTrip = this.deleteTrip.bind(this);
+    this.toggleFollow = this.toggleFollow.bind(this);
   }
 
   componentDidMount() {
+    // debugger
     this.props.fetchTrip(this.props.tripId)
+      .then(res => {
+        if (Object.values(this.props.currentUser).length) {
+          if (this.props.currentUser.following.includes(this.props.trip.travellerId)) {
+            this.setState({
+              followed: true
+            })
+          }
+        }
+
+      })
   }
 
   deleteTrip() {
     this.props.deleteTrip(this.props.tripId)
       .then(this.props.history.push('/'));
+  }
+
+  toggleFollow() {
+    if (!this.state.followed) {
+      this.props.createFollow(this.props.trip.travellerId)
+        .then(res => {
+          this.setState({
+            followed: true
+          })
+        })
+    } else {
+      this.props.deleteFollow(this.props.trip.travellerId)
+        .then(res => {
+          this.setState({
+            followed: false
+          })
+        })
+    }
   }
 
   render() {
@@ -69,6 +103,17 @@ class TripShow extends React.Component {
       )
     };
 
+    let followButton 
+    if (Object.values(currentUser).length) {
+      followButton = (this.state.followed) ? (
+        <button className="follow-btn" onClick={this.toggleFollow}>Following</button>
+      ) : (
+        <button className="follow-btn" onClick={this.toggleFollow}>Follow</button>
+      );
+    } else {
+      followButton = null;
+    };
+
     return (
       <main className="trip-show-wrapper">
         <section>
@@ -77,6 +122,10 @@ class TripShow extends React.Component {
           {deleteTripButton}
           <h1>{trip.title}</h1>
           <p>{trip.description}</p>
+          <div className="user-info">
+            {followButton}
+            <p>{this.props.trip.travellerName}</p>
+          </div>
         </section>
         <TripShowMap key={`trip-show-map-${trip._id}`} history={history} postcards={postcards} trip={trip}/>
         <article>

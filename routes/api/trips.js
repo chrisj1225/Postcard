@@ -71,8 +71,8 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
     let trips = await Trip.find({travellerId: followId});
     if(trips){
       for(let j = 0; j < trips.length; j++){
-        let user = await User.findById(trip.travellerId);
         let trip = trips[j];
+        let user = await User.findById(trip.travellerId);
         tripsObj[trip.id] = {
           _id: trip.id,
           title: trip.title,
