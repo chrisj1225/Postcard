@@ -93,6 +93,7 @@ class TripShowMap extends React.Component {
 
         // event listeners for hovering the trips list item
         document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseenter", () =>{
+          this.map.fitBounds(this.bounds);
           let lat, lng;
           lat = marker.position.lat();
           lng = marker.position.lng();
@@ -130,6 +131,7 @@ class TripShowMap extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="trip-show map-wrapper">
         <GoogleMapReact

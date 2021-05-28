@@ -73,7 +73,7 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
 
       if(postcard.photos.length < 8){
         postcard.photos = postcard.photos.concat(file.location);
-        postcard.save();
+        
       } else{
         let key = file.key;
         let bucket = file.bucket;
@@ -83,6 +83,8 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
       }
       
     });
+    
+    postcard.save();
 
     let postcardObj = {
       photos: postcard.photos,
