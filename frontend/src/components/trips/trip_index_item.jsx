@@ -1,5 +1,6 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom'; 
+import { limitChars } from '../../util/func_util'; 
 
 const TripIndexItem = ({ trip }) => {
 
@@ -7,9 +8,9 @@ const TripIndexItem = ({ trip }) => {
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>
       <section>
         <Link to={`trips/${trip._id}`}>
-          <h2>{trip.title}</h2>
+          <h2>{limitChars(trip.title, 35)}</h2>
         </Link>
-        <p>{trip.description}</p>
+        <p>{limitChars(trip.description, 160)}</p>
       </section>
       <div>
         <ul role="list">

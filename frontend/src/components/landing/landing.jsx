@@ -50,8 +50,16 @@ class Landing extends React.Component {
         <TripsIndexMap key={`${Math.random()*100000000}`} history={this.props.history} trips={trips} postcards={postcards} />
         <aside>
           <div className="filter-dropdown">
-            <button className="all-button" onClick={this.toggleAll} className={this.state.followed ? "" : "active"}>All</button>
-            <button className="follow-button" onClick={this.toggleFollowed} className={this.state.followed ? "active" : ""}>Followed</button>
+            <button 
+              className="all-button" 
+              onClick={this.toggleAll} 
+              className={this.state.followed ? "inactive" : "active"}
+            >All</button>
+            <button 
+              className="follow-button" 
+              onClick={this.toggleFollowed} 
+              className={this.state.followed ? "active" : "inactive"}
+            >Followed</button>
           </div>
           <TripsIndex trips={trips} />
         </aside>

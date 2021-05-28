@@ -9,37 +9,59 @@ $body-height: 70vh;
   position: relative;
 
   aside {
-    @include flex($flex-direction: column); 
-    background-color: $yellow;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 20px 10px;
+    height: 70vh;
 
-    &::-webkit-scrollbar {
-      transition: background-color 1s;
-      background-color: $yellow;
-      width: 20px;
-    }
+    .filter-dropdown {
+      > button {
+        @include button($red, $cream); 
+        margin-right: 10px;
+      }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba( $blue, .6 ); 
-      border-radius: 5px; 
-    }
+      & .active, & .active:hover, & .active:focus {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.6);
+        cursor: default; 
+        transform: unset;
 
-    &::-webkit-scrollbar-track {
-      background-color: lighten($yellow, 8%);
-    }
-
-    &:hover {      
-      &::-webkit-scrollbar-thumb {
-        background-color: $blue;
-        
-        border: 1px solid rgba(0,0,0,0.2);
+      }
+      & .active {
+        background-color: darken($red, 10%);
+        pointer-events: none;
       }
     }
 
-    
-    
+
+    .trips-index {
+      @include flex($flex-direction: column); 
+      background-color: $yellow;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding: 20px 10px;
+      margin-top: 10px;
+      height: calc(70vh - 50px); 
+
+      &::-webkit-scrollbar {
+        transition: background-color 1s;
+        background-color: $yellow;
+        width: 20px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba( $blue, .6 ); 
+        border-radius: 5px; 
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: lighten($yellow, 8%);
+      }
+
+      &:hover {      
+        &::-webkit-scrollbar-thumb {
+          background-color: $blue;
+          
+          border: 1px solid rgba(0,0,0,0.2);
+        }
+      }
+    }
   }
   
 

@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-const PostcardImage = ({ imageUrl, active, toggleActive, idx, deletePostcardPhoto, isUsers }) => {
+const PostcardImage = ({ imageUrl, active, toggleActive, idx, deletePostcardPhoto, isUsers, prevImg, nextImg }) => {
   const renderActive = parseInt(active) === idx; 
 
   return (

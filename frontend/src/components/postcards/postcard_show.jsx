@@ -15,6 +15,8 @@ class PostcardShow extends React.Component{
       btnDisabled: true, 
     }
     
+    this.nextImg = this.nextImg.bind(this); 
+    this.prevImg = this.prevImg.bind(this); 
     this.toggleActive = this.toggleActive.bind(this); 
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,30 @@ class PostcardShow extends React.Component{
     if (e.currentTarget.id === this.state.active) {
       this.setState({active: null}); 
     } else {
+      // e.currentTarget.id is an imageUrl
       this.setState({active: e.currentTarget.id}); 
+    }
+  }
+
+  nextImg(idx) {
+    return (e) => {
+      e.stopPropagation(); 
+      const { photos } = this.props.postcard; 
+      
+      // const idx = photos.indexOf(i); 
+      
+      this.setState({ active: (idx + 1) % photos.length }); 
+    }
+  }
+  
+  prevImg(idx) {
+    return (e) => {
+      e.stopPropagation(); 
+      
+      const { photos } = this.props.postcard; 
+      
+      // const idx = photos.indexOf(imgUrl); 
+      this.setState({ active:  (idx - 1 + photos.length) % photos.length })
     }
   }
 
@@ -80,8 +105,8 @@ class PostcardShow extends React.Component{
     }
 
     this.props.updatePostcardPhotos(this.props.postcardId, formData).then(
-      () => this.setState({ imgUrls: [] }),
-      () => this.setState({ imgUrls: [] })
+      () => this.setState({ imgUrls: [], files: "", btnDisabled: true }),
+      () => this.setState({ imgUrls: [], files: "", btnDisabled: true })
     );
   }
 
@@ -206,6 +231,14 @@ class PostcardShow extends React.Component{
         { errors }
         <main>
           <ul role="list">
+            {
+              this.state.active ? (
+                <>
+                  <div className="pic-nav-buttons left" onClick={this.prevImg(this.state.active)}><figure>&#8249;</figure></div>
+                  <div className="pic-nav-buttons right" onClick={this.nextImg(this.state.active)}><figure>&#8250;</figure></div>
+                </>
+              ) : null
+            }
             { postcard.photos.map((imageUrl, i) => (
               <PostcardImage 
                 key={i} 
@@ -215,6 +248,8 @@ class PostcardShow extends React.Component{
                 active={this.state.active}
                 deletePostcardPhoto={this.handleDeletePostcardPhoto}
                 isUsers={isUsers}
+                nextImg={this.nextImg}
+                prevImg={this.prevImg}
                 />
             )) }
             { imageComponents }
