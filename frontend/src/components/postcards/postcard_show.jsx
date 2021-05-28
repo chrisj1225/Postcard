@@ -134,8 +134,7 @@ class PostcardShow extends React.Component{
     let editPostcardLink;
     let deletePostcardButton;
     let imgPreviews; 
-    const isUsers = !!currentUser && currentUser.id === postcard.travellerId; 
-
+    const isUsers = !!currentUser && currentUser._id === postcard.travellerId; 
     if (isUsers) {
       imageUpload = (
         <form onSubmit={this.uploadImages} encType="multipart/form-data" >

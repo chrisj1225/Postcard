@@ -54,6 +54,7 @@ class LoginForm extends React.Component {
           <h1>Login</h1>
           <div className="demo-login-button-container">
             <button 
+              type="button"
               onClick={this.handleDemoLogin} 
               className="demo-login-button"
             >Demo Login</button>
