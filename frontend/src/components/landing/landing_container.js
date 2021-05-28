@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { fetchAllTrips /* fetchFollowedTrips */ } from '../../actions/trip_actions';				//actions
 import { openModal } from '../../actions/ui_actions';
 import { attachAllPhotoTiles } from '../../util/selectors'; 
-
+import { fetchFollowedTrips } from '../../actions/follow_actions'
 
 import Landing from './landing';				//display component
 
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchAllTrips: () => dispatch(fetchAllTrips()),
   openModal: (type) => dispatch(openModal(type)),
-  // fetchFollowedTrips: (userId) => dispatch(fetchFollowedTrips(userId)),
+  fetchFollowedTrips: () => dispatch(fetchFollowedTrips()),
 });
 
 export default withRouter(connect(
