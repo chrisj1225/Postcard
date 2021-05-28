@@ -19,6 +19,7 @@ class PostcardShow extends React.Component{
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.deletePostcard = this.deletePostcard.bind(this);
+    this.handleDeletePostcardPhoto = this.handleDeletePostcardPhoto.bind(this); 
   }
 
   componentDidMount() {
@@ -83,6 +84,19 @@ class PostcardShow extends React.Component{
       () => this.setState({ imgUrls: [] })
     );
   }
+
+  handleDeletePostcardPhoto(e) {
+    const { deletePostcardPhoto } = this.props; 
+
+    const response = window.confirm("Are you sure you want to delete this photo?")
+
+    if (response) {
+      deletePostcardPhoto(this.props.postcard._id, { imageUrl: e.currentTarget.id })
+    }
+  }
+
+
+
 
   render() {
     const { postcard, currentUser } = this.props; 
@@ -197,7 +211,9 @@ class PostcardShow extends React.Component{
                 idx={i}
                 imageUrl={imageUrl} 
                 toggleActive={this.toggleActive} 
-                active={this.state.active}/>
+                active={this.state.active}
+                deletePostcardPhoto={this.handleDeletePostcardPhoto}
+                />
             )) }
             { imageComponents }
           </ul>
