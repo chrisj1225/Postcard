@@ -1,9 +1,25 @@
-.create-trip-container {
+.trip-form-container {
   margin-top: 40px;
   @include flex(center, center, column); 
   background-color: $cream;
   width: 100vw;
   position: relative;
+
+  .cancel-btn {
+    @include flex(space-between, center); 
+    width: 570px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: $blue; 
+    
+    &:hover {
+      color: lighten($blue, 10%); 
+    }
+  }
+
+  a.cancel-btn {
+    justify-content: center;
+  }
   
 
   h1 {
