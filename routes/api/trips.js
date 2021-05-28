@@ -63,6 +63,7 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/follows", passport.authenticate('jwt', {session: false}), async (req, res) => {
+  console.log("hello");
   const currentUser = await User.findById(req.user.id);
   const tripsObj = {};
   const pcObj = {};
@@ -71,8 +72,8 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
     let trips = await Trip.find({travellerId: followId});
     if(trips){
       for(let j = 0; j < trips.length; j++){
-        let user = await User.findById(trip.travellerId);
         let trip = trips[j];
+        let user = await User.findById(trip.travellerId);
         tripsObj[trip.id] = {
           _id: trip.id,
           title: trip.title,
