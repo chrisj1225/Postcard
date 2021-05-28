@@ -48,6 +48,14 @@ document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", 
 });
 
 ```
+
 As markers were being generated to be placed on the map, we would install listeners on the markers themselves as well as the corresponding elements that should have interactivity with their marker.
 
-In addition to the maps interactivity, we also were able to implement a places search box allowing the user to search for a place they may have visited and select it on the map when creating or editing a `Postcard`. 
+<img src="./design_docs/readme_images/trip-show-page-map2.gif"/>
+
+In addition to the maps interactivity, we also were able to implement a places search box allowing the user to search for a place they may have visited and select it on the map when creating or editing a `Postcard`.
+
+<img src="./design_docs/readme_images/map-search.gif"/>
+---
+<img src="./design_docs/readme_images/upload-images.gif"/>
+<img src="./design_docs/readme_images/image-viewer-and-delete.gif"/>
