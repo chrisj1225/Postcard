@@ -105,8 +105,8 @@ class PostcardShow extends React.Component{
     }
 
     this.props.updatePostcardPhotos(this.props.postcardId, formData).then(
-      () => this.setState({ imgUrls: [] }),
-      () => this.setState({ imgUrls: [] })
+      () => this.setState({ imgUrls: [], files: "", btnDisabled: true }),
+      () => this.setState({ imgUrls: [], files: "", btnDisabled: true })
     );
   }
 

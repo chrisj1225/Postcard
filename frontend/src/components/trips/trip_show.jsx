@@ -36,8 +36,12 @@ class TripShow extends React.Component {
   }
 
   deleteTrip() {
-    this.props.deleteTrip(this.props.tripId)
-      .then(this.props.history.push('/'));
+    const confirm = window.confirm("Are you sure you want to delete this trip?"); 
+
+    if (confirm) {
+      this.props.deleteTrip(this.props.tripId)
+        .then(this.props.history.push('/'));
+    }
   }
 
   toggleFollow() {
@@ -68,7 +72,7 @@ class TripShow extends React.Component {
     let editTripLink;
     let deleteTripButton;
 
-    debugger
+    // debugger
     if (currentUser && (currentUser._id === trip.travellerId)) {
       if (!postcards) {
         return (
@@ -104,30 +108,29 @@ class TripShow extends React.Component {
       )
     };
 
-    let followButton 
-    if (Object.values(currentUser).length) {
-      followButton = (this.state.followed) ? (
-        <button className="follow-btn" onClick={this.toggleFollow}>Following</button>
+    const followButton = (Object.values(currentUser).length) ? (
+      (this.state.followed) ? (
+        <button className={"follow-btn following"} onClick={this.toggleFollow}>Following</button>
       ) : (
-        <button className="follow-btn" onClick={this.toggleFollow}>Follow</button>
-      );
-    } else {
-      followButton = null;
-    };
+        <button className={"follow-btn"} onClick={this.toggleFollow}>Follow</button>
+      )
+    ) : null; 
 
     return (
       <main className="trip-show-wrapper">
-        <section>
-          <Link to="/">Back to trips</Link>
-          {editTripLink}
-          {deleteTripButton}
-          <h1>{trip.title}</h1>
-          <p>{trip.description}</p>
-          <div className="user-info">
+        <header>
+          <section>
+            <Link to="/" className="button">Back to trips</Link>
+            {editTripLink}
+            {deleteTripButton}
+            <h1>{trip.title}</h1>
+            <p>{trip.description}</p>
+          </section>
+          <aside className="user-info">
+            <p><i className="fas fa-user"></i><span>{this.props.trip.travellerName}</span></p>
             {followButton}
-            <p>{this.props.trip.travellerName}</p>
-          </div>
-        </section>
+          </aside>
+        </header>
         <TripShowMap key={`trip-show-map-${trip._id}`} history={history} postcards={postcards} trip={trip}/>
         <article>
           { Object.values(postcards).map(postcard => <PostcardIndexItem 

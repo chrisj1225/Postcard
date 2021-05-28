@@ -2,12 +2,19 @@
   margin: 30px 0; 
   @include flex(center, center, column); 
 
-  section {
-    width: 90vw;
+  header {
+    width: 90vw; 
+    @include flex(space-between, center); 
+  }
 
-    a .button {
+  section {
+    > a {
+      margin-right: 10px;
+    }
+
+    a.button, .edit-trip, .delete-trip {
       font-style: italic;
-      position: absolute;
+      // position: absolute;
       transition: font-size 200ms;
       color: $blue;
       font-size: 15px;
@@ -25,12 +32,7 @@
       }  
     }
 
-    .edit-trip {
-      transform: translateX(100px);
-    }
-
     .delete-trip {
-      transform: translateX(180px);
       cursor: pointer;
     }
 
@@ -43,10 +45,28 @@
       font-family: $text-font;
     }
 
-    .follow-btn {
-      @include button($blue, white); 
-      margin-left: 15px;
+  }
+
+  .user-info {
+    @include flex(flex-end, flex-end, column); 
+    margin-top: 20px;
+
+    p {
+      margin-bottom: 15px;
+
+      span {
+        margin-left: 8px; 
+      }
+    }
+  }
+
+  .follow-btn {
+    @include button($blue, white); 
+    margin-left: 15px;
+    
+    &.following {
       
+      background-color: darken($blue, 10%);
     }
   }
 
