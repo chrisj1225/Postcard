@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 export const fetchFollowedUsers = () => {
-  return axios.get('/users/follows')
+  return axios.get('/api/users/follows')
 }
 
 export const createFollow = (userId) => {
-  return axios.put(`/users/${userId}/follow`)
+  return axios.put(`/api/users/${userId}/follow`)
 };
 
 export const deleteFollow = (userId) => {
-  return axios.delete(`/users/${userId}/unfollow`)
+  return axios.delete(`/api/users/${userId}/unfollow`)
 }
 
 export const fetchFollowedTrips = () => {
-  return axios.get('/trips/follows')
+  return axios.get('/api/trips/follows')
 }

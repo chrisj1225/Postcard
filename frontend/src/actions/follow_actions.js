@@ -1,6 +1,6 @@
 import * as FollowsUtil from '../util/follows_util';
 
-export const RECEIVE_USER = "RECEIVE_CURRENT_USER";
+export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_FOLLOWED_TRIPS = "RECEIVE_FOLLOWED_TRIPS"
 
 const receiveUser = user => ({
@@ -16,16 +16,14 @@ const receiveFollowedTrips = data => ({
 export const createFollow = userId => dispatch => {
   return FollowsUtil.createFollow(userId)
     .then(user => {
-      debugger
-      return dispatch(receiveUser(user))
+      return dispatch(receiveUser(user.data))
     })
 }
 
 export const deleteFollow = userId => dispatch => {
   return FollowsUtil.deleteFollow(userId)
     .then(user => {
-      debugger
-      return dispatch(receiveUser(user))
+      return dispatch(receiveUser(user.data))
     })
 }
 

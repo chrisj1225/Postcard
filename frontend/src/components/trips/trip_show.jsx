@@ -24,13 +24,14 @@ class TripShow extends React.Component {
     // debugger
     this.props.fetchTrip(this.props.tripId)
       .then(res => {
-        if (Object.keys(this.props.currentUser).length) {
-          if (this.props.currentUser.following.includes(res.travellerId)) {
+        if (Object.values(this.props.currentUser).length) {
+          if (this.props.currentUser.following.includes(this.props.trip.travellerId)) {
             this.setState({
               followed: true
             })
           }
         }
+
       })
   }
 
@@ -41,9 +42,19 @@ class TripShow extends React.Component {
 
   toggleFollow() {
     if (!this.state.followed) {
-      this.props.createFollow(this.props.trip.travellerId);
+      this.props.createFollow(this.props.trip.travellerId)
+        .then(res => {
+          this.setState({
+            followed: true
+          })
+        })
     } else {
-      this.props.deleteFollow(this.props.trip.travellerId);
+      this.props.deleteFollow(this.props.trip.travellerId)
+        .then(res => {
+          this.setState({
+            followed: false
+          })
+        })
     }
   }
 
@@ -93,13 +104,15 @@ class TripShow extends React.Component {
     };
 
     let followButton 
-    if (Object.keys(this.props.currentUser).length) {
+    if (Object.values(currentUser).length) {
       followButton = (this.state.followed) ? (
-        <button onClick={this.toggleFollow}>Following</button>
+        <button className="follow-btn" onClick={this.toggleFollow}>Following</button>
       ) : (
-        <button onClick={this.toggleFollow}>Follow</button>
+        <button className="follow-btn" onClick={this.toggleFollow}>Follow</button>
       );
-    }
+    } else {
+      followButton = null;
+    };
 
     return (
       <main className="trip-show-wrapper">

@@ -146,7 +146,7 @@ router.put('/:userId/follow', passport.authenticate('jwt', {session: false}), as
     return res.status(400).json("Already following that user")
   }
 
-
+  
   user.following = user.following.concat(req.params.userId);
   user.save()
     .then((user) => {
