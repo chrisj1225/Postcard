@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PostcardCreateMap from '../maps/postcard_create/postcard_create_map';
 
 class PostcardEditForm extends React.Component{
@@ -71,8 +72,12 @@ class PostcardEditForm extends React.Component{
     };
     
     return(
-      <div className="create-postcard-container">
+      <div className="postcard-form-container">
         <form onSubmit={this.handleSubmit}>
+          <div className="back-btn">
+              <Link to={`/postcards/${this.props.postcardId}`}>Back to Postcard</Link>
+              <p></p>
+          </div>
           <h1>Update Postcard</h1>
           <label>Postcard Title
             <input 
@@ -102,6 +107,7 @@ class PostcardEditForm extends React.Component{
             disabled={inputEmpty}
             type="submit" 
             value="Update Postcard" />
+          <Link className="cancel-btn" to={`/postcards/${this.props.postcardId}`}>Cancel</Link>
         </form>
         <aside>
           <header className="coordinates">

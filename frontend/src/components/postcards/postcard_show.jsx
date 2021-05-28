@@ -90,10 +90,15 @@ class PostcardShow extends React.Component{
   }
 
   deletePostcard() {
-    this.props.deletePostcard(
-      this.props.postcard.tripId, 
-      this.props.postcardId)
-      .then(this.props.history.push(`/trips/${this.props.postcard.tripId}`));
+    const confirm = window.confirm("Are you sure you want to delete this trip?"); 
+
+    if (confirm) {
+      this.props.deletePostcard(
+        this.props.postcard.tripId, 
+        this.props.postcardId)
+        .then(this.props.history.push(`/trips/${this.props.postcard.tripId}`));
+    }
+
   }
 
   uploadImages(e) {
