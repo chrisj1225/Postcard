@@ -1,6 +1,7 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import greenMarker from '../../../assets/images/spotlight-poi2green.png';
+import { MAPS_API_KEY } from '../../../util/credentials';
 
 class PostcardShow extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class PostcardShow extends React.Component {
     return (
       <div className="postcard-show map-wrapper" >
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }

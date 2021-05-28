@@ -4,6 +4,7 @@ import { limitChars } from '../../../util/func_util';
 import { attachAllTripPos } from '../../../util/selectors';
 import redMarker from '../../../assets/images/spotlight-poi2red.png';
 import greenMarker from '../../../assets/images/spotlight-poi2green.png';
+import { MAPS_API_KEY } from '../../../util/credentials';
 
 
 class TripsIndexMap extends React.Component {
@@ -147,7 +148,7 @@ class TripsIndexMap extends React.Component {
     return (
       <div className="trips-index map-wrapper">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
