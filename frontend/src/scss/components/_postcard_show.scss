@@ -196,4 +196,43 @@
       transform: scale(1.1);
     }
   }
+
+  
+}
+.pic-nav-buttons {
+  
+  font-size: 38px;
+  
+  
+  
+  &.left, &.right {
+    position: fixed;
+    z-index: 20;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    
+    bottom: 50%;
+    transition: transform 100ms;
+    &:hover {
+      transform: scale(1.1);
+    }
+    
+    figure {
+      width: 60px;
+      height: 60px;
+      color: white;
+      @include flex(center, center, column);  
+      cursor: pointer;   
+
+    }
+  }
+
+  &.left {
+    left: 10px;
+  }
+  
+  &.right {
+    right: 10px;
+  }
+
 }
