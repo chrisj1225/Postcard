@@ -26,13 +26,13 @@
 ## **Team Members**
 
 ### **Chris Joo**, <span style="font-size: 14px;">*Team-lead, flex*</span>
-* <a style="color: #5d66a7;" src="https://github.com/chrisj1225" target="_blank">GitHub</a> | <a style="color: #5d66a7;" src="https://www.linkedin.com/in/chrisj1225/" target="_blank">LinkedIn</a>
+* [GitHub](https://github.com/chrisj1225) | [LinkedIn](https://www.linkedin.com/in/chrisj1225/)
 ### **Daniel Cho**, <span style="font-size: 14px;">*Back-end lead*</span>
-* <a style="color: rgb(22, 93, 255);" src="https://github.com/thedanielcho" target="_blank">GitHub</a> | <a style="color: rgb(22, 93, 255);" src="https://www.linkedin.com/in/daniel-cho-376110189/" target="_blank">LinkedIn</a>
+* [GitHub](https://github.com/thedanielcho) | [LinkedIn](https://www.linkedin.com/in/daniel-cho-376110189/)
 ### **Freddy Diengott**, <span style="font-size: 14px;">*Front-end lead*</span>
-* <a style="color: #e17077" src="https://github.com/fdiengott" target="_blank">GitHub</a> | <a style="color: #e17077" src="https://www.linkedin.com/in/freddiengott/" target="_blank">LinkedIn</a>
+* [GitHub](https://github.com/fdiengott) | [LinkedIn](https://www.linkedin.com/in/freddiengott/)
 ### **Tim Fraczak**, <span style="font-size: 14px;">*Flex magician*</span>
-* <a style="color: #6fb000;" src="https://github.com/tfraczak" target="_blank">GitHub</a> | <a style="color: #6fb000;" src="https://www.linkedin.com/in/timothy-fraczak-e-i-t-1393a183/" target="_blank">LinkedIn</a>
+* [GitHub](https://github.com/tfraczak) | [LinkedIn](https://www.linkedin.com/in/timothy-fraczak-e-i-t-1393a183/)
 
 ---
 
