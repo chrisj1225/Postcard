@@ -22,7 +22,6 @@ class TripsIndexMap extends React.Component {
       let lat, lng;
       lat = parseFloat(this.editPostcard.lat.$numberDecimal);
       lng = parseFloat(this.editPostcard.lng.$numberDecimal);
-      debugger
       if (lat > 180 || lng > 180) {
         lat = 40.78054494676642;
         lng = -73.96702023848366;

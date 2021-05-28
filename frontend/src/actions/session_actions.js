@@ -7,7 +7,7 @@ export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 
-export const receiveCurrentUser = currentUser => ({
+export const receiveCurrentUser = (currentUser) => ({
   type: RECEIVE_CURRENT_USER,
   currentUser
 });
@@ -41,9 +41,10 @@ export const signup = user => dispatch => {
     .then(res => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('currentUser', JSON.stringify(res.data.user))
       SessionAPIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
-      dispatch(receiveCurrentUser(decoded));
+      dispatch(receiveCurrentUser(res.data.user));
     })
     .catch(err => {
       dispatch(receiveSessionErrors(err.response.data));
@@ -55,9 +56,10 @@ export const login = user => dispatch => {
     .then(res => {
       const { token } = res.data;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('currentUser', JSON.stringify(res.data.user))
       SessionAPIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
-      dispatch(receiveCurrentUser(decoded));
+      dispatch(receiveCurrentUser(res.data.user));
     })
     .catch(err => {
       dispatch(receiveSessionErrors(err.response.data));
