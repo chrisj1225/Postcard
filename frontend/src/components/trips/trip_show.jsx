@@ -68,7 +68,8 @@ class TripShow extends React.Component {
     let editTripLink;
     let deleteTripButton;
 
-    if (currentUser && (currentUser.id === trip.travellerId)) {
+    debugger
+    if (currentUser && (currentUser._id === trip.travellerId)) {
       if (!postcards) {
         return (
           <section>
@@ -80,7 +81,7 @@ class TripShow extends React.Component {
       }
     };
 
-    if ((currentUser) && (currentUser.id === trip.travellerId)) {
+    if ((currentUser) && (currentUser._id === trip.travellerId)) {
       createPostcardComponent = (
         <div className={"create-postcard-wrapper postcard-index-item "}>
           <div className="create-postcard-card">
