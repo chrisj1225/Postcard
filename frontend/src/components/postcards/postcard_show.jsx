@@ -19,6 +19,7 @@ class PostcardShow extends React.Component{
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.deletePostcard = this.deletePostcard.bind(this);
+    this.handleDeletePostcardPhoto = this.handleDeletePostcardPhoto.bind(this); 
   }
 
   componentDidMount() {
@@ -37,8 +38,19 @@ class PostcardShow extends React.Component{
     const files = e.target.files; 
     this.setState({ imgUrls: [] })
 
+    let numImgsLeft = files.length + this.props.postcard.photos.length; 
+
+    if (numImgsLeft > 8) {
+      this.setState({ errors: ["Postcards can only hold 8 images"] })
+    }
+
     // IMAGE PREVIEWS
     for (let i = 0; i < files.length; i++) {
+      if (numImgsLeft >= 8) {
+        break; 
+      }
+      numImgsLeft += 1; 
+
       let file = files[i];
       
       let fileReader = new FileReader(); 
@@ -47,7 +59,6 @@ class PostcardShow extends React.Component{
       }   
       
       fileReader.readAsDataURL(file)
-      
     }
 
     this.setState({ files, btnDisabled: false }); 
@@ -68,8 +79,24 @@ class PostcardShow extends React.Component{
       formData.append("images", file);
     }
 
-    this.props.updatePostcardPhotos(this.props.postcardId, formData);
+    this.props.updatePostcardPhotos(this.props.postcardId, formData).then(
+      () => this.setState({ imgUrls: [] }),
+      () => this.setState({ imgUrls: [] })
+    );
   }
+
+  handleDeletePostcardPhoto(e) {
+    e.stopPropagation(); 
+    const { deletePostcardPhoto } = this.props; 
+
+    const response = window.confirm("Are you sure you want to delete this photo?")
+
+    if (response) {
+      deletePostcardPhoto(this.props.postcard._id, { imageUrl: e.currentTarget.id })
+    }
+  }
+
+
 
 
   render() {
@@ -82,8 +109,9 @@ class PostcardShow extends React.Component{
     let editPostcardLink;
     let deletePostcardButton;
     let imgPreviews; 
+    const isUsers = !!currentUser && currentUser.id === postcard.travellerId; 
 
-    if ((currentUser) && (currentUser.id === postcard.travellerId)) {
+    if (isUsers) {
       imageUpload = (
         <form onSubmit={this.uploadImages} encType="multipart/form-data" >
           <div> {/* upload-box */}
@@ -117,7 +145,12 @@ class PostcardShow extends React.Component{
           encType="multipart/form-data" 
           className="upload-image-form"
           >
-          <label htmlFor="photo">
+          <label htmlFor="photo"
+            onDragOver={this.handleDragOver}
+            onDragEnter={this.handleDragEnter}
+            onDragLeave={this.handleDragLeave}
+            onDrop={this.handleDrop}
+          >
             { firstImgPreview }
             <span>Add Photos</span>
             <input type="file" name='photo' id='photo' multiple
@@ -137,7 +170,26 @@ class PostcardShow extends React.Component{
           className="delete-postcard">Delete Postcard</a>
       );
     }
-    
+
+    const errors = this.state.errors ? (
+      <ul role="list" className="errors">
+        {
+          this.state.errors.map(err => (
+            <li>{err}</li>
+          ))
+        }
+      </ul>
+    ) : null; 
+
+    const imageComponents = this.props.postcard.photos.length < 8 ? (
+      <>
+        { imageUpload }
+        { imgPreviews }
+      </>
+    ) : null; 
+
+
+
     return (
       <div className="postcard-show-wrapper">
         <header>
@@ -152,6 +204,7 @@ class PostcardShow extends React.Component{
             { <PostcardShowMap postcard={postcard} /> }
           </aside>
         </header>
+        { errors }
         <main>
           <ul role="list">
             { postcard.photos.map((imageUrl, i) => (
@@ -160,10 +213,12 @@ class PostcardShow extends React.Component{
                 idx={i}
                 imageUrl={imageUrl} 
                 toggleActive={this.toggleActive} 
-                active={this.state.active}/>
+                active={this.state.active}
+                deletePostcardPhoto={this.handleDeletePostcardPhoto}
+                isUsers={isUsers}
+                />
             )) }
-            { imageUpload }
-            { imgPreviews }
+            { imageComponents }
           </ul>
         </main>
       </div>

@@ -106,9 +106,9 @@ router.post('/:id/upload', upload.array("images", 8), passport.authenticate('jwt
 })
 
 //needs imageUrl
-router.delete('/:id/deleteImage', passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.put('/:id/deleteImage', passport.authenticate('jwt', {session: false}), async (req, res) => {
   const postcard = await Postcard.findById(req.params.id);
-
+  
   if(!postcard){
     return res.status(404).json({ postcards: "Postcard not found"})
   }

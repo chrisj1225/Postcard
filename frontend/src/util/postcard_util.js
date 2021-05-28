@@ -25,6 +25,10 @@ export const updatePostcardPhotos = (postcardId, photos) => {
   return axios.post(`/api/postcards/${postcardId}/upload`, photos, config)
 }
 
+export const deletePostcardPhoto = (postcardId, imageUrl) => {
+  return axios.put(`/api/postcards/${postcardId}/deleteImage`, imageUrl); 
+}
+
 export const deletePostcard = (tripId, postcardId) => {
   return axios.delete(`/api/trips/${tripId}/postcards/${postcardId}`);
 };
