@@ -156,6 +156,28 @@ class PostCardCreateMap extends React.Component {
               position: place.geometry.location,
               title: place.name,
           });
+          
+          debugger
+
+          const content =
+          '<div id="index-info-content-wrapper">' +
+          '<h1 class="trip-title-info">' +
+          `${place.name}` + '</h1>' +
+          '<p class="trip-desc-info">' +
+          `${place.formatted_address}` + '</p>' +
+          '<p>Click to select</p>' +
+          '</div>';
+
+          const infoWindow = new this.maps.InfoWindow({
+            content
+          });
+
+          marker.addListener("mouseover", e => {
+            infoWindow.open(this.map, marker);
+          });
+          marker.addListener("mouseout", e => {
+            infoWindow.close();
+          });
 
           this.markers.push(marker);
           let that = this;
