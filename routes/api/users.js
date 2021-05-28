@@ -43,7 +43,8 @@ router.post('/register', (req, res) => {
           displayName: req.body.displayName,
           email: req.body.email,
           password: req.body.password,
-          profilePic: null
+          profilePic: null,
+          following: []
         })
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -101,6 +102,7 @@ router.post('/login', (req, res) => {
               {expiresIn: 86400},
               (err, token) => {
                 res.json({
+                  user,
                   success: true,
                   token: 'Bearer ' + token
                 });
@@ -144,7 +146,7 @@ router.put('/:userId/follow', passport.authenticate('jwt', {session: false}), as
     return res.status(400).json("Already following that user")
   }
 
-
+  
   user.following = user.following.concat(req.params.userId);
   user.save()
     .then((user) => {
