@@ -15,6 +15,8 @@ class PostcardShow extends React.Component{
       btnDisabled: true, 
     }
     
+    this.nextImg = this.nextImg.bind(this); 
+    this.prevImg = this.prevImg.bind(this); 
     this.toggleActive = this.toggleActive.bind(this); 
     this.uploadImages = this.uploadImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,29 @@ class PostcardShow extends React.Component{
     if (e.currentTarget.id === this.state.active) {
       this.setState({active: null}); 
     } else {
+      // e.currentTarget.id is an imageUrl
       this.setState({active: e.currentTarget.id}); 
+    }
+  }
+
+  nextImg(imgUrl) {
+    return (e) => {
+      e.stopPropagation(); 
+      const { photos } = this.props.postcard; 
+      
+      const idx = photos.indexOf(imgUrl); 
+      return photos[ (idx + 1) % photos.length ]; 
+    }
+  }
+  
+  prevImg(imgUrl) {
+    return (e) => {
+      e.stopPropagation(); 
+      
+      const { photos } = this.props.postcard; 
+      
+      const idx = photos.indexOf(imgUrl); 
+      return photos[ (idx - 1 + photos.length) % photos.length ]; 
     }
   }
 
@@ -216,6 +240,8 @@ class PostcardShow extends React.Component{
                 active={this.state.active}
                 deletePostcardPhoto={this.handleDeletePostcardPhoto}
                 isUsers={isUsers}
+                nextImg={this.nextImg}
+                prevImg={this.prevImg}
                 />
             )) }
             { imageComponents }
