@@ -18,10 +18,6 @@ class PostcardShow extends React.Component {
     
   }
 
-  componentWillUnmount() {
-
-  }
-
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;

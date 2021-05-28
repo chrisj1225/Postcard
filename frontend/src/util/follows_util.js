@@ -5,7 +5,7 @@ export const fetchFollowedUsers = () => {
 }
 
 export const createFollow = (userId) => {
-  return axios.post(`/api/users/${userId}/follow`)
+  return axios.put(`/api/users/${userId}/follow`)
 };
 
 export const deleteFollow = (userId) => {
