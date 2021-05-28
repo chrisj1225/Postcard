@@ -20,7 +20,7 @@ module.exports = function validPostcardsInput(data) {
   }
 
   if(!Validator.isLength(data.body, {min: 1, max: 560})){
-    errors.title = "Title must be between 1 and 30 characters"
+    errors.title = "Body must be between 1 and 560 characters"
   }
 
   if(Validator.isEmpty(data.title)){
