@@ -87,24 +87,52 @@
   }
 }
 
-$card-width: 450px; 
+$card-width: 480px; 
+$card-height: 280px; 
 
 .postcard-index-item {
-  width: $card-width;
-  height: 250px;
+  position: relative;
   background-color: $yellow;
-  border: 3px solid black;
-  list-style: none;
+  
+  section {
+    width: $card-width;
+    height: $card-height;
+    background-color: $yellow;
+    border: 1px solid darken($yellow, 15%);
+    list-style: none;
 
-  display: grid; 
-  grid-template-columns: 3fr 2fr;
-  grid-template-areas: "article aside";
+    display: grid; 
+    grid-template-columns: 3fr 2fr;
+    grid-template-areas: "article aside";
+    transition: transform 150ms;
+    
+    padding: 15px 0;
+    
+    background: url('../../assets/images/postcard-border.png');
+    background-size: 80px;
+    background-repeat: round;
 
-  padding: 5px;
+    &.focused, &:hover {
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.3); 
+      transform: scale(1.008); 
+      box-shadow: 0 0 5px 2px $green; 
+    }
+
+    &:hover {
+      cursor: default;
+    }
+
+  }
+
+  article, aside {
+    background-color: $yellow; 
+  }
 
   article {
     grid-area: article;
     @include flex(flex-start, flex-start, column);
+    padding-left: 5px;
+    border-right: 1px solid rgba(0,0,0,0.3);
 
     a {
       color: black; 
@@ -148,8 +176,6 @@ $card-width: 450px;
       height: auto;
     }
   }
-
-
 }
 
 .arrow {
@@ -165,26 +191,30 @@ $card-width: 450px;
 $distance-from-center: -20%;
 
 .postcard-index-item:nth-child(even) {
-  position: relative;
   right: $distance-from-center;
 
   .arrow {
-    transform: translateX(-190%);
+    top: 0;
+    left: -50%;
   }
 }
 
 .postcard-index-item:nth-child(odd) {
-  position: relative;
   left: $distance-from-center;
   
   .arrow {
-    transform: scaleX(-1) translateX(-300%);
+    transform: scaleX(-1);
+    top: 0;
+    right: -50%;
   }
 }
 
 @media only screen and (min-width: 1350px) {
   .postcard-index-item:nth-child(odd) .arrow {
-    transform: scaleX(-1) translateX(-250%);
+    right: -100%;
+  }
+  .postcard-index-item:nth-child(even) .arrow {
+    left: -100%;
   }
   
 }
@@ -192,6 +222,7 @@ $distance-from-center: -20%;
 .create-postcard-wrapper.postcard-index-item {  
   background-color: unset;
   border: unset; 
+  height: $card-height;
   
   .create-postcard-card {
     position: relative;

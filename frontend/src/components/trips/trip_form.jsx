@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 
 class TripForm extends React.Component{
   constructor(props) {
@@ -33,7 +34,11 @@ class TripForm extends React.Component{
 
   render() {
     return(
-      <div className="create-trip-container">
+      <div className="trip-form-container">
+        <div className="cancel-btn" >
+          <a onClick={() => window.history.back()}>Cancel</a>
+          <p></p>
+        </div>
         <h1>{this.props.formType}</h1>
         <form onSubmit={this.handleSubmit}>
           <label>Trip Title
@@ -54,6 +59,7 @@ class TripForm extends React.Component{
           <input 
             type="submit" 
             value={this.props.formType} />
+          <a className="cancel-btn" onClick={() => window.history.back()}>Cancel</a>
         </form>
 
       </div>

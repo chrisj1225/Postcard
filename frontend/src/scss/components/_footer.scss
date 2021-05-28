@@ -1,0 +1,68 @@
+
+.site-footer {
+  display: grid; 
+  grid-template-columns: 1fr 4fr;
+  padding: $site-margin;
+  background-color: darken($cream, 8%);
+
+  aside {
+    margin-right: 20px; 
+  }
+
+  section {
+    @include flex(flex-start, center, column); 
+
+    h2 {
+      font-family: $text-font;
+      font-weight: 400;
+      font-size: 18px;
+      text-decoration: underline; 
+      margin-bottom: 10px; 
+      color: darken($cream, 60%); 
+    }
+    
+    > ul {
+      @include flex(space-around); 
+      width: 100%;
+      
+      h2 {
+        font-size: 16px;
+        text-decoration: none;
+      }
+
+      a, a:visited {
+        color: $blue;
+        font-size: 14px;
+
+        &:hover {
+          color: lighten($blue, 10%);
+        }
+      }
+    }
+  }
+
+
+}
+@media only screen and (max-width: 1400px) {    
+  .site-footer {
+    grid-template-columns: 3fr 4fr;
+
+    section {
+      > ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+        
+        > li {
+          @include flex(flex-start, center, column); 
+
+          > ul {
+            @include flex(flex-start, flex-start, column); 
+          }
+        }
+      }
+    }
+  }
+}
+
