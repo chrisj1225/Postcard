@@ -7,10 +7,13 @@ const TripIndexItem = ({ trip }) => {
   return (
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>
       <section>
-        <Link to={`trips/${trip._id}`}>
-          <h2>{limitChars(trip.title, 35)}</h2>
-        </Link>
-        <p>{limitChars(trip.description, 160)}</p>
+        <div>
+          <Link to={`trips/${trip._id}`}>
+            <h2>{limitChars(trip.title, 28)}</h2>
+          </Link>
+          <p>{limitChars(trip.description, 160)}</p>
+        </div>
+        <p><i className="fas fa-user"></i><span>{trip.travellerName}</span></p>
       </section>
       <div>
         <ul role="list">

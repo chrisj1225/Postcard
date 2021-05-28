@@ -34,7 +34,7 @@
   
 
   section {
-    @include flex(flex-start, flex-start, column); 
+    @include flex(space-between, flex-start, column); 
     height: 100%;
     align-self: flex-start;
 
@@ -57,10 +57,14 @@
   h2 {
     font-family: $header-font;
     font-size: 32px;
+    overflow-wrap: break-word;
   }
   
   p {
     font-weight: 500;
+    i {
+      margin-right: 10px;
+    }
   }
 
   ul {
