@@ -95,14 +95,16 @@
             bottom: 50%;
             left: 50%;
             max-width: 90vw;
+            max-height: 90vh;
             height: auto;
             transform: translate(-50%, 50%);
+            z-index: 2;
           }
         }
         
         img {
           border-radius: 8px;
-          height: 150px;
+          height: 100%;
           object-fit: cover;
 
           transition: transform 300ms, width 300ms, height 300ms;
@@ -166,5 +168,32 @@
     cursor: not-allowed;
     background-color: lighten($red, 10%);
     box-shadow: inset 0 0 2px rgba(0,0,0,0.4);
+  }
+}
+
+.postcard-image-item-wrapper {
+  div {
+    position: relative;
+  }
+  
+  figure {
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+
+    border-radius: 50%;
+    $radius: 25px;
+    width: $radius; 
+    height: $radius;
+
+    @include flex(center, center); 
+    cursor: pointer;
+    transition: transform 150ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }

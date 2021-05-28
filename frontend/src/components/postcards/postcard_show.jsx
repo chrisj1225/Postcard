@@ -86,6 +86,7 @@ class PostcardShow extends React.Component{
   }
 
   handleDeletePostcardPhoto(e) {
+    e.stopPropagation(); 
     const { deletePostcardPhoto } = this.props; 
 
     const response = window.confirm("Are you sure you want to delete this photo?")
@@ -108,8 +109,9 @@ class PostcardShow extends React.Component{
     let editPostcardLink;
     let deletePostcardButton;
     let imgPreviews; 
+    const isUsers = !!currentUser && currentUser.id === postcard.travellerId; 
 
-    if ((currentUser) && (currentUser.id === postcard.travellerId)) {
+    if (isUsers) {
       imageUpload = (
         <form onSubmit={this.uploadImages} encType="multipart/form-data" >
           <div> {/* upload-box */}
@@ -213,6 +215,7 @@ class PostcardShow extends React.Component{
                 toggleActive={this.toggleActive} 
                 active={this.state.active}
                 deletePostcardPhoto={this.handleDeletePostcardPhoto}
+                isUsers={isUsers}
                 />
             )) }
             { imageComponents }
