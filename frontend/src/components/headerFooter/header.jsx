@@ -42,10 +42,6 @@ class Header extends React.Component {
       <header className="site-header">
         <div className="content">
           <Link to="/">
-            {/* <h1 className="logo">
-              Postcard
-            </h1> */}
-            {/* {<img className="logo" src={Logo} alt="Postcard logo"/>} */}
             <figure>
               <img 
                 className="logo"
