@@ -1,19 +1,21 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Link } from 'react-router-dom';
-import { limitChars } from '../../../util/func_util';
 import redMarker from '../../../assets/images/spotlight-poi2red.png'
 import greenMarker from '../../../assets/images/spotlight-poi2green.png'
 
-class TripsIndexMap extends React.Component {
+const { googleMapLoader } = GoogleMapReact;
+
+
+class PostCardCreateMap extends React.Component {
   constructor(props) {
     super(props);
     const lat = 23.68437587797855;
     const lng = -3.202092257879451;
-
     this.positions = [];
     this.center = { lat, lng };
     this.zoom = 0;
+
+    this.places = null;
 
     this.createSearchBox = this.createSearchBox.bind(this);
 
@@ -30,12 +32,10 @@ class TripsIndexMap extends React.Component {
       this.zoom = 13;
     }
 
+    this.state = {
+      loaded: false
+    };
 
-
-  }
-
-  componentDidMount() {
-    // this.props.fetchTrips(); ?
   }
 
   componentWillUnmount() {
@@ -79,12 +79,25 @@ class TripsIndexMap extends React.Component {
       });
       this.props.handlePositionInput(clickPosition);
     });
-    setTimeout(this.createSearchBox,100);
+
+    // please ignore this code
+    if (this.state.loaded) {
+      this.createSearchBox();
+    } else {
+      googleMapLoader({ key: process.env.REACT_APP_MAPS_KEY, libraries: 'places' })
+        .then(res => {
+            if (!res.places) {
+              window.location.reload();
+            } else {
+              this.setState({ loaded: true });
+              this.createSearchBox();
+            }
+        });
+    }
   }
 
   createSearchBox() {
     const input = document.getElementById("cpf-search");
-    input.style.display = "block";
     const searchBox = new this.maps.places.SearchBox(input);
     this.map.controls[this.maps.ControlPosition.TOP_CENTER].push(input);
     this.map.addListener("bounds_changed", () => {
@@ -180,22 +193,23 @@ class TripsIndexMap extends React.Component {
   }
 
   render() {
-
     return (
       <div className="trips-index map-wrapper">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY, libraries:['places'] }}
+          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY, libraries:'places' }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
-          onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
           options={ this.createMapOptions }
+          onGoogleApiLoaded={ ({ map, maps }) => this.handleApiLoaded(map, maps) }
+          key="form-map"
         >
           <input type="text" id="cpf-search" placeholder="Search for a destination" />
+          
         </GoogleMapReact>
       </div>
     );
   }
 }
 
-export default TripsIndexMap;
+export default PostCardCreateMap;
