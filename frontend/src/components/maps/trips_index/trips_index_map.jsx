@@ -34,21 +34,9 @@ class TripsIndexMap extends React.Component {
     
   }
 
-  animateZoomTo(targetZoom) {
-    const currentZoom = this.map.getZoom();
-    if (!currentZoom === targetZoom) {
-      this.maps.event.addListener(this.map, 'zoom_changed', e => {
-        this.animateMapZoomTo(targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
-      });
-      setTimeout(() => this.map.setZoom(currentZoom), 80);
-    }
-  };
-
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
-
-    
 
     if (this.tripsWithPos.length) {
 
@@ -87,6 +75,7 @@ class TripsIndexMap extends React.Component {
           `${desc}` + '</p>' +
           '</div>';
 
+        // create infowindow for the markers
         const infoWindow = new this.maps.InfoWindow({
           content
         });
