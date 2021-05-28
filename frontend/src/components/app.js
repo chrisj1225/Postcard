@@ -15,7 +15,7 @@ import PostcardEditContainer from './postcards/postcard_edit_container';
 
 import ModalContainer from './util/modal_container';
 import HeaderContainer from './headerFooter/header_container'; 
-// import Footer from './headerFooter/footer'; 
+import Footer from './headerFooter/footer'; 
 
 const App = () => {
 
@@ -37,7 +37,7 @@ const App = () => {
         <Route to="/signup" component={SignupFormContainer} /> */}
         <Route path="/" component={LandingContainer} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 

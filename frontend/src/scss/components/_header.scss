@@ -1,13 +1,11 @@
 
 .site-header {
   padding: $site-margin/2 0;
+  background: url('../../assets/images/postcard-border.png');
+  background-size: 120px;
+  background-repeat: round;
 
   .logo {
-    // font-family: $header-font;
-    // font-weight: 800;
-    // font-size: 48px; 
-    // line-height: 1.2;
-    // letter-spacing: 6px;
     width: 200px;
     height: auto;
     cursor: pointer;
@@ -16,10 +14,6 @@
   > * {
     padding: 10px $site-margin;
   }
-  
-  background: url('../../assets/images/postcard-border.png');
-  background-size: 120px;
-  background-repeat: round;
   
   .content {
     @include flex(space-between); 
