@@ -27,9 +27,13 @@
 
   transition: box-shadow 150ms, transform 150ms;
 
-  &:hover {
+  &:hover, &.focused {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.3); 
     transform: scale(1.008); 
+  }
+
+  &.focused {
+    box-shadow: 0 0 5px 2px $green; 
   }
   
 
