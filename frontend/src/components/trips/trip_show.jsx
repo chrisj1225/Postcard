@@ -68,7 +68,6 @@ class TripShow extends React.Component {
     let editTripLink;
     let deleteTripButton;
 
-    debugger
     if (currentUser && (currentUser._id === trip.travellerId)) {
       if (!postcards) {
         return (
