@@ -93,7 +93,11 @@ class TripShowMap extends React.Component {
 
         // event listeners for hovering the trips list item
         document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseenter", () =>{
-          this.map.fitBounds(this.bounds);
+          if (this.postcards.length === 1) {
+            this.map.setZoom(15);
+          } else {
+            this.map.fitBounds(this.bounds);
+          }
           let lat, lng;
           lat = marker.position.lat();
           lng = marker.position.lng();
@@ -105,6 +109,7 @@ class TripShowMap extends React.Component {
 
         document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseleave", () =>{
           marker.setAnimation(null);
+          if (this.postcards.length === 1) this.map.setZoom(15);
         });
 
         ///////////////////////////////////////////////////////
