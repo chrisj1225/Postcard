@@ -38,8 +38,15 @@ class PostcardEditForm extends React.Component{
     e.preventDefault();
     this.props.updatePostcard(this.state.tripId, this.state)
       .then((res) => {
-        this.props.history.push(`/postcards/${res.postcard._id}`)
-      });
+        debugger
+        if (res.errors) {
+          Object.values(res.errors).forEach(err => {
+            alert(err)
+          })
+        } else {
+          this.props.history.push(`/postcards/${res.postcard._id}`)
+        }
+      })
   }
 
   update(field) {
@@ -54,6 +61,14 @@ class PostcardEditForm extends React.Component{
     const { postcard } = this.props;
     if (!postcard) return null;
     if (!this.state) return null;
+
+    let inputEmpty = false;
+    if ((this.state.title.length < 1) || 
+      (this.state.body.length < 1) || 
+      (this.state.lat.length < 1) || 
+      (this.state.lng.length < 1)) {
+      inputEmpty = true;
+    };
     
     return(
       <div className="create-postcard-container">
@@ -84,6 +99,7 @@ class PostcardEditForm extends React.Component{
           </label> */}
           <input 
             onClick={this.handleSubmit}
+            disabled={inputEmpty}
             type="submit" 
             value="Update Postcard" />
         </form>

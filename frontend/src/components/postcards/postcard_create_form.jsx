@@ -23,8 +23,14 @@ class PostcardCreateForm extends React.Component{
     e.preventDefault();
     this.props.createPostcard(this.state.tripId, this.state)
       .then((res) => {
-        this.props.history.push(`/postcards/${res.postcard._id}`)
-      });
+        if (res.errors) {
+          Object.values(res.errors).forEach(err => {
+            alert(err)
+          })
+        } else {
+          this.props.history.push(`/postcards/${res.postcard._id}`)
+        }
+      })
   }
 
   update(field) {
@@ -36,6 +42,15 @@ class PostcardCreateForm extends React.Component{
   }
 
   render() {
+
+    let inputEmpty = false;
+    if ((this.state.title.length < 1) || 
+      (this.state.body.length < 1) || 
+      (this.state.lat.length < 1) || 
+      (this.state.lng.length < 1)) {
+      inputEmpty = true;
+    };
+
     return(
       <div className="create-postcard-container">
         <form onSubmit={this.handleSubmit}>
@@ -65,6 +80,7 @@ class PostcardCreateForm extends React.Component{
           </label> */}
           <input 
             onClick={this.handleSubmit}
+            disabled={inputEmpty}
             type="submit" 
             value="Create Postcard" />
         </form>
