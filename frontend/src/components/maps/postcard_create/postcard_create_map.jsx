@@ -165,7 +165,7 @@ class PostCardCreateMap extends React.Component {
           `${place.name}` + '</h1>' +
           '<p class="trip-desc-info">' +
           `${place.formatted_address}` + '</p>' +
-          '<p>Click to select</p>' +
+          '<h3>Click to select</h3>' +
           '</div>';
 
           const infoWindow = new this.maps.InfoWindow({
