@@ -78,7 +78,7 @@ export const createTrip = trip => dispatch => {
 
 export const updateTrip = trip => dispatch => {
   return TripAPIUtil.updateTrip(trip)
-    .then(res => dispatch(receiveTrip(res.data)))
+    .then(res => dispatch(receiveNewTrip(res.data)))
     .catch(err => dispatch(receiveTripErrors(err.response.data)))
 }
 
