@@ -4,7 +4,7 @@
 ---
 
 ## **Postcard** is a MERN stack project
-#### Technologies employed
+#### **Technologies employed**
 
 * MongoDB
   * MongoDB is a general purpose, document-based, distributed database. Accessing it allows for much faster queries as opposed to a SQL database.
@@ -21,8 +21,8 @@
 
 ---
 
-## Feature highlights
-### Implementation of Google Maps API
+## **Feature highlights**
+### **Implementation of Google Maps API**
 Google Maps wasn't terribly difficult to implement and get started, however, it was somewhat tricky to make the map interactive with the rest of the app because when the map loads it doesn't really load any HTML elements with easily "grabbable" properties. We envisioned the user being able to see a correlation on the map when selecting or interacting with other parts of the app. So, our solution to that was this:
 ```javascript
 // event listeners for hovering the markers
@@ -50,4 +50,8 @@ document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", 
 ```
 As markers were being generated to be placed on the map, we would install listeners on the markers themselves as well as the corresponding elements that should have interactivity with their marker.
 
-In addition to the maps interactivity, we also were able to implement a places search box allowing the user to search for a place they may have visited and select it on the map when creating or editing a `Postcard`. 
+In addition to the maps interactivity, we also were able to implement a places search box allowing the user to search for a place they may have visited and select it on the map when creating or editing a `Postcard`.
+
+### **Implementing AWS and styling the photos**
+
+After implementing AWS, we thought it would be imperative to style the `Postcard` show page well for UI/UX.
