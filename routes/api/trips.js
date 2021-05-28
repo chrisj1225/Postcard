@@ -63,7 +63,6 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/follows", passport.authenticate('jwt', {session: false}), async (req, res) => {
-  console.log("hello");
   const currentUser = await User.findById(req.user.id);
   const tripsObj = {};
   const pcObj = {};
