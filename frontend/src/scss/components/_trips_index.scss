@@ -1,4 +1,4 @@
-
+$breakpoint: 1400px; 
 
 .trips-index {
   width: 100%;
@@ -19,8 +19,9 @@
   
   border-radius: 2px;
   margin: 0 15px 15px 15px;
+  gap: 8px; 
   padding: 8px;
-  min-height: 300px;
+  // min-height: 300px;
 
   display: grid; 
   grid-template-columns: 2fr 3fr;
@@ -94,7 +95,7 @@
 
   }
 
-  $breakpoint: 1400px; 
+  
   
   @media only screen and (max-width: $breakpoint) {
     ul {

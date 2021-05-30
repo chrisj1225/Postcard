@@ -8,6 +8,12 @@ $body-height: 70vh;
   height: $body-height;
   position: relative;
 
+  @media only screen and (max-width: 1400px) { 
+    & {
+      grid-template-columns: 45% 55%;
+    }
+  }
+
   aside {
     height: 70vh;
 
