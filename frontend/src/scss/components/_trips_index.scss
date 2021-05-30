@@ -42,6 +42,7 @@ $breakpoint: 1400px;
     @include flex(space-between, flex-start, column); 
     height: 100%;
     align-self: flex-start;
+    cursor: default;
 
     a {
       text-decoration: none;
