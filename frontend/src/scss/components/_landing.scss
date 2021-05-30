@@ -1,4 +1,5 @@
-$body-height: 70vh; 
+$body-height: 73vh; 
+// have to manually adjust trips-index height that uses calc()
 
 .landing-container {
   display: grid;
@@ -15,7 +16,7 @@ $body-height: 70vh;
   }
 
   aside {
-    height: 70vh;
+    height: $body-height;
 
     .filter-dropdown {
       > button {
@@ -43,7 +44,7 @@ $body-height: 70vh;
       overflow-x: hidden;
       padding: 20px 10px;
       margin-top: 10px;
-      height: calc(70vh - 50px); 
+      height: calc(73vh - 50px); 
 
       &::-webkit-scrollbar {
         transition: background-color 1s;
@@ -74,7 +75,7 @@ $body-height: 70vh;
   .add-btn {
     position: absolute;
     bottom: -($add-btn-radius/2.5);
-    right: -($add-btn-radius/4);
+    right: -($add-btn-radius/2);
   }
 }
 
