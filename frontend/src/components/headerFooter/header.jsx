@@ -43,21 +43,19 @@ class Header extends React.Component {
     return (
       <header className="site-header">
         <div className="content">
-          <section>
-            <Link to="/">
-              <figure>
-                <img 
-                  className="logo"
-                  src={unfilledLogo} alt="Postcard Logo"/>
-                <img 
-                  className="logo"
-                  src={filledLogo} alt="Postcard Logo"/>
-              </figure>
-            </Link>
-            <CreatorsDropdown />
-          </section>
-          <div className="session-btns">
+          <Link to="/">
+            <figure>
+              <img 
+                className="logo"
+                src={unfilledLogo} alt="Postcard Logo"/>
+              <img 
+                className="logo"
+                src={filledLogo} alt="Postcard Logo"/>
+            </figure>
+          </Link>
+          <div className="header-btns">
             { buttons }
+            <CreatorsDropdown />
           </div>
         </div>
       </header>
