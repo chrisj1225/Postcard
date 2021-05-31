@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
-// import Logo from '../../assets/images/postcard-logo.png'
+
 import unfilledLogo from '../../assets/images/postcard-unfilled.png'
 import filledLogo from '../../assets/images/postcard-filled.png'
+import CreatorsDropdown from './creators_dropdown'; 
+
 
 
 class Header extends React.Component {
@@ -51,8 +53,9 @@ class Header extends React.Component {
                 src={filledLogo} alt="Postcard Logo"/>
             </figure>
           </Link>
-          <div className="session-btns">
+          <div className="header-btns">
             { buttons }
+            <CreatorsDropdown />
           </div>
         </div>
       </header>
@@ -61,8 +64,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-
-
-
-// displays the username with a downarrow chevron next to it. When click it opens a dropdown with one item, 'edit username'
-// when clicked, it flips into an input that is saved in the header 
