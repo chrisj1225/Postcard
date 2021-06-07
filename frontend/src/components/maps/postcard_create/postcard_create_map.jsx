@@ -1,7 +1,8 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import redMarker from '../../../assets/images/spotlight-poi2red.png'
-import greenMarker from '../../../assets/images/spotlight-poi2green.png'
+import redMarker from '../../../assets/images/spotlight-poi2red.png';
+import greenMarker from '../../../assets/images/spotlight-poi2green.png';
+import { MAPS_API_KEY } from '../../../util/credentials';
 
 const { googleMapLoader } = GoogleMapReact;
 
@@ -84,7 +85,7 @@ class PostCardCreateMap extends React.Component {
     if (this.state.loaded) {
       this.createSearchBox();
     } else {
-      googleMapLoader({ key: process.env.REACT_APP_MAPS_KEY, libraries: 'places' })
+      googleMapLoader({ key: MAPS_API_KEY, libraries: 'places' })
         .then(res => {
             if (!res.places) {
               window.location.reload();
@@ -218,7 +219,7 @@ class PostCardCreateMap extends React.Component {
     return (
       <div className="trips-index map-wrapper">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY, libraries:'places' }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY, libraries:'places' }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }

@@ -9,24 +9,24 @@ import stamp from '../../assets/images/blue-stamp.png'
 const PostcardsIndexItem = (props) => {
   const { postcard, arrow } = props; 
   return (
-    <div className="postcard-index-item" id={`postcard-item-${postcard._id}`}>
-      {/* test data */}
-      <article>
-        <Link to={`/postcards/${postcard._id}`}>
-          <h2>{postcard.title}</h2>
-        </Link>
-        <p>{ limitChars(postcard.body, 215)}</p>
-      </article>
-      <aside>
-        <p>{
-          limitChars(postcard.lat.$numberDecimal, 14)
-        }, {
-          limitChars(postcard.lng.$numberDecimal, 14)
-        }</p>
-        <img src={postcard.photos[0] || stamp} alt="Postcard image"/> 
-      </aside>
+    <div className="postcard-index-item">
+      <section id={`postcard-item-${postcard._id}`}>
+        <article>
+          <Link to={`/postcards/${postcard._id}`}>
+            <h2>{postcard.title}</h2>
+          </Link>
+          <p>{ limitChars(postcard.body, 215)}</p>
+        </article>
+        <aside>
+          <p>{
+            limitChars(postcard.lat.$numberDecimal, 14)
+          }, {
+            limitChars(postcard.lng.$numberDecimal, 14)
+          }</p>
+          <img src={postcard.photos[0] || stamp} alt="Postcard image"/> 
+        </aside>
+      </section>
       { arrow }
-
     </div>
   )
 }; 

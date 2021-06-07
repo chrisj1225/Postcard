@@ -1,4 +1,4 @@
-
+$breakpoint: 1400px; 
 
 .trips-index {
   width: 100%;
@@ -19,24 +19,30 @@
   
   border-radius: 2px;
   margin: 0 15px 15px 15px;
+  gap: 8px; 
   padding: 8px;
-  min-height: 300px;
+  // min-height: 300px;
 
   display: grid; 
   grid-template-columns: 2fr 3fr;
 
   transition: box-shadow 150ms, transform 150ms;
 
-  &:hover {
+  &:hover, &.focused {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.3); 
     transform: scale(1.008); 
+  }
+
+  &.focused {
+    box-shadow: 0 0 5px 2px $green; 
   }
   
 
   section {
-    @include flex(flex-start, flex-start, column); 
+    @include flex(space-between, flex-start, column); 
     height: 100%;
     align-self: flex-start;
+    cursor: default;
 
     a {
       text-decoration: none;
@@ -57,10 +63,14 @@
   h2 {
     font-family: $header-font;
     font-size: 32px;
+    overflow-wrap: break-word;
   }
   
   p {
     font-weight: 500;
+    i {
+      margin-right: 10px;
+    }
   }
 
   ul {
@@ -86,7 +96,7 @@
 
   }
 
-  $breakpoint: 1400px; 
+  
   
   @media only screen and (max-width: $breakpoint) {
     ul {

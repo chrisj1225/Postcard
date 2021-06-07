@@ -4,6 +4,7 @@ import { limitChars } from '../../../util/func_util';
 import { attachAllTripPos } from '../../../util/selectors';
 import redMarker from '../../../assets/images/spotlight-poi2red.png';
 import greenMarker from '../../../assets/images/spotlight-poi2green.png';
+import { MAPS_API_KEY } from '../../../util/credentials';
 
 
 class TripsIndexMap extends React.Component {
@@ -34,21 +35,9 @@ class TripsIndexMap extends React.Component {
     
   }
 
-  animateZoomTo(targetZoom) {
-    const currentZoom = this.map.getZoom();
-    if (!currentZoom === targetZoom) {
-      this.maps.event.addListener(this.map, 'zoom_changed', e => {
-        this.animateMapZoomTo(targetZoom, currentZoom + (targetZoom > currentZoom ? 1 : -1));
-      });
-      setTimeout(() => this.map.setZoom(currentZoom), 80);
-    }
-  };
-
   handleApiLoaded(map, maps) {
     this.map = map;
     this.maps = maps;
-
-    
 
     if (this.tripsWithPos.length) {
 
@@ -87,6 +76,7 @@ class TripsIndexMap extends React.Component {
           `${desc}` + '</p>' +
           '</div>';
 
+        // create infowindow for the markers
         const infoWindow = new this.maps.InfoWindow({
           content
         });
@@ -158,7 +148,7 @@ class TripsIndexMap extends React.Component {
     return (
       <div className="trips-index map-wrapper">
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_KEY }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
