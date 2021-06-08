@@ -20,6 +20,11 @@ class Landing extends React.Component {
   }
 
   toggleFollowed() {
+    if (!this.props.loggedIn) {
+      this.props.openModal('login'); 
+      return; 
+    }
+
     if(!this.state.followed){
       this.setState({followed: true})
       this.props.fetchFollowedTrips()
