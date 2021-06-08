@@ -18,6 +18,12 @@ class Landing extends React.Component {
   componentDidMount() {
     this.props.fetchAllTrips();
   }
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props && !Object.keys(this.props.currentUser).length) {
+      this.toggleAll(); 
+    }   
+  }
 
   toggleFollowed() {
     if (!this.props.loggedIn) {
