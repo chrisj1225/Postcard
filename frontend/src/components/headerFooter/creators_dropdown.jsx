@@ -34,7 +34,7 @@ class CreatorsDropdown extends React.Component {
               <h2>Tim Fraczak</h2>
               <ul role="list">
                 <li><a href="https://github.com/tfraczak" target="_blank">Github</a></li>
-                <li><a href="https://www.linkedin.com/in/timothy-fraczak-e-i-t-1393a183/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://www.linkedin.com/in/tfraczak/" target="_blank">LinkedIn</a></li>
               </ul>
             </li>
             <li>
