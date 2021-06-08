@@ -47,6 +47,7 @@ router.post('/register', (req, res) => {
           following: []
         })
         newUser.following = newUser.following.concat(newUser.userId);
+        
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if(err) throw err;
