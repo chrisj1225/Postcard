@@ -107,13 +107,14 @@ class TripShow extends React.Component {
       )
     };
 
-    const followButton = (Object.values(currentUser).length) ? (
-      (this.state.followed) ? (
-        <button className={"follow-btn following"} onClick={this.toggleFollow}>Following</button>
-      ) : (
-        <button className={"follow-btn"} onClick={this.toggleFollow}>Follow</button>
-      )
-    ) : null; 
+    const followButton = (currentUser) && (currentUser._id === trip.travellerId) ? null : 
+      (Object.values(currentUser).length) ? (
+        (this.state.followed) ? (
+          <button className={"follow-btn following"} onClick={this.toggleFollow}>Following</button>
+        ) : (
+          <button className={"follow-btn"} onClick={this.toggleFollow}>Follow</button>
+        )
+      ) : null; 
 
     return (
       <main className="trip-show-wrapper">

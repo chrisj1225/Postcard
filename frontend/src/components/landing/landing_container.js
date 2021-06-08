@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
   return ({
     trips,
     loggedIn: state.session.isAuthenticated,
-    postcards: state.entities.postcards
-  // currentUserId: state.session.id, 
+    postcards: state.entities.postcards,
+    currentUser: state.session.user, 
 })};
 
 const mapDispatchToProps = (dispatch) => ({

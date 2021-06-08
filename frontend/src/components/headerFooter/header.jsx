@@ -56,6 +56,7 @@ class Header extends React.Component {
           <div className="header-btns">
             { buttons }
             <CreatorsDropdown />
+            <a href="https://github.com/chrisj1225/Postcard" target="_blank"><i className="fab fa-github-square"></i></a>
           </div>
         </div>
       </header>
