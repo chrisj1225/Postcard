@@ -90,6 +90,27 @@
           border-radius: 5px;
           @include flex(center, center); 
 
+          .close-btn {
+            display: none;
+          }
+
+          &.active .close-btn {
+            display: block;
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            position: fixed;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            line-height: 1;
+            right: 50%;
+            top: 5%;
+            transform: translateX(50%);
+            z-index: 5;
+            padding: 5px 3px 1px 3px;
+            font-weight: 300;
+          }
+
           &.active img {
             position: fixed;
             bottom: 50%;
@@ -200,10 +221,7 @@
   
 }
 .pic-nav-buttons {
-  
-  font-size: 38px;
-  
-  
+  font-size: 38px; 
   
   &.left, &.right {
     position: fixed;
