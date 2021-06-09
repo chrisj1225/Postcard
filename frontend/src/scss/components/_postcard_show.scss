@@ -165,6 +165,17 @@
     border: 2px dashed black;
     margin-bottom: 20px;
     cursor: pointer;
+    transition: border 100ms, color 100ms;
+    
+    &:hover {
+      color: $red;
+      border: 2px dashed $red;
+    }
+    
+    &:active {
+      color: darken($red, 15%);
+      border: 2px dashed darken($red, 15%);
+    }
   }
 
   input {
