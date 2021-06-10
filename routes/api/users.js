@@ -117,26 +117,53 @@ router.post('/login', (req, res) => {
     })
 })
 
-tripRouter.get('/', (req, res) => {
-  Trip.find({travellerId: req.params.userId})
-    .sort({date: -1})
-    .then((trips) => {
-      const tripsObj = {}
-      trips.forEach((trip) => {
-        tripsObj[trip.id] = {
-          _id: trip.id,
-          title: trip.title,
-          description: trip.description,
-          travellerId: trip.travellerId,
-          createdAt: trip.createdAt,
-          updatedAt: trip.updatedAt,
-          __v: trip.__v,
-          travellerName: user.displayName
+tripRouter.get('/', async (req, res) => {
+  const trips =  await Trip.find({travellerId: req.params.userId}).sort({date: -1});
+  const user = await User.findById(req.params.userId);
+  const userObj = {
+    _id: user.id,
+    displayName: user.displayName,
+    email: user.email,
+    following: user.following,
+    profilePic: user.profilePic,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+  }
+  const tripsObj = {};
+  const pcObj = {};
+  for(let i = 0; i < trips.length; i++){
+    let trip = trips[i];
+    tripsObj[trip.id] = {
+      _id: trip.id,
+      title: trip.title,
+      description: trip.description,
+      travellerId: trip.travellerId,
+      createdAt: trip.createdAt,
+      updatedAt: trip.updatedAt,
+      __v: trip.__v,
+      travellerName: user.displayName
+    };
+    let postcards = await Postcard.find({tripId: trip.id}).sort({date: -1});
+    if(postcards){
+      for(let j = 0; j < postcards.length; j++){
+        let postcard = postcards[j];
+        pcObj[postcard.id] = pcObj[postcard.id] = { 
+          photos: postcard.photos,
+          _id: postcard.id,
+          title: postcard.title,
+          body: postcard.body,
+          tripId: postcard.tripId,
+          lat: postcard.lat,
+          lng: postcard.lng,
+          createdAt: postcard.createdAt,
+          updatedAt: postcard.updatedAt,
+          __v: postcard.__v,
+          travellerId: user.id
         };
-      })
-      return res.json(tripsObj)
-    })
-    .catch((err) => res.status(400).json({ trip: "no trips found" }))
+      }
+    }
+  }
+  res.json({user: userObj, trips: tripsObj, postcards: pcObj})
 })
 
 router.put('/:userId/follow', passport.authenticate('jwt', {session: false}), async (req, res) => {
