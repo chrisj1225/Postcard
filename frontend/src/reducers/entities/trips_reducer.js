@@ -4,6 +4,7 @@ import {
   RECEIVE_TRIP,
   REMOVE_TRIP,
   RECEIVE_NEW_TRIP,
+  RECEIVE_USER_TRIPS
 } from '../../actions/trip_actions';
 // import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
@@ -21,6 +22,8 @@ const TripsReducer = (state = {}, action) => {
       delete newState[action.tripId];
       return newState;
     case RECEIVE_FOLLOWED_TRIPS:
+      return Object.assign({}, action.data.trips)
+    case RECEIVE_USER_TRIPS:
       return Object.assign({}, action.data.trips)
     default:
       return state;

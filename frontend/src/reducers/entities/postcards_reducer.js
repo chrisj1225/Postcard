@@ -6,7 +6,8 @@ import {
 } from '../../actions/postcard_actions';
 import {
   RECEIVE_TRIPS,
-  RECEIVE_TRIP
+  RECEIVE_TRIP,
+  RECEIVE_USER_TRIPS
 } from '../../actions/trip_actions';
 // import { RECEIVE_USER_LOGOUT } from '../../actions/session_actions';
 
@@ -26,6 +27,8 @@ const PostcardsReducer = (state = {}, action) => {
       delete newState[action.postcardId];
       return newState;
     case RECEIVE_FOLLOWED_TRIPS:
+        return Object.assign({}, action.data.postcards)
+    case RECEIVE_USER_TRIPS:
         return Object.assign({}, action.data.postcards)
     default:
       return state;
