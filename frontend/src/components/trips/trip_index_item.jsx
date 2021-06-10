@@ -13,7 +13,11 @@ const TripIndexItem = ({ trip }) => {
           </Link>
           <p>{limitChars(trip.description, 160)}</p>
         </div>
-        <p><i className="fas fa-user"></i><span>{trip.travellerName}</span></p>
+        <p><i className="fas fa-user"></i><span>{
+          <Link to={`users/${trip.travellerId}/trips`}>
+            {trip.travellerName}
+          </Link>
+        }</span></p>
       </section>
       <div>
         <ul role="list">
