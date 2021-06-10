@@ -81,20 +81,21 @@ class PostCardCreateMap extends React.Component {
       this.props.handlePositionInput(clickPosition);
     });
 
+    this.createSearchBox();
     // please ignore this code
-    if (this.state.loaded) {
-      this.createSearchBox();
-    } else {
-      googleMapLoader({ key: MAPS_API_KEY, libraries: 'places' })
-        .then(res => {
-            if (!res.places) {
-              window.location.reload();
-            } else {
-              this.setState({ loaded: true });
-              this.createSearchBox();
-            }
-        });
-    }
+    // if (this.state.loaded) {
+    //   this.createSearchBox();
+    // } else {
+    //   googleMapLoader({ key: MAPS_API_KEY, libraries: 'places' })
+    //     .then(res => {
+    //         if (!res.places) {
+    //           window.location.reload();
+    //         } else {
+    //           this.setState({ loaded: true });
+    //           this.createSearchBox();
+    //         }
+    //     });
+    // }
   }
 
   createSearchBox() {
@@ -157,8 +158,6 @@ class PostCardCreateMap extends React.Component {
               position: place.geometry.location,
               title: place.name,
           });
-          
-          debugger
 
           const content =
           '<div id="index-info-content-wrapper">' +
