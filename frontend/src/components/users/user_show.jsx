@@ -11,6 +11,8 @@ class UserShow extends React.Component {
   render() {
     const { trips, postcards, user } = this.props; 
 
+    debugger
+
     return (
       <div className="user-show-container">
         <aside>

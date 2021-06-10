@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {fetchUserTrips} from '../actions/trip_actions';				//actions
+import { fetchUserTrips } from '../../actions/trip_actions';				//actions
 import UserShow from './user_show';				//display component
 
 import { attachAllPhotoTiles } from '../../util/selectors'; 
@@ -9,12 +9,14 @@ const mapStateToProps = (state, ownProps) => {
     state.entities.trips, 
     state.entities.postcards
   ); 
+  
+  debugger
 
   return ({
     trips, 
     postcards: state.entities.postcards,   
     user: state.entities.user, 
-    userId: ownProps.params.match.userId, 
+    userId: ownProps.match.params.userId, 
   })
 };
 
