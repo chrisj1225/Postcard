@@ -1,3 +1,13 @@
+export const averagePos = tripsWithPos => {
+  if (tripsWithPos.length) {
+    const trips = tripsWithPos.filter(trip => trip.lat < 180 && trip.lat < 180);
+    const latAvg = trips.reduce((total, trip) => total + trip.lat, 0)/trips.length;
+    const lngAvg = trips.reduce((total, trip) => total + trip.lng, 0)/trips.length;
+    return { lat: latAvg, lng: lngAvg };
+  }
+  return { lat: 40, lng: -40 };
+}
+
 export const attachTripPos = (trip, postcardsState) => {
   if (trip) {
     let tripCopy = Object.assign({}, trip);
