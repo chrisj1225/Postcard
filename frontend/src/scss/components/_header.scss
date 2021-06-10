@@ -154,6 +154,10 @@
       z-index: 10;
       background-color: darken($cream, 5%); 
       box-shadow: 0 0 5px rgba(0,0,0,0.2); 
+
+      * {
+        margin-left: 0; 
+      }
     }
   }
 

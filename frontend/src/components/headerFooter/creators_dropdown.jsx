@@ -28,6 +28,7 @@ class CreatorsDropdown extends React.Component {
               <ul role="list">
                 <li><a href="https://github.com/thedanielcho" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/daniel-cho-376110189/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://angel.co/u/daniel-cho-31" target="_blank">AngelList</a></li>
               </ul>
             </li>
             <li>
@@ -35,6 +36,7 @@ class CreatorsDropdown extends React.Component {
               <ul role="list">
                 <li><a href="https://github.com/tfraczak" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/tfraczak/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://angel.co/u/tfraczak" target="_blank">AngelList</a></li>
               </ul>
             </li>
             <li>
@@ -42,6 +44,7 @@ class CreatorsDropdown extends React.Component {
               <ul role="list">
                 <li><a href="https://github.com/fdiengott" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/freddiengott/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://angel.co/u/freddy-diengott" target="_blank">AngelList</a></li>
               </ul>
             </li>
             <li>
@@ -49,6 +52,7 @@ class CreatorsDropdown extends React.Component {
               <ul role="list">
                 <li><a href="https://github.com/chrisj1225" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/chrisj1225/" target="_blank">LinkedIn</a></li>
+                <li><a href="https://angel.co/u/chris-joo" target="_blank">AngelList</a></li>
               </ul>
             </li>
           </ul>
