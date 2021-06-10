@@ -11,13 +11,13 @@ class UserShow extends React.Component {
   render() {
     const { trips, postcards, user } = this.props; 
 
-    debugger
+    if (!user) return null;
 
     return (
       <div className="user-show-container">
         <aside>
           <div className="user-details">
-            <h1>{user.displayName}</h1>
+            <h1>{user.displayName + "'s trips"}</h1>
           </div>
           <TripsIndex trips={trips} />
         </aside>

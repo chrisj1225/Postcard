@@ -10,8 +10,6 @@ const mapStateToProps = (state, ownProps) => {
     state.entities.postcards
   ); 
   
-  debugger
-
   return ({
     trips, 
     postcards: state.entities.postcards,   

@@ -8,13 +8,13 @@ const TripIndexItem = ({ trip }) => {
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>
       <section>
         <div>
-          <Link to={`trips/${trip._id}`}>
+          <Link to={`/trips/${trip._id}`}>
             <h2>{limitChars(trip.title, 28)}</h2>
           </Link>
           <p>{limitChars(trip.description, 160)}</p>
         </div>
         <p><i className="fas fa-user"></i><span>{
-          <Link to={`users/${trip.travellerId}/trips`}>
+          <Link to={`/users/${trip.travellerId}/trips`}>
             {trip.travellerName}
           </Link>
         }</span></p>
