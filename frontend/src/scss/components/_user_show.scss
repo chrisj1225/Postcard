@@ -1,0 +1,19 @@
+
+.user-show-container {
+  @extend .landing-container; 
+
+
+  .user-details h1 {
+    font-size: 33px;
+  }
+
+  > aside > .trips-index {
+    margin-top: 0;
+  }
+
+}
+@media only screen and (max-width: 1400px) {
+  .user-show-container {
+    grid-template-columns: 55% 45%;
+  }
+}

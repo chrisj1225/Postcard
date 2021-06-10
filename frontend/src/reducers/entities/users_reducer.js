@@ -4,7 +4,7 @@
 // } from '../../actions/session_actions';
 
 // import { RECEIVE_USER } from '../../actions/follow_actions';
-import { RECEIVE_USER_TRIPS } from '../../actions/follow_actions';
+import { RECEIVE_USER_TRIPS } from '../../actions/trip_actions';
 
 const UsersReducer = (state = {}, action) => {
   switch (action.type) {

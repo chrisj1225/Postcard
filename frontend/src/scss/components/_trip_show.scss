@@ -5,6 +5,7 @@
   header {
     width: 90vw; 
     @include flex(space-between, center); 
+    gap: 10px; 
   }
 
   section {
@@ -50,9 +51,26 @@
   .user-info {
     @include flex(flex-end, flex-end, column); 
     margin-top: 20px;
+    white-space: nowrap;
 
     p {
       margin-bottom: 15px;
+      
+      a {
+        color: $blue;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+          text-decoration-thickness: 3px;
+          color: $red;
+        }
+
+        &:active {
+          color: darken($red, 15%);
+        }
+      }
+
 
       span {
         margin-left: 8px; 

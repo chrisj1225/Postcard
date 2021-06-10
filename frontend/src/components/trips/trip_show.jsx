@@ -116,6 +116,7 @@ class TripShow extends React.Component {
         )
       ) : null; 
 
+
     return (
       <main className="trip-show-wrapper">
         <header>
@@ -127,7 +128,12 @@ class TripShow extends React.Component {
             <p>{trip.description}</p>
           </section>
           <aside className="user-info">
-            <p><i className="fas fa-user"></i><span>{this.props.trip.travellerName}</span></p>
+            <p>
+              <Link to={`/users/${trip.travellerId}/trips`} >
+                <i className="fas fa-user"></i>
+                <span>{trip.travellerName}</span>
+              </Link>
+            </p>
             {followButton}
           </aside>
         </header>
