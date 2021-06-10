@@ -55,7 +55,7 @@ class PostcardShow extends React.Component {
     return (
       <div className="postcard-show map-wrapper" >
         <GoogleMapReact
-          bootstrapURLKeys={{ key: MAPS_API_KEY }}
+          bootstrapURLKeys={{ key: MAPS_API_KEY, libraries:'places' }}
           defaultCenter={ this.center }
           defaultZoom={ this.zoom }
           yesIWantToUseGoogleMapApiInternals={ true }
