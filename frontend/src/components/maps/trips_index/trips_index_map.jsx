@@ -1,7 +1,7 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { limitChars } from '../../../util/func_util';
-import { attachAllTripPos } from '../../../util/selectors';
+import { attachAllTripPos, averagePos } from '../../../util/selectors';
 import redMarker from '../../../assets/images/spotlight-poi2red.png';
 import greenMarker from '../../../assets/images/spotlight-poi2green.png';
 import { MAPS_API_KEY } from '../../../util/credentials';
@@ -13,10 +13,9 @@ class TripsIndexMap extends React.Component {
 
     this.markers = [];
     this.trips = [];
-    this.tripsWithPos = attachAllTripPos(this.props.trips, this.props.postcards);
+    this.tripsWithPos = attachAllTripPos(props.trips, props.postcards);
     
-    const lat = 23.68437587797855;
-    const lng = -3.202092257879451;
+    const { lat, lng } = averagePos(this.tripsWithPos);
     this.center = { lat, lng };
     this.zoom = 0;
   }
