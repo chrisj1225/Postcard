@@ -18,6 +18,20 @@ $body-height: 73vh;
   aside {
     height: $body-height;
 
+    header {
+      @include flex(space-between); 
+
+      .my-trips-link {
+        margin-right: 5px;
+        color: $blue;
+        transition: transform 100ms;         
+
+        &:hover {
+          transform: scale(1.05); 
+        }
+      }
+    }
+
     .filter-dropdown {
       > button {
         @include button($red, $cream); 

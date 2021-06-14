@@ -73,6 +73,10 @@ $breakpoint: 1400px;
     }
   }
 
+  .username {
+    margin-top: 10px; 
+  }
+
   ul {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

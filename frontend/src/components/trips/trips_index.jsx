@@ -7,12 +7,12 @@ class TripsIndex extends React.Component {
   }
 
   render() {
-    const { trips } = this.props; 
+    const { trips, userShow } = this.props; 
 
     return (
 
       <div className="trips-index">
-        { trips.map((trip, i) => <TripIndexItem key={i} trip={trip} />) }
+        { trips.map((trip, i) => <TripIndexItem key={i} trip={trip} userShow={userShow} />) }
         <li className="empty-list-item"></li>
       </div>
     )

@@ -22,7 +22,7 @@ class UserShow extends React.Component {
           <div className="user-details">
             <h1>{headline}</h1>
           </div>
-          <TripsIndex trips={trips} />
+          <TripsIndex userShow={true} trips={trips} />
         </aside>
         <TripsIndexMap 
           key={`${Math.random()*100000000}`} 
