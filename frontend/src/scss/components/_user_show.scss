@@ -11,6 +11,11 @@
     margin-top: 0;
   }
 
+  .add-btn {
+    right: unset;
+    left: -30px; 
+  }
+
 }
 @media only screen and (max-width: 1400px) {
   .user-show-container {
