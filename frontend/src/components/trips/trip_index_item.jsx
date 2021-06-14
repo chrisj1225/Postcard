@@ -2,22 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import { limitChars } from '../../util/func_util'; 
 
-const TripIndexItem = ({ trip }) => {
+const TripIndexItem = ({ trip, userShow }) => {
 
   return (
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>
       <section>
-        <div>
-          <Link to={`/trips/${trip._id}`}>
-            <h2>{limitChars(trip.title, 28)}</h2>
-          </Link>
-          <p>{limitChars(trip.description, 160)}</p>
-        </div>
-        <p><i className="fas fa-user"></i><span>{
-          <Link to={`/users/${trip.travellerId}/trips`}>
-            {trip.travellerName}
-          </Link>
-        }</span></p>
+        <Link to={`/trips/${trip._id}`}>
+          <h2>{limitChars(trip.title, 28)}</h2>
+        </Link>
+        <p>{limitChars(trip.description, 160)}</p>
+        { userShow ? null : 
+          <p className="username">
+            <i className="fas fa-user"></i>
+            <span>
+              {
+                <Link to={`/users/${trip.travellerId}/trips`}>
+                  {trip.travellerName}
+                </Link>
+              }
+            </span>
+          </p>
+        }
       </section>
       <div>
         <ul role="list">

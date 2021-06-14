@@ -18,6 +18,20 @@ $body-height: 73vh;
   aside {
     height: $body-height;
 
+    header {
+      @include flex(space-between); 
+
+      .my-trips-link {
+        margin-right: 5px;
+        color: $blue;
+        transition: transform 100ms;         
+
+        &:hover {
+          transform: scale(1.05); 
+        }
+      }
+    }
+
     .filter-dropdown {
       > button {
         @include button($red, $cream); 
@@ -42,7 +56,7 @@ $body-height: 73vh;
       background-color: $yellow;
       overflow-y: scroll;
       overflow-x: hidden;
-      padding: 20px 10px;
+      padding: 20px 15px;
       margin-top: 10px;
       height: calc(73vh - 50px); 
 
@@ -82,4 +96,12 @@ $body-height: 73vh;
 .trips-index.map-wrapper {
   width: 100%;
   height: $body-height;
+  background-color: #a7d3c2;
+}
+
+.loading-map {
+  width: 100%;
+  height: 100%; 
+
+  @include flex(center); 
 }
