@@ -78,16 +78,6 @@
     }
   }
 
-  .follow-btn {
-    @include button($blue, white); 
-    margin-left: 15px;
-    
-    &.following {
-      
-      background-color: darken($blue, 10%);
-    }
-  }
-
   article {
     width: 100%;
     @include flex(flex-start, center, column); 
@@ -102,6 +92,16 @@
     top: 20px;
     z-index: 1;
     box-shadow: 0 0 0 20px $cream;
+  }
+}
+
+.follow-btn {
+  @include button($blue, white); 
+  margin-left: 15px;
+  
+  &.following {
+    
+    background-color: darken($blue, 10%);
   }
 }
 

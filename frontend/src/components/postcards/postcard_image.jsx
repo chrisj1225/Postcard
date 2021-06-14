@@ -2,7 +2,6 @@ import React from 'react';
 
 const PostcardImage = ({ imageUrl, active, toggleActive, idx, deletePostcardPhoto, isUsers, prevImg, nextImg }) => {
   const renderActive = parseInt(active) === idx;
-  debugger
 
   return (
     <li className="postcard-image-item-wrapper">
