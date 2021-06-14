@@ -15,7 +15,9 @@ class TripsIndexMap extends React.Component {
     this.trips = [];
     this.tripsWithPos = attachAllTripPos(props.trips, props.postcards);
     
-    const { lat, lng } = averagePos(this.tripsWithPos);
+    let { lat, lng } = averagePos(this.tripsWithPos);
+    if (!lat || !lng) [lat, lng] = [40.711457884430985, -74.00372005691278];
+    
     this.center = { lat, lng };
     this.zoom = 0;
   }

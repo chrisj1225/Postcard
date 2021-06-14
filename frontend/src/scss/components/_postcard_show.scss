@@ -82,45 +82,78 @@
       li {
         @include flex(center); 
         
-        div {
+
+        .image-item {
           height: 100%;
           width: 100%;
           max-width: 300px;
           background-color: darken($cream, 5%);
           border-radius: 5px;
-          @include flex(center, center); 
+          @include flex(center, center);
 
-          .close-btn {
-            display: none;
+          .image-wrapper {
+            height: 100%;
+            width: 100%;
+            max-width: 300px;
+            background-color: darken($cream, 5%);
+            border-radius: 5px;
+            @include flex(center, center);
+
+            .close-btn {
+              display: none;
+            }
+
+            &.absolute {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: fixed;
+              bottom: 50%;
+              left: 50%;
+              height: auto;
+              width: auto;
+              transform: translate(-50%, 50%);
+              z-index: 2;
+              
+            }
+            &.relative {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+              width: auto;
+              height: auto;
+
+              img {
+                position: relative;
+                max-width: 90vw;
+                max-height: 90vh;
+                z-index: 2;
+              }
+
+              .close-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(0, 0, 0, 0.726);
+                border-radius: 2px;
+                cursor: pointer;
+                position: absolute;
+                top: 0;
+                color: white;
+                font-size: 18px;
+                line-height: 1;
+                right: 50%;
+                transform: translateX(50%);
+                z-index: 5;
+                padding: 5px 3px 1px 3px;
+                font-weight: 300;
+              }
+              
+            }
+
           }
 
-          &.active .close-btn {
-            display: block;
-            background-color: rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            position: fixed;
-            color: white;
-            font-size: 18px;
-            text-align: center;
-            line-height: 1;
-            right: 50%;
-            top: 5%;
-            transform: translateX(50%);
-            z-index: 5;
-            padding: 5px 3px 1px 3px;
-            font-weight: 300;
-          }
-
-          &.active img {
-            position: fixed;
-            bottom: 50%;
-            left: 50%;
-            max-width: 90vw;
-            max-height: 90vh;
-            height: auto;
-            transform: translate(-50%, 50%);
-            z-index: 2;
-          }
         }
         
         img {
