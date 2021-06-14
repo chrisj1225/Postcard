@@ -104,22 +104,19 @@
             }
 
             &.absolute {
-              display: flex;
-              align-items: center;
-              justify-content: center;
+              @include flex(center);
               position: fixed;
               bottom: 50%;
               left: 50%;
               height: auto;
               width: auto;
               transform: translate(-50%, 50%);
-              z-index: 2;
+              z-index: 4;
+              transition: transform 100ms ease-in-out;
               
             }
             &.relative {
-              display: flex;
-              align-items: center;
-              justify-content: center;
+              @include flex(center);
               position: relative;
               width: auto;
               height: auto;
@@ -128,13 +125,10 @@
                 position: relative;
                 max-width: 90vw;
                 max-height: 90vh;
-                z-index: 2;
               }
 
               .close-btn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                @include flex(center);
                 background-color: rgba(0, 0, 0, 0.726);
                 border-radius: 2px;
                 cursor: pointer;
@@ -249,6 +243,7 @@
     position: absolute;
     top: 3px;
     right: 3px;
+    z-index: 3;
 
     border-radius: 50%;
     $radius: 25px;
@@ -262,6 +257,11 @@
     &:hover {
       transform: scale(1.1);
     }
+
+    &.hidden {
+      display: none;
+    }
+
   }
 
   
