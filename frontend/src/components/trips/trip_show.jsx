@@ -21,7 +21,6 @@ class TripShow extends React.Component {
   }
 
   componentDidMount() {
-    // debugger
     this.props.fetchTrip(this.props.tripId)
       .then(res => {
         if (Object.values(this.props.currentUser).length) {

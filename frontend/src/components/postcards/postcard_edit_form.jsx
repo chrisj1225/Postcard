@@ -39,7 +39,6 @@ class PostcardEditForm extends React.Component{
     e.preventDefault();
     this.props.updatePostcard(this.state.tripId, this.state)
       .then((res) => {
-        debugger
         if (res.errors) {
           Object.values(res.errors).forEach(err => {
             alert(err)
