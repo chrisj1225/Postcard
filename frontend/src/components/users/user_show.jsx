@@ -9,15 +9,18 @@ class UserShow extends React.Component {
   }
 
   render() {
-    const { trips, postcards, user } = this.props; 
+    const { trips, postcards, user, currentUser } = this.props; 
 
     if (!user) return null;
+
+    const headline = user._id === currentUser._id ? "My Trips" : user.displayName + "'s trips"; 
+
 
     return (
       <div className="user-show-container">
         <aside>
           <div className="user-details">
-            <h1>{user.displayName + "'s trips"}</h1>
+            <h1>{headline}</h1>
           </div>
           <TripsIndex trips={trips} />
         </aside>

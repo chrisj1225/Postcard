@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
     postcards: state.entities.postcards,   
     user: state.entities.user, 
     userId: ownProps.match.params.userId, 
+    currentUser: state.session.user, 
   })
 };
 

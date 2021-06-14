@@ -1,4 +1,5 @@
 import React from 'react'; 
+import { Link } from 'react-router-dom'; 
 
 import TripsIndexMap from '../maps/trips_index/trips_index_map'; 
 import TripsIndex from '../trips/trips_index'; 
@@ -54,24 +55,27 @@ class Landing extends React.Component {
   }
 
   render() {
-    const { trips, postcards } = this.props; 
+    const { trips, postcards, currentUser } = this.props; 
 
     return (
       <div className="landing-container">
         <TripsIndexMap key={`${Math.random()*100000000}`} history={this.props.history} trips={trips} postcards={postcards} />
         <aside>
-          <div className="filter-dropdown">
-            <button 
-              className="all-button" 
-              onClick={this.toggleAll} 
-              className={this.state.followed ? "inactive" : "active"}
-            >All</button>
-            <button 
-              className="follow-button" 
-              onClick={this.toggleFollowed} 
-              className={this.state.followed ? "active" : "inactive"}
-            >Followed</button>
-          </div>
+          <header>
+            <div className="filter-dropdown">
+              <button 
+                className="all-button" 
+                onClick={this.toggleAll} 
+                className={this.state.followed ? "inactive" : "active"}
+              >All</button>
+              <button 
+                className="follow-button" 
+                onClick={this.toggleFollowed} 
+                className={this.state.followed ? "active" : "inactive"}
+                >Followed</button>
+            </div>
+            { currentUser._id ? <Link className="my-trips-link" to={`/users/${currentUser._id}/trips`}>My Trips</Link> : null}
+          </header>
           <TripsIndex trips={trips} />
         </aside>
         <AddButton handleClick={this.handleClick}/>
