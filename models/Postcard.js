@@ -24,6 +24,9 @@ const PostcardSchema = new Schema({
   },
   photos: {
     type: Array
+  },
+  thumbnails: {
+    type: Array
   }
 }, {
   timestamps: true
