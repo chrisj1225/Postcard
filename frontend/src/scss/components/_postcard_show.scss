@@ -154,7 +154,6 @@
           border-radius: 8px;
           height: 100%;
           object-fit: cover;
-
           transition: transform 300ms, width 300ms, height 300ms;
         }
 
@@ -172,6 +171,11 @@
   div {
     border: 2px dashed black;
   }
+}
+
+.img-preview-wrapper {
+  height: 200px;
+  width: auto;
 }
 
 .img-preview {
