@@ -161,7 +161,7 @@ class PostcardShow extends React.Component{
       imgPreviews = imgUrls.length > 1 ? (
         imgUrls.slice(1).map(imgUrl => (
           <li className="postcard-image-item-wrapper img-preview-wrapper">
-            <div>
+            <div className="img-preview-wrapper">
               <img src={imgUrl} alt="image preview" className="img-preview"/>
             </div>
           </li>
