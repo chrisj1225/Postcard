@@ -16,8 +16,10 @@ router.get('/:id', async (req, res) => {
   const postcard = await Postcard.findById(req.params.id);
   const trip = await Trip.findById(postcard.tripId);
   const user = await User.findById(trip.travellerId);
+  let thumbnails = postcard.thumbnails || [];
   let postcardObj = {
     photos: postcard.photos,
+    thumbnails: thumbnails,
     _id: postcard.id,
     title: postcard.title,
     body: postcard.body,

@@ -44,8 +44,10 @@ router.get("/", async (req, res) => {
     let postcards = await Postcard.find({tripId: trip.id});
     for(let j = 0; j < postcards.length; j++){
       let postcard = postcards[j];
+      let thumbnails = postcard.thumbnails || [];
       pcObj[postcard.id] = { 
         photos: postcard.photos,
+        thumbnails: thumbnails,
         _id: postcard.id,
         title: postcard.title,
         body: postcard.body,
@@ -87,8 +89,10 @@ router.get("/follows", passport.authenticate('jwt', {session: false}), async (re
         if(postcards){
           for(let k = 0; k < postcards.length; k++){
             let postcard = postcards[k];
+            let thumbnails = postcard.thumbnails || [];
             pcObj[postcard.id] = pcObj[postcard.id] = { 
               photos: postcard.photos,
+              thumbnails: thumbnails,
               _id: postcard.id,
               title: postcard.title,
               body: postcard.body,
@@ -125,8 +129,10 @@ router.get("/:id",  async (req, res) => {
   const pcObj = {}
   const postcards = await Postcard.find({tripId: trip.id}).sort({date: -1})
   postcards.forEach(postcard => {
+    let thumbnails = postcard.thumbnails || [];
     pcObj[postcard.id] = {
       photos: postcard.photos,
+      thumbnails: thumbnails,
       _id: postcard.id,
       title: postcard.title,
       body: postcard.body,
@@ -247,8 +253,10 @@ postcardRouter.get('/', async (req, res) => {
   
   const pcObj = {}
   postcards.forEach((postcard) => {
+    let thumbnails = postcard.thumbnails || [];
     pcObj[postcard.id] = {
       photos: postcard.photos,
+      thumbnails: thumbnails,
       _id: postcard.id,
       title: postcard.title,
       body: postcard.body,
@@ -268,8 +276,10 @@ postcardRouter.get('/:id', async (req, res) => {
   const postcard = await Postcard.findById(req.params.id)
   const trip = await Trip.findById(req.params.tripId);
   const user = await User.findById(trip.travellerId);
+  let thumbnails = postcard.thumbnails || [];
   let postcardObj = {
     photos: postcard.photos,
+    thumbnails: thumbnails,
     _id: postcard.id,
     title: postcard.title,
     body: postcard.body,
@@ -305,8 +315,10 @@ postcardRouter.post('/', passport.authenticate('jwt', {session: false}), async (
         })
         newPostcard.save()
           .then((postcard) => {
+            let thumbnails = postcard.thumbnails || [];
             let postcardObj = {
               photos: postcard.photos,
+              thumbnails: thumbnails,
               _id: postcard.id,
               title: postcard.title,
               body: postcard.body,
@@ -348,10 +360,13 @@ postcardRouter.patch('/:id', passport.authenticate('jwt', {session: false}), (re
               postcard.lat = req.body.lat;
               postcard.lng = req.body.lng;
               postcard.photos = req.body.photos || [];
+              postcard.thumbnails = req.body.thumbnails || []
               postcard.save()
                 .then((postcard) => {
+                  let thumbnails = postcard.thumbnails || [];
                   let postcardObj = {
                     photos: postcard.photos,
+                    thumbnails: thumbnails,
                     _id: postcard.id,
                     title: postcard.title,
                     body: postcard.body,
@@ -384,8 +399,10 @@ postcardRouter.delete('/:id', passport.authenticate('jwt', {session: false}), (r
             } else{
               postcard.delete()
                 .then((postcard) => {
+                  let thumbnails = postcard.thumbnails || [];
                   let postcardObj = {
                     photos: postcard.photos,
+                    thumbnails: thumbnails,
                     _id: postcard.id,
                     title: postcard.title,
                     body: postcard.body,

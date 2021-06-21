@@ -147,8 +147,10 @@ tripRouter.get('/', async (req, res) => {
     if(postcards){
       for(let j = 0; j < postcards.length; j++){
         let postcard = postcards[j];
+        let thumbnails = postcard.thumbnails || [];
         pcObj[postcard.id] = pcObj[postcard.id] = { 
           photos: postcard.photos,
+          thumbnails: thumbnails,
           _id: postcard.id,
           title: postcard.title,
           body: postcard.body,

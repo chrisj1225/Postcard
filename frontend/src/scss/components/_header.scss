@@ -82,6 +82,7 @@
     position: relative;
     user-select: none;
     @include button($red, $cream); 
+    cursor: unset;
     padding: 10px 8px;
     font-size: 14px;
     z-index: 10;
@@ -157,6 +158,15 @@
 
       * {
         margin-left: 0; 
+      }
+
+      h2 > a, h2 > a:visited {
+        font-size: 16px; 
+        color: inherit; 
+
+        &:hover {
+          color: $blue; 
+        }
       }
     }
   }
