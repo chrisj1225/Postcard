@@ -24,7 +24,7 @@ class CreatorsDropdown extends React.Component {
         <section className={clicked ? "creators-list active" : "creators-list inactive"}>
           <ul role="list">
             <li>
-              <h2>Daniel Cho</h2>
+              <h2><a href="thedanielcho.com" target="_blank">Daniel Cho</a></h2>
               <ul role="list">
                 <li><a href="https://github.com/thedanielcho" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/daniel-cho-376110189/" target="_blank">LinkedIn</a></li>
@@ -32,7 +32,7 @@ class CreatorsDropdown extends React.Component {
               </ul>
             </li>
             <li>
-              <h2>Tim Fraczak</h2>
+              <h2><a href="https://tfraczak.github.io/portfolio/" target="_blank">Tim Fraczak</a></h2>
               <ul role="list">
                 <li><a href="https://github.com/tfraczak" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/tfraczak/" target="_blank">LinkedIn</a></li>
@@ -40,7 +40,7 @@ class CreatorsDropdown extends React.Component {
               </ul>
             </li>
             <li>
-              <h2>Freddy Diengott</h2>
+              <h2><a href="https://fdiengott.github.io/portfolio/" target="_blank">Freddy Diengott</a></h2>
               <ul role="list">
                 <li><a href="https://github.com/fdiengott" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/freddiengott/" target="_blank">LinkedIn</a></li>
@@ -48,7 +48,7 @@ class CreatorsDropdown extends React.Component {
               </ul>
             </li>
             <li>
-              <h2>Chris Joo</h2>
+              <h2><a href="https://chrisj1225.github.io/portfolio/" target="_blank">Chris Joo</a></h2>
               <ul role="list">
                 <li><a href="https://github.com/chrisj1225" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/chrisj1225/" target="_blank">LinkedIn</a></li>
