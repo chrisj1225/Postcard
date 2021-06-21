@@ -37,13 +37,13 @@ export const attachPhotoTiles = (trip, postcardsState) => {
     let tripCopy = Object.assign({}, trip);
     const postcards = Object.values(postcardsState);
     const tripPostcards = postcards.filter(postcard => postcard.tripId === trip._id);
-    let firstFourImages = tripPostcards.slice(0,4).map(postcard => postcard.photos[0]);
+    let firstFourImages = tripPostcards.slice(0,4).map(postcard => postcard.thumbnails[0] || postcard.photos[0]);
     firstFourImages = firstFourImages.filter(photoUrl => photoUrl);
 
     let i = 1;
     while (firstFourImages.length < 4) {
       for (let postcard of tripPostcards.slice(0,4)) {
-        if (postcard.photos[i]) firstFourImages.push(postcard.photos[i]);
+        if (postcard.thumbnails[i] || postcard.photos[i]) firstFourImages.push(postcard.thumbnails[i] || postcard.photos[i]);
         if (firstFourImages.length >= 4) break;
       }
 

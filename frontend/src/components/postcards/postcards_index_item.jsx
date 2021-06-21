@@ -23,7 +23,7 @@ const PostcardsIndexItem = (props) => {
           }, {
             limitChars(postcard.lng.$numberDecimal, 14)
           }</p>
-          <img src={postcard.photos[0] || stamp} alt="Postcard image"/> 
+          <img src={postcard.thumbnails[0] || postcard.photos[0] || stamp} alt="Postcard image"/> 
         </aside>
       </section>
       { arrow }
