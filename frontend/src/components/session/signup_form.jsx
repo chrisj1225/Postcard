@@ -14,6 +14,7 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
   }
 
   update(field) {
@@ -38,6 +39,12 @@ class SignupForm extends React.Component {
       })
   }
 
+  handleDemoLogin(e) {
+    e.preventDefault();
+    const demoUser = { email: 'demo@mail.com', password: 'password' }; 
+    this.props.login(demoUser).then(() => document.body.style.overflow = 'unset'); 
+  }
+
   render() {
     return (
       <div>
@@ -48,6 +55,18 @@ class SignupForm extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
+          <div className="demo-login-button-container">
+            <button 
+              type="button"
+              onClick={this.handleDemoLogin} 
+              className="demo-login-button"
+            >Demo Login</button>
+            <div>
+              <hr/>
+              <p>Or</p>
+              <hr/>
+            </div>
+          </div>
           <label>Email
             <input type="text"
               value={this.state.email}
