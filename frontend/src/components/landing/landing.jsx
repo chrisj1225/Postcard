@@ -66,7 +66,12 @@ class Landing extends React.Component {
       <div className="landing-container">
         {
           this.state.ready ? (
-            <TripsIndexMap key={`${Math.random()*100000000}`} history={this.props.history} trips={trips} postcards={postcards} />
+            <TripsIndexMap
+              key={`${Math.random()*100000000}`}
+              history={this.props.history}
+              trips={trips}
+              postcards={postcards}
+            />
           ) : (
 
             <div className="trips-index map-wrapper">
@@ -94,7 +99,7 @@ class Landing extends React.Component {
           </header>
           {
             this.state.ready ? (
-              <TripsIndex trips={trips} />
+              <TripsIndex trips={trips}/>
             ) : (
               <div className="trips-index">
                 <div>

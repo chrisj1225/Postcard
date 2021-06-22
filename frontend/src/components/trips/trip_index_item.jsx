@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import { limitChars } from '../../util/func_util'; 
 
-const TripIndexItem = ({ trip, userShow }) => {
+const TripIndexItem = ({ trip, userShow, setTripRef }) => {
 
   return (
     <div className="trips-index-item" id={`trip-item-${trip._id}`}>

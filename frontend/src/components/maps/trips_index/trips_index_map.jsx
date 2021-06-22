@@ -20,6 +20,7 @@ class TripsIndexMap extends React.Component {
     
     this.center = { lat, lng };
     this.zoom = 0;
+    this.activeMarker = null;
   }
 
   componentWillUnmount() {
@@ -102,31 +103,53 @@ class TripsIndexMap extends React.Component {
           this.props.history.push(`/trips/${trip._id}`);
         });
 
+
         // event listeners for hovering the trips list item
-        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseenter", () =>{
+        const tripItem = document.getElementById(`trip-item-${trip._id}`)
+        tripItem?.addEventListener("mousedown", () =>{
+          
+          if (this.activeMarker === marker) {
+            tripItem?.classList.remove("focused");
+            this.activeMarker?.setAnimation(null);
+            this.map?.setZoom(0);
+            this.activeMarker?.setIcon(redMarker);
+            this.activeMarker = null;
+            return;
+          } else {
+            if (!this.activeMarker) {
+              this.activeMarker = marker;
+              tripItem.classList.add("focused");
+            } else {
+              const item = document.querySelectorAll(".trips-index-item.focused")[0];
+              if (item) item?.classList.remove("focused");
+              this.activeMarker?.setIcon(redMarker);
+              this.activeMarker?.setAnimation(null);
+              this.activeMarker = marker;
+              tripItem?.classList.add("focused");
+            }
+          }
           let lat, lng, position;
-          lat = marker.position.lat();
-          lng = marker.position.lng();
+          lat = this.activeMarker?.position.lat();
+          lng = this.activeMarker?.position.lng();
           position = { lat,lng }
-          this.markers.forEach(m => m.setIcon(redMarker));
-          marker.setIcon(greenMarker);
-          this.map.panTo(position);
+          this.map?.panTo(position);
           if (this.center !== position) {
             this.center = position;
             setTimeout(() => {
-              this.map.setZoom(6);
+              this.map?.setZoom(6);
             }, 200);
           } else {
-            this.map.setZoom(6);
+            this.map?.setZoom(6);
           }
           
-          marker.setAnimation(this.maps.Animation.BOUNCE);
+          this.activeMarker?.setIcon(greenMarker);
+          this.activeMarker?.setAnimation(this.maps.Animation.BOUNCE);
         });
 
-        document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", () =>{
-          marker.setAnimation(null);
-          this.map.setZoom(0);
-        });
+        // document.getElementById(`trip-item-${trip._id}`).addEventListener("mouseleave", () =>{
+        //   marker.setAnimation(null);
+        //   this.map.setZoom(0);
+        // });
 
         // add the marker to the array after we're done with it
         this.markers.push(marker);
