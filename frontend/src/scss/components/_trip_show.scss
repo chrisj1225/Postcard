@@ -130,14 +130,16 @@ $card-height: 280px;
     background-size: 80px;
     background-repeat: round;
 
-    &.focused, &:hover {
+    &.focused {
       box-shadow: 1px 1px 5px rgba(0,0,0,0.3); 
       transform: scale(1.008); 
-      box-shadow: 0 0 5px 2px $green; 
+      box-shadow: 0 0 5px 2px $green;
     }
 
-    &:hover {
+    &:hover:not(.focused) {
       cursor: default;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+      transform: scale(1.008);
     }
 
   }
