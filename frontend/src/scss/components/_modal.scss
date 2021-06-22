@@ -101,10 +101,10 @@
 
 .demo-login-button-container {
   width: 100%;
+  @include flex(center, center, column); 
 
   button {
     @include button($blue, $cream); 
-    align-self: flex-start;
     margin: 10px 0;
   }
 

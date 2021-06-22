@@ -11,6 +11,10 @@ $breakpoint: 1400px;
   height: 200px;
 }
 
+.load-trips-btn {
+  @include button($blue, white); 
+}
+
 .trips-index-item {
   border: 1px solid darken($yellow, 15%);
   color: darken($blue, 15%);

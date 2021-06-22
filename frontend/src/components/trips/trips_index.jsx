@@ -8,11 +8,16 @@ class TripsIndex extends React.Component {
   }
 
   render() {
-    const { trips, userShow } = this.props; 
-
-    const renderedTrips = Object.keys(trips).length ? (
+    const { trips, userShow, loadMoreTrips, thereAreMoreTrips } = this.props; 
+    
+    const tripsList = Object.keys(trips).length ? (
       <>
         { trips.map((trip, i) => <TripIndexItem key={i} trip={trip} userShow={userShow} />) }
+        {
+          thereAreMoreTrips ? 
+          <button onClick={loadMoreTrips} className="load-trips-btn">Load more trips</button> : 
+          null
+        }
         <li className="empty-list-item"></li>
       </>
     ) : (
@@ -24,7 +29,7 @@ class TripsIndex extends React.Component {
 
     return (
       <div className="trips-index">
-        { renderedTrips }
+        { tripsList }
       </div>
     )
   }
