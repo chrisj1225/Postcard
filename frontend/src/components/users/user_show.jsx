@@ -10,10 +10,14 @@ class UserShow extends React.Component {
     super(props); 
 
     this.state = {
-      followed: false
+      followed: false,
+      offset: 5,
+      renderedTrips: [], 
+      ready: false, 
     }
 
     this.toggleFollow = this.toggleFollow.bind(this);
+    this.loadMoreTrips = this.loadMoreTrips.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +30,14 @@ class UserShow extends React.Component {
             })
           }
         }
-      });
+      })
+      .then( () => { 
+        this.setState({
+          renderedTrips: this.props.trips.slice(0, 5), 
+          thereAreMoreTrips: this.props.trips.length > 5,
+          ready: true, 
+        })
+      })
   }
 
   toggleFollow() {
@@ -47,9 +58,24 @@ class UserShow extends React.Component {
     }
   }
 
+  receiveFiveTrips(offSet) {
+    return this.props.trips.slice(offSet, offSet + 5); 
+  }
+
+  loadMoreTrips() {
+    const { renderedTrips, offset } = this.state; 
+    
+    this.setState({ 
+      renderedTrips: renderedTrips.concat(this.receiveFiveTrips(offset)), 
+      offset: offset + 5,
+      thereAreMoreTrips: renderedTrips.length + 5 < this.props.trips.length,
+    })
+  }
+
 
   render() {
     const { trips, postcards, user, currentUser } = this.props; 
+    const { renderedTrips, thereAreMoreTrips, ready } = this.state; 
 
     if (!user) return null;
 
@@ -72,7 +98,22 @@ class UserShow extends React.Component {
             <h1>{headline}</h1>
             {followButton}
           </div>
-          <TripsIndex userShow={true} trips={trips} /> 
+          {
+            ready ? (
+              <TripsIndex 
+                userShow={true} 
+                trips={renderedTrips} 
+                loadMoreTrips={this.loadMoreTrips}
+                thereAreMoreTrips={thereAreMoreTrips}
+              /> 
+              ) : (
+                <div className="trips-index">
+                  <div>
+                    <h2>Loading...</h2>
+                  </div>
+                </div>
+              ) 
+          }
           { currentUsersPage ? (
             <Link to={"/trips/new"}>
               <AddButton />
@@ -82,7 +123,7 @@ class UserShow extends React.Component {
         <TripsIndexMap 
           key={`${Math.random()*100000000}`} 
           history={this.props.history} 
-          trips={trips} postcards={postcards} 
+          trips={renderedTrips} postcards={postcards} 
         />
       </div>
     )

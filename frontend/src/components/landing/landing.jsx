@@ -134,7 +134,6 @@ class Landing extends React.Component {
                 </div>
               </div>
             )
-
           }
         </aside>
         <AddButton handleClick={this.handleClick}/>
