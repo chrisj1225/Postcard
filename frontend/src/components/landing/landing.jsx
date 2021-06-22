@@ -48,15 +48,22 @@ class Landing extends React.Component {
 
     if(!this.state.followed){
       this.setState({followed: true})
-      this.props.fetchFollowedTrips()
+      this.props.fetchFollowedTrips().then( () => this.resetTrips() )
     }
   }
   
   toggleAll(){
     if(this.state.followed){
       this.setState({followed: false})
-      this.props.fetchAllTrips() 
+      this.props.fetchAllTrips().then( () => this.resetTrips() )
     }
+  }
+
+  resetTrips() {
+    this.setState({ 
+      renderedTrips: this.props.trips.slice(0, 5),
+      thereAreMoreTrips: this.props.trips.length > 5,
+    })
   }
 
   handleClick() {
