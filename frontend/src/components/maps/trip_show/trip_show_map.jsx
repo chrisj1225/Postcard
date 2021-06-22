@@ -26,6 +26,7 @@ class TripShowMap extends React.Component {
     this.postcards = postcards.filter(postcard => postcard.tripId === this.props.trip._id);
     this.center = { lat, lng };
     this.zoom = 8;
+    this.activeMarker = null;
   }
 
   componentWillUnmount() {
@@ -76,15 +77,15 @@ class TripShowMap extends React.Component {
         // event listener for hovering the markers
 
         marker.addListener("mouseover", e => {
-          this.markers.forEach(m => m.setIcon(redMarker));
-          marker.setIcon(greenMarker);
+          this.activeMarker?.setIcon(redMarker);
+          this.activeMarker?.setAnimation(null);
+          const prevItem = document.querySelectorAll(".postcard-index-item > section.focused")[0];
+          prevItem?.classList.remove("focused");
+          this.activeMarker = marker;
+          this.activeMarker?.setIcon(greenMarker);
           const postcardItem = document.getElementById(`postcard-item-${postcard._id}`);
-          postcardItem.scrollIntoView({ behavior: "smooth", block: "center" });
-          postcardItem.classList.add("focused");
-        });
-        marker.addListener("mouseout", e => {
-          const postcardItem = document.getElementById(`postcard-item-${postcard._id}`);
-          postcardItem.classList.remove("focused");
+          postcardItem?.scrollIntoView({ behavior: "smooth", block: "center" });
+          postcardItem?.classList.add("focused");
         });
         
         // event listener for clicking the marker
@@ -93,25 +94,40 @@ class TripShowMap extends React.Component {
         });
 
         // event listeners for hovering the trips list item
-        document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseenter", () =>{
-          if (this.postcards.length === 1) {
-            this.map.setZoom(15);
+        const postcardItem = document.getElementById(`postcard-item-${postcard._id}`);
+        postcardItem?.addEventListener("mousedown", () => {
+          if (this.activeMarker === marker) {
+            postcardItem?.classList.remove("focused");
+            this.activeMarker?.setAnimation(null);
+            this.map?.setZoom(0);
+            this.activeMarker?.setIcon(redMarker);
+            this.activeMarker = null;
+            return;
           } else {
-            this.map.fitBounds(this.bounds);
+            if (!this.activeMarker) {
+              this.activeMarker = marker;
+              postcardItem?.classList.add("focused");
+            } else {
+              const item = document.querySelectorAll(".postcard-index-item > section.focused")[0];
+              item?.classList.remove("focused");
+              this.activeMarker?.setIcon(redMarker);
+              this.activeMarker?.setAnimation(null);
+              this.activeMarker = marker;
+              postcardItem?.classList.add("focused");
+            }
           }
           let lat, lng;
-          lat = marker.position.lat();
-          lng = marker.position.lng();
-          this.map.panTo({ lat,lng })
-          this.markers.forEach(m => m.setIcon(redMarker));
-          marker.setIcon(greenMarker);
-          marker.setAnimation(this.maps.Animation.BOUNCE);
+          lat = this.activeMarker?.position.lat();
+          lng = this.activeMarker?.position.lng();
+          this.map?.panTo({ lat,lng });
+          this.activeMarker?.setIcon(greenMarker);
+          this.activeMarker?.setAnimation(this.maps.Animation.BOUNCE);
         });
 
-        document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseleave", () =>{
-          marker.setAnimation(null);
-          if (this.postcards.length === 1) this.map.setZoom(15);
-        });
+        // document.getElementById(`postcard-item-${postcard._id}`).addEventListener("mouseleave", () =>{
+        //   marker.setAnimation(null);
+        //   if (this.postcards.length === 1) this.map.setZoom(15);
+        // });
 
         ///////////////////////////////////////////////////////
 

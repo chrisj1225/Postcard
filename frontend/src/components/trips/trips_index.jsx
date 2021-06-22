@@ -3,7 +3,8 @@ import TripIndexItem from './trip_index_item';
 
 class TripsIndex extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
+
   }
 
   render() {
