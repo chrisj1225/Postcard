@@ -24,7 +24,7 @@ class CreatorsDropdown extends React.Component {
         <section className={clicked ? "creators-list active" : "creators-list inactive"}>
           <ul role="list">
             <li>
-              <h2><a href="thedanielcho.com" target="_blank">Daniel Cho</a></h2>
+              <h2><a href="https://thedanielcho.com" target="_blank">Daniel Cho</a></h2>
               <ul role="list">
                 <li><a href="https://github.com/thedanielcho" target="_blank">Github</a></li>
                 <li><a href="https://www.linkedin.com/in/daniel-cho-376110189/" target="_blank">LinkedIn</a></li>
