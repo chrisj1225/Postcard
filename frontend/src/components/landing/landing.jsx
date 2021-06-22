@@ -9,16 +9,25 @@ class Landing extends React.Component {
   constructor(props) {
     super(props); 
 
-    this.state = { followed: false, ready: false }
+    this.state = { 
+      followed: false, 
+      ready: false,
+      offset: 5
+    }
 
     this.handleClick = this.handleClick.bind(this); 
     this.toggleAll = this.toggleAll.bind(this);
     this.toggleFollowed = this.toggleFollowed.bind(this);
+    this.loadMoreTrips = this.loadMoreTrips.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchAllTrips()
-      .then( () => this.setState({ ready: true })); 
+      .then( () => this.setState({ 
+        ready: true,  
+        renderedTrips: this.props.trips.slice(0, 5), 
+        thereAreMoreTrips: this.props.trips.length > 5,
+      })); 
   }
 
   componentWillUnmount() {
@@ -59,16 +68,35 @@ class Landing extends React.Component {
     }
   }
 
+  receiveFiveTrips(offSet) {
+    return this.props.trips.slice(offSet, offSet + 5); 
+  }
+
+  loadMoreTrips() {
+    const { renderedTrips, offset } = this.state; 
+    
+    this.setState({ 
+      renderedTrips: renderedTrips.concat(this.receiveFiveTrips(offset)), 
+      offset: offset + 5,
+      thereAreMoreTrips: renderedTrips.length + 5 <= this.props.trips.length,
+    })
+  }
+
   render() {
     const { trips, postcards, currentUser } = this.props; 
+    const { renderedTrips, thereAreMoreTrips } = this.state; 
 
     return (
       <div className="landing-container">
         {
           this.state.ready ? (
-            <TripsIndexMap key={`${Math.random()*100000000}`} history={this.props.history} trips={trips} postcards={postcards} />
+            <TripsIndexMap 
+              key={`${Math.random()*100000000}`} 
+              history={this.props.history} 
+              trips={renderedTrips} 
+              postcards={postcards} 
+            />
           ) : (
-
             <div className="trips-index map-wrapper">
               <div className="loading-map">
                 <h2>Loading...</h2>
@@ -94,7 +122,11 @@ class Landing extends React.Component {
           </header>
           {
             this.state.ready ? (
-              <TripsIndex trips={trips} />
+              <TripsIndex 
+                trips={renderedTrips} 
+                loadMoreTrips={this.loadMoreTrips} 
+                thereAreMoreTrips={thereAreMoreTrips}
+              />
             ) : (
               <div className="trips-index">
                 <div>
